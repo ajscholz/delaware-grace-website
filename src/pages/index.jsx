@@ -4,6 +4,7 @@ import SEO from "../components/SEO"
 import { graphql } from "gatsby"
 import IndexCard from "../components/cards/IndexCard"
 import tw, { styled } from "twin.macro"
+import { MdFavoriteBorder, MdPeople, MdPublic } from "react-icons/md"
 
 const IndexPage = ({ data }) => (
   <>
@@ -57,6 +58,31 @@ const IndexPage = ({ data }) => (
           <Button white>Learn More</Button>
         </IndexCard>
       </LeftCol>
+      <RightCol>
+        <div className="bg-white rounded-lg p-4 shadow-md">
+          <Row>
+            <h1 className="text-2xl">Take A Step</h1>
+          </Row>
+          <Row>
+            <Icon>
+              <MdFavoriteBorder />
+            </Icon>
+            Giving
+          </Row>
+          <Row>
+            <Icon>
+              <MdPeople />
+            </Icon>
+            Groups
+          </Row>
+          <Row>
+            <Icon>
+              <MdPublic />
+            </Icon>
+            Outreach
+          </Row>
+        </div>
+      </RightCol>
     </FlexContainer>
   </>
 )
@@ -73,11 +99,15 @@ export const data = graphql`
 `
 
 const FlexContainer = tw.div`
-  flex
+  flex flex-col md:flex-row
 `
 
 const LeftCol = tw.div`
   w-full md:w-2/3
+`
+
+const RightCol = tw.div`
+  md:w-1/3 mt-5 md:ml-5
 `
 
 const InfoChip = tw.div`inline-block bg-dgBlue rounded-full mb-1 px-2 py-1 text-xs text-blue-100 w-auto
@@ -95,3 +125,7 @@ const Button = styled.button(({ primary, white }) => [
     : tw`bg-transparent text-white`,
   tw`rounded-lg font-semibold uppercase transition duration-200 ease-in-out transform hover:scale-105`,
 ])
+
+const Row = tw.div`border-b-2 border-gray-400 py-4 flex items-center font-bold`
+
+const Icon = tw.span`text-3xl mr-3 text-gray-700 ml-3`
