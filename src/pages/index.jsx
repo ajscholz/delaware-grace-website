@@ -1,6 +1,6 @@
 import React from "react"
 
-import SEO from "../components/seo"
+import SEO from "../components/SEO"
 // import tw from "twin.macro"
 
 // const H1 = tw.h1`
