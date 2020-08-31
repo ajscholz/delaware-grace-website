@@ -4,18 +4,32 @@ module.exports = {
       display: ["Bebas Neue", "sans-serif"],
       body: ["Montserrat", "sans-serif"],
     },
+    boxShadow: {
+      sm: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
+      default: "0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)",
+      md: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+      lg: "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)",
+      xl: "0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)",
+      inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)",
+      outline: "0 0 0 3px rgba(66, 153, 225, 0.5)",
+      none: "none",
+    },
+
     extend: {
       colors: {
         dgRed: "#ED1F34",
         dgBlue: "#52ACED",
         dgGreen: "#A5CF47",
       },
+
       spacing: {
         72: "18rem",
         84: "21rem",
         96: "24rem",
         108: "27rem",
         120: "30rem",
+        132: "23rem",
+        144: "36rem",
         "1/2": "50%",
         "1/3": "33.333333%",
         "2/3": "66.666667%",

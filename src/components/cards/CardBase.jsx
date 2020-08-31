@@ -1,7 +1,8 @@
-import tw from "twin.macro"
+import tw, { styled } from "twin.macro"
 
-const CardBase = tw.div`
-  relative rounded-lg shadow hover:shadow-lg overflow-hidden h-120 w-full
-`
+const CardBase = styled.div(({ large }) => [
+  tw`relative rounded-lg shadow-sm overflow-hidden w-full mt-5`,
+  large === true ? tw`h-144` : tw`h-108`,
+])
 
 export default CardBase
