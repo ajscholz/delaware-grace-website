@@ -4,6 +4,13 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
+// import tw from "twin.macro"
+
+// const H1 = tw.h1`
+//   text-6xl text-dgBlue font-display
+// `
+
+// const P = tw.p`font-body text-gray-700`
 
 const IndexPage = () => (
   <Layout>
