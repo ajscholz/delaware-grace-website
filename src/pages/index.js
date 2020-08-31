@@ -1,6 +1,5 @@
 import React from "react"
 
-import Layout from "../components/layout"
 import SEO from "../components/seo"
 // import tw from "twin.macro"
 
@@ -11,10 +10,10 @@ import SEO from "../components/seo"
 // const P = tw.p`font-body text-gray-700`
 
 const IndexPage = () => (
-  <Layout>
+  <>
     <SEO title="Home" />
     <h1>Hi from home page</h1>
-  </Layout>
+  </>
 )
 
 export default IndexPage
