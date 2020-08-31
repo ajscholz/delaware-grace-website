@@ -1,42 +1,42 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
 import React from "react"
+// import { Link } from "gatsby"
+import LogoNoTag from "./images/LogoNoTag"
+import tw from "twin.macro"
+import { Link } from "gatsby"
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
+const links = [
+  { text: "Connect", to: "/connect" },
+  { text: "Messages", to: "/messages" },
+  { text: "Daycare", to: "/daycare" },
+  { text: "Outreach", to: "/outreach" },
+  { text: "Plan A Visit", to: "/plan-a-visit" },
+]
+
+const Navigation = tw.nav`
+ text-sm font-semibold text-gray-700
+`
+
+const NavLink = tw(Link)`
+  mx-3
+`
+
+const Header = () => {
+  return (
+    <header className="h-20 bg-white overflow-hidden shadow-lg z-10">
+      <div className="max-w-screen-lg mx-auto py-3 px-8 h-full overflow-hidden flex items-center justify-between">
+        <Link to="/" className="flex items-center">
+          <LogoNoTag className="h-full" />
         </Link>
-      </h1>
-    </div>
-  </header>
-)
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
+        <Navigation>
+          {links.map(link => (
+            <NavLink key={link.to} to="link.to">
+              {link.text}
+            </NavLink>
+          ))}
+        </Navigation>
+      </div>
+    </header>
+  )
 }
 
 export default Header
