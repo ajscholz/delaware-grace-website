@@ -1,19 +1,23 @@
 import React from "react"
 
 import SEO from "../components/SEO"
-// import tw from "twin.macro"
+import { graphql } from "gatsby"
+import IndexCard from "../components/cards/IndexCard"
 
-// const H1 = tw.h1`
-//   text-6xl text-dgBlue font-display
-// `
-
-// const P = tw.p`font-body text-gray-700`
-
-const IndexPage = () => (
+const IndexPage = ({ data }) => (
   <>
     <SEO title="Home" />
-    <h1>Hi from home page</h1>
+    <IndexCard video data={data.message} />
   </>
 )
 
 export default IndexPage
+
+export const data = graphql`
+  {
+    message: contentfulMessage {
+      title
+      videoUrl
+    }
+  }
+`
