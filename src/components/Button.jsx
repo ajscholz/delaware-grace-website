@@ -1,10 +1,12 @@
 import React, { useState } from "react"
 import tw, { styled } from "twin.macro"
-import { useSpring, animated } from "react-spring"
+import { useSpring, animated, config } from "react-spring"
 
 const Button = ({ primary, white, children }, props) => {
   const [state, setState] = useState(false)
-  const scale = useSpring({ transform: state ? "scale(1.05)" : "scale(1)" })
+  const scale = useSpring({
+    transform: state ? "scale(1.05)" : "scale(1)",
+  })
 
   const AnimatedButtonBase = animated(ButtonBase)
 

@@ -4,7 +4,8 @@ import LogoNoTag from "./images/LogoNoTag"
 import tw from "twin.macro"
 import { Link } from "gatsby"
 import { MdClose, MdMenu } from "react-icons/md"
-import { useSpring, useTransition, animated } from "react-spring"
+import { useSpring, useTransition, animated, config } from "react-spring"
+import NavLink from "./NavLink"
 
 const links = [
   { text: "Connect", to: "/connect" },
@@ -29,12 +30,14 @@ const MobileNav = tw.nav`
 const CloseButton = tw.button`relative top-0 right-0 mb-8 text-2xl`
 const MenuButton = tw.button`md:hidden text-3xl`
 
-const NavLink = tw(Link)`
-  mx-0 my-3 md:mx-3 md:my-0
-`
-
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [hoverNav, setHoverNav] = useState(false)
+
+  // const fadeText = useSpring({
+  //   opacity: hoverNav ? 0.5 : 1,
+  //   config: config.wobbly,
+  // })
 
   // const props = useSpring({ opacity: mobileOpen ? 1 : 0 })
   const transitions = useTransition(mobileOpen, null, {
@@ -54,8 +57,12 @@ const Header = () => {
     if (mobileOpen === false) body.removeAttribute("class")
   }, [mobileOpen])
 
+  const hover = () => setHoverNav(true)
+  const fade = () => setHoverNav(false)
+
   const AnimatedOverlay = animated(Overlay)
   const AnimatedMobileNav = animated(MobileNav)
+  // const AnimatedNavLink = animated(NavLink)
 
   return (
     <header className="h-20 bg-white overflow-hidden shadow-lg z-10">
@@ -63,9 +70,14 @@ const Header = () => {
         <Link to="/" className="flex items-center">
           <LogoNoTag className="h-full" />
         </Link>
-        <Navigation>
+        <Navigation
+          onMouseOver={() => hover()}
+          onMouseLeave={() => fade()}
+          onFocus={() => hover()}
+          onBlur={() => fade()}
+        >
           {links.map(link => (
-            <NavLink key={link.to} to="link.to">
+            <NavLink key={link.to} to={link.to} fade={hoverNav}>
               {link.text}
             </NavLink>
           ))}
@@ -94,15 +106,24 @@ const Header = () => {
                 <CloseButton onClick={() => setMobileOpen(!mobileOpen)}>
                   <MdClose />
                 </CloseButton>
-                {links.map(link => (
-                  <NavLink
-                    key={link.to}
-                    to="link.to"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {link.text}
-                  </NavLink>
-                ))}
+                <div
+                  className="flex flex-col items-end"
+                  onMouseOver={() => hover()}
+                  onMouseLeave={() => fade()}
+                  onFocus={() => hover()}
+                  onBlur={() => fade()}
+                >
+                  {links.map(link => (
+                    <NavLink
+                      fade={hoverNav}
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {link.text}
+                    </NavLink>
+                  ))}
+                </div>
               </AnimatedMobileNav>
             )
         )}
