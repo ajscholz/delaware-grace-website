@@ -133,7 +133,7 @@ const IndexPage = ({ data }) => {
             >
               <Row>
                 <Icon>
-                  <MdFileDownload />
+                  <MdFileDownload color="#ED1F34" />
                 </Icon>
                 Get Our App
                 <Leave />
@@ -146,7 +146,7 @@ const IndexPage = ({ data }) => {
             >
               <Row>
                 <Icon>
-                  <FaFacebookSquare />
+                  <FaFacebookSquare color="#4267B2" />
                 </Icon>
                 Facebook
                 <Leave />
@@ -159,7 +159,7 @@ const IndexPage = ({ data }) => {
             >
               <Row>
                 <Icon>
-                  <FaTwitterSquare />
+                  <FaTwitterSquare color="#1DA1F2" />
                 </Icon>
                 Twitter
                 <Leave />
@@ -172,7 +172,7 @@ const IndexPage = ({ data }) => {
             >
               <Row>
                 <Icon>
-                  <FaVimeoSquare />
+                  <FaVimeoSquare color="#1ab7ea" />
                 </Icon>
                 Vimeo
                 <Leave />
