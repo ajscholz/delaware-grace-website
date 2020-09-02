@@ -1,29 +1,18 @@
-import React, { useState } from "react"
-import tw from "twin.macro"
-import { useSpring, animated } from "react-spring"
+import React from "react"
 import { Link } from "gatsby"
+import tw from "twin.macro"
 
-const NavLink = ({ children, fade, ...props }) => {
-  const [hoverLink, setHoverLink] = useState(false)
-  const fadeText = useSpring({ opacity: hoverLink ? 1 : fade ? 0.5 : 1 })
+const StyledLink = tw(
+  Link
+)`mx-0 my-3 md:mx-3 md:my-0 relative md:transition-colors md:duration-500 md:ease-in-out hocus:text-gray-700 outline-none`
+const activeStyles = `border-b-2 border-current`
 
-  const AnimatedLink = animated(TailwindNavLink)
+const NavLink = ({ children, click, ...props }) => {
   return (
-    <AnimatedLink
-      onMouseEnter={() => setHoverLink(true)}
-      onFocus={() => setHoverLink(true)}
-      onMouseLeave={() => setHoverLink(false)}
-      onBlur={() => setHoverLink(false)}
-      style={fadeText}
-      {...props}
-    >
+    <StyledLink activeClassName={activeStyles} {...props}>
       {children}
-    </AnimatedLink>
+    </StyledLink>
   )
 }
 
 export default NavLink
-
-const TailwindNavLink = tw(Link)`
-  mx-0 my-3 md:mx-3 md:my-0
-`

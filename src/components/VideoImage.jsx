@@ -4,7 +4,9 @@ import ReactPlayer from "react-player"
 
 const classes = "absolute h-full w-full object-cover"
 
-const VideoImage = ({ url }, props) => {
+const PlayIcon = () => null
+
+const VideoImage = ({ url, alt }, props) => {
   const [image, setImage] = useState("")
 
   useGetVimeoThumb(url, setImage)
@@ -17,10 +19,11 @@ const VideoImage = ({ url }, props) => {
           width="100%"
           height={480}
           className="absolute top-0 left-0"
+          playIcon={<PlayIcon />}
           {...props}
         />
       ) : (
-        <img src={image} {...props} className={classes} />
+        <img src={image} alt={alt} {...props} className={classes} />
       )}
     </>
   )
