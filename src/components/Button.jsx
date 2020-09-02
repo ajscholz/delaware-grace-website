@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import tw, { styled } from "twin.macro"
 import { useSpring, animated } from "react-spring"
 
-const Button = ({ primary, white, children }, props) => {
+const Button = ({ primary, white, green, children }, props) => {
   const [state, setState] = useState(false)
   const scale = useSpring({
     transform: state ? "scale(1.05)" : "scale(1)",
@@ -14,6 +14,7 @@ const Button = ({ primary, white, children }, props) => {
     <AnimatedButton
       primary={primary}
       white={white}
+      green={green}
       onFocus={() => setState(true)}
       onBlur={() => setState(false)}
       onMouseOver={() => setState(true)}
@@ -29,12 +30,14 @@ const Button = ({ primary, white, children }, props) => {
 export default Button
 
 const AnimatedButton = animated(
-  styled.button(({ primary, white }) => [
+  styled.button(({ primary, white, green }) => [
     tw`py-3 px-5 mr-3 mt-2 border-2 border-white outline-none!`,
     primary
       ? tw`bg-dgRed border-dgRed text-red-100`
       : white
       ? tw`bg-white text-gray-900`
+      : green
+      ? tw`bg-dgGreen border-dgGreen text-green-100`
       : tw`bg-transparent text-white`,
     tw`rounded-lg font-semibold uppercase`,
   ])

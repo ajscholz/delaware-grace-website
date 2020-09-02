@@ -25,28 +25,28 @@ const IndexPage = ({ data }) => {
     <>
       <SEO title="Home" />
 
-      <IndexCard large video data={data.message}>
-        <InfoChip>Latest Message</InfoChip>
-        <Title>{data.message.title}</Title>
-        <Button primary>Watch Message</Button>
-        <Button>View More Messages</Button>
+      {/* PLAN A VISIT */}
+      <IndexCard
+        large
+        data={{
+          image:
+            "https://images.unsplash.com/photo-1545379537-5d1275c630fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2466&q=80",
+        }}
+        alt={"calendar"}
+      >
+        <Title>No Perfect People Allowed</Title>
+        <Subtitle>Wherever you've been you matter to God</Subtitle>
+        <Button green>Plan A Visit</Button>
       </IndexCard>
 
       <FlexContainer>
         <LeftCol>
-          {/* PLAN A VISIT */}
-          <IndexCard
-            data={{
-              image:
-                "https://images.unsplash.com/photo-1545379537-5d1275c630fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2466&q=80",
-            }}
-            alt={"calendar"}
-          >
-            <Title>No Perfect People Allowed</Title>
-            <Subtitle>Wherever you've been you matter to God</Subtitle>
-            <Button white>Plan A Visit</Button>
+          <IndexCard video data={data.message}>
+            <InfoChip>Latest Message</InfoChip>
+            <Title>{data.message.title}</Title>
+            <Button primary>Watch Message</Button>
+            <Button>View More Messages</Button>
           </IndexCard>
-
           {/* EVENTS CARD */}
           <IndexCard
             data={{
