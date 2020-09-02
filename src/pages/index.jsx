@@ -26,18 +26,20 @@ const IndexPage = ({ data }) => {
       <SEO title="Home" />
 
       {/* PLAN A VISIT */}
-      <IndexCard
-        large
-        data={{
-          image:
-            "https://images.unsplash.com/photo-1545379537-5d1275c630fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2466&q=80",
-        }}
-        alt={"calendar"}
-      >
-        <Title>No Perfect People Allowed</Title>
-        <Subtitle>Wherever you've been you matter to God</Subtitle>
-        <Button green>Plan A Visit</Button>
-      </IndexCard>
+      <div className="pt-3">
+        <IndexCard
+          large
+          data={{
+            image:
+              "https://images.unsplash.com/photo-1545379537-5d1275c630fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2466&q=80",
+          }}
+          alt={"calendar"}
+        >
+          <Title>No Perfect People Allowed</Title>
+          <Subtitle>Wherever you've been you matter to God</Subtitle>
+          <Button green>Plan A Visit</Button>
+        </IndexCard>
+      </div>
 
       <FlexContainer>
         <LeftCol>
