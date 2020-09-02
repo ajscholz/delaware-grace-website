@@ -1,7 +1,7 @@
 import tw, { styled } from "twin.macro"
 
 const CardBase = styled.div(({ large }) => [
-  tw`relative rounded-lg shadow-sm overflow-hidden w-full mt-5`,
+  tw`relative rounded-lg shadow overflow-hidden w-full mt-5`,
   large === true ? tw`h-144` : tw`h-108`,
 ])
 
