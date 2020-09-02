@@ -1,7 +1,7 @@
 import React from "react"
 
 import SEO from "../components/SEO"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import IndexCard from "../components/cards/IndexCard"
 import tw from "twin.macro"
 import {
@@ -37,7 +37,9 @@ const IndexPage = ({ data }) => {
         >
           <Title>No Perfect People Allowed</Title>
           <Subtitle>Wherever you've been you matter to God</Subtitle>
-          <Button green>Plan A Visit</Button>
+          <Button green>
+            <Link to="/plan-a-visit">Plan A Visit</Link>
+          </Button>
         </IndexCard>
       </div>
 
@@ -47,7 +49,9 @@ const IndexPage = ({ data }) => {
             <InfoChip>Latest Message</InfoChip>
             <Title>{data.message.title}</Title>
             <Button primary>Watch Message</Button>
-            <Button>View More Messages</Button>
+            <Button>
+              <Link to="/messages">View More Messages</Link>
+            </Button>
           </IndexCard>
           {/* EVENTS CARD */}
           <IndexCard
@@ -59,7 +63,9 @@ const IndexPage = ({ data }) => {
           >
             <Title>What's Ahead</Title>
             <Subtitle>Learn how to plug in and be involved</Subtitle>
-            <Button white>View Events</Button>
+            <Button white>
+              <Link to="/events">View Events</Link>
+            </Button>
           </IndexCard>
 
           {/* NEXT STEPS CARD */}
@@ -106,12 +112,14 @@ const IndexPage = ({ data }) => {
               </Icon>
               Join A Group
             </Row>
-            <Row>
-              <Icon>
-                <MdPublic />
-              </Icon>
-              Serve Our City
-            </Row>
+            <Link to="/outreach">
+              <Row>
+                <Icon>
+                  <MdPublic />
+                </Icon>
+                Serve Our City
+              </Row>
+            </Link>
           </ListBox>
 
           <ListBox>
