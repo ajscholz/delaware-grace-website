@@ -1,23 +1,36 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Image from "gatsby-image"
+import Image from "gatsby-image/withIEPolyfill"
 import tw from "twin.macro"
 import Overlay from "./Overlay"
+import getImagePosition from "../utils/functions/getImagePosition"
 
-const PageBanner = ({ image, text, overlay }) => {
+const PageBanner = ({ banner, overlay }) => {
+  const { image, focalPoint, title, subtitle } = banner
+
+  const position = getImagePosition(
+    image.file.details.image,
+    focalPoint.focalPoint
+  )
+
   return (
-    <div className="relative -mx-8 overflow-hidden h-64">
-      <Image fluid={image.fluid} className="h-full" />
+    <div css={[tw`relative -mx-4 md:-mx-8 overflow-hidden h-144`]}>
+      <Image
+        fluid={image.fluid}
+        className="h-full"
+        objectPosition={position}
+        imgStyle={{ objectPosition: position }}
+      />
       {overlay && <Overlay />}
       <div
         css={[
-          tw`absolute inset-0 flex flex-col justify-end items-center p-4 md:mb-6 text-center`,
+          tw`absolute inset-0 flex flex-col justify-end items-center p-6 text-center`,
         ]}
       >
-        <h1 className="text-white text-4xl md:text-5xl">{text.title}</h1>
-        <p className="text-white md:text-xl -mt-2 md:-mt-3 text-gray-200">
-          {text.subtitle}
-        </p>
+        <h1 className="text-white text-5xl">{title}</h1>
+        {subtitle && (
+          <p className="text-white text-xl -mt-3 text-gray-200">{subtitle}</p>
+        )}
       </div>
     </div>
   )
@@ -38,6 +51,18 @@ export const query = graphql`
         file {
           url
           fileName
+          details {
+            image {
+              height
+              width
+            }
+          }
+        }
+      }
+      focalPoint {
+        focalPoint {
+          x
+          y
         }
       }
     }

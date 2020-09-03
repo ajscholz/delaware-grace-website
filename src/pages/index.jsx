@@ -33,7 +33,7 @@ const IndexPage = ({ data }) => {
 
       {/* PLAN A VISIT */}
       <div className="pt-3">
-        <IndexCard overlay large image={headerCard.image} alt={"calendar"}>
+        <IndexCard overlay large card={headerCard} alt={"calendar"}>
           <Title>{headerCard.title}</Title>
           <Subtitle>{headerCard.subtitle}</Subtitle>
           <Button green>
@@ -59,7 +59,7 @@ const IndexPage = ({ data }) => {
           </IndexCard>
 
           {cards.map(card => (
-            <IndexCard key={card.id} image={card.image} alt={"calendar"}>
+            <IndexCard overlay key={card.id} card={card} alt={"calendar"}>
               <Title>{card.title}</Title>
               <Subtitle>{card.subtitle}</Subtitle>
               <Button white>
@@ -222,7 +222,7 @@ const InfoChip = tw.div`inline-block bg-dgBlue rounded-full mb-1 px-2 py-1 text-
 `
 const Title = tw.h1`text-white text-5xl ml-1`
 
-const Subtitle = tw.p`text-white text-xl ml-1`
+const Subtitle = tw.p`text-gray-200 text-xl ml-1`
 
 const Row = tw.div`border-b-2 border-gray-400 py-4 flex items-center font-bold text-gray-700`
 

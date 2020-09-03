@@ -5,23 +5,37 @@ import CardBase from "./CardBase"
 import VideoImage from "../VideoImage"
 import { graphql } from "gatsby"
 import Overlay from "../Overlay"
-import Image from "gatsby-image"
+import Image from "gatsby-image/withIEPolyfill"
+import getImagePosition from "../../utils/functions/getImagePosition"
 
-const ContentContainer = tw.div`absolute bottom-0 ml-4 mb-4 leading-tight`
+const ContentContainer = tw.div`absolute bottom-0 p-4 leading-tight`
 
 const classes = "absolute h-full w-full object-cover"
 
-const IndexCard = ({ video, large, image, children, overlay }, props) => {
+const IndexCard = ({ card, video, large, children, overlay }, props) => {
+  const position = !video
+    ? getImagePosition(
+        card.image.file.details.image,
+        card.focalPoint.focalPoint
+      )
+    : undefined
+
   return (
     <CardBase large={large}>
       {video ? (
         <VideoImage
           url={video}
           alt="Latest message at Delaware Grace"
-          className="classes"
+          className={classes}
         />
       ) : (
-        <Image fluid={image.fluid} alt={props.alt} className={classes} />
+        <Image
+          fluid={card.image.fluid}
+          alt={props.alt}
+          className={classes}
+          style={{ objectPosition: position }}
+          objectPosition={position}
+        />
       )}
       {overlay && <Overlay />}
       <ContentContainer>{children}</ContentContainer>
@@ -49,7 +63,7 @@ export const query = graphql`
         }
       }
     }
-    imageFocalPoint {
+    focalPoint: imageFocalPoint {
       focalPoint {
         x
         y
