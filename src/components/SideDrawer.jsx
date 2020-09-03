@@ -49,7 +49,7 @@ const SideDrawer = ({ links }) => {
             <animated.div
               key={key}
               style={props}
-              className="md:hidden fixed text-lg top-0 right-0 h-full w-3/5 p-8 flex flex-col items-end bg-white z-50"
+              className="md:hidden fixed text-lg top-0 right-0 h-full w-2/3 p-8 flex flex-col items-end bg-white z-50"
             >
               <button
                 className="relative top-0 right-0 mb-8 text-2xl"
