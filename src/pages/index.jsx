@@ -19,7 +19,7 @@ import {
 import { RiHandHeartFill } from "react-icons/ri"
 
 import Button from "../components/Button"
-import Leave from "../Leave"
+import Leave from "../components/Leave"
 
 const IndexPage = ({ data }) => {
   const { page, message } = data
