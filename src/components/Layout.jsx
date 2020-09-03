@@ -24,11 +24,11 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header siteTitle={data.site.siteMetadata.title} />
-      <main className="mt-20">{children}</main>
+      <main className="mt-20 mb-auto">{children}</main>
       <Footer />
-    </>
+    </div>
   )
 }
 
