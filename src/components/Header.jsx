@@ -27,7 +27,7 @@ const navStyle = css`
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 h-20 bg-white overflow-hidden shadow-lg z-10">
+    <header css={[tw`fixed top-0 left-0 right-0 h-20 bg-white shadow-md z-20`]}>
       <div className="max-w-screen-lg mx-auto py-3 px-8 h-full overflow-hidden flex items-center justify-between">
         <Link to="/" className="flex items-center">
           <LogoNoTag className="h-full" />
