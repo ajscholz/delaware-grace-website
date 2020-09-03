@@ -1,7 +1,8 @@
 import React from "react"
 
 import SEO from "../components/SEO"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
+import Link from "../components/Link"
 import IndexCard from "../components/cards/IndexCard"
 import tw from "twin.macro"
 import {
@@ -21,55 +22,55 @@ import Button from "../components/Button"
 import Leave from "../Leave"
 
 const IndexPage = ({ data }) => {
+  const { page, message } = data
+  const { allCards } = page
+  const headerCard = allCards[0]
+  const cards = allCards.slice(1)
+
   return (
     <>
       <SEO title="Home" />
 
       {/* PLAN A VISIT */}
       <div className="pt-3">
-        <IndexCard
-          large
-          data={{
-            image:
-              "https://images.unsplash.com/photo-1545379537-5d1275c630fe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2466&q=80",
-          }}
-          alt={"calendar"}
-        >
-          <Title>No Perfect People Allowed</Title>
-          <Subtitle>Wherever you've been you matter to God</Subtitle>
+        <IndexCard overlay large image={headerCard.image} alt={"calendar"}>
+          <Title>{headerCard.title}</Title>
+          <Subtitle>{headerCard.subtitle}</Subtitle>
           <Button green>
-            <Link to="/plan-a-visit">Plan A Visit</Link>
+            <Link to={headerCard.button.link}>{headerCard.button.text}</Link>
           </Button>
         </IndexCard>
       </div>
 
       <FlexContainer>
         <LeftCol>
-          <IndexCard video data={data.message}>
+          {/* {cards.map((card, i) => (
+        
+      ))} */}
+          <IndexCard video={message.videoUrl}>
             <InfoChip>Latest Message</InfoChip>
-            <Title>{data.message.title}</Title>
+            <Title>{message.title}</Title>
             <Button primary>Watch Message</Button>
             <Button>
-              <Link to="/messages">View More Messages</Link>
-            </Button>
-          </IndexCard>
-          {/* EVENTS CARD */}
-          <IndexCard
-            data={{
-              image:
-                "https://images.unsplash.com/photo-1506784365847-bbad939e9335?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2696&q=80",
-            }}
-            alt={"calendar"}
-          >
-            <Title>What's Ahead</Title>
-            <Subtitle>Learn how to plug in and be involved</Subtitle>
-            <Button white>
-              <Link to="/events">View Events</Link>
+              <Link to="https://delaware-grace.netlify.app/messages">
+                View More Messages
+              </Link>
             </Button>
           </IndexCard>
 
+          {cards.map(card => (
+            <IndexCard key={card.id} image={card.image} alt={"calendar"}>
+              <Title>{card.title}</Title>
+              <Subtitle>{card.subtitle}</Subtitle>
+              <Button white>
+                <Link to={card.button.link}>{card.button.text}</Link>
+              </Button>
+            </IndexCard>
+          ))}
+          {/* EVENTS CARD */}
+
           {/* NEXT STEPS CARD */}
-          <IndexCard
+          {/* <IndexCard
             data={{
               image:
                 "https://images.unsplash.com/40/OSASuBX1SGu4kb3ozvne_IMG_1088.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80",
@@ -79,7 +80,7 @@ const IndexPage = ({ data }) => {
             <Title>Take Your Next Step</Title>
             <Subtitle>Check out the next Discover Grace class</Subtitle>
             <Button white>Learn More</Button>
-          </IndexCard>
+          </IndexCard> */}
         </LeftCol>
 
         <RightCol>
@@ -87,8 +88,8 @@ const IndexPage = ({ data }) => {
             <Row>
               <h1 className="text-3xl">Take A Step</h1>
             </Row>
-            <a
-              href="https://www.kindridgiving.com/App/Form/ad729f18-81c6-4c5e-a5ff-60c6c3c50720"
+            <Link
+              to="https://www.kindridgiving.com/App/Form/ad729f18-81c6-4c5e-a5ff-60c6c3c50720"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -99,7 +100,7 @@ const IndexPage = ({ data }) => {
                 Give Online
                 <Leave />
               </Row>
-            </a>
+            </Link>
             <Row>
               <Icon>
                 <RiHandHeartFill />
@@ -112,7 +113,7 @@ const IndexPage = ({ data }) => {
               </Icon>
               Join A Group
             </Row>
-            <Link to="/outreach">
+            <Link to="https://delaware-grace.netlify.app/outreach">
               <Row>
                 <Icon>
                   <MdPublic />
@@ -126,8 +127,8 @@ const IndexPage = ({ data }) => {
             <Row>
               <h1 className="text-3xl">Find Us Online</h1>
             </Row>
-            <a
-              href={
+            <Link
+              to={
                 ["iPad", "iPhone", "iPod", "MacIntel"].includes(
                   typeof navigator === "undefined" ? "" : navigator.platform
                 )
@@ -148,9 +149,9 @@ const IndexPage = ({ data }) => {
                 Get Our App
                 <Leave />
               </Row>
-            </a>
-            <a
-              href="https://www.facebook.com/delawaregrace/"
+            </Link>
+            <Link
+              to="https://www.facebook.com/delawaregrace/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -161,9 +162,9 @@ const IndexPage = ({ data }) => {
                 Facebook
                 <Leave />
               </Row>
-            </a>
-            <a
-              href="https://twitter.com/delawaregrace"
+            </Link>
+            <Link
+              to="https://twitter.com/delawaregrace"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -174,9 +175,9 @@ const IndexPage = ({ data }) => {
                 Twitter
                 <Leave />
               </Row>
-            </a>
-            <a
-              href="http://vimeo.com/delawaregrace"
+            </Link>
+            <Link
+              to="http://vimeo.com/delawaregrace"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -187,7 +188,7 @@ const IndexPage = ({ data }) => {
                 Vimeo
                 <Leave />
               </Row>
-            </a>
+            </Link>
           </ListBox>
         </RightCol>
       </FlexContainer>
@@ -199,6 +200,11 @@ export default IndexPage
 
 export const data = graphql`
   {
+    page: contentfulPage(title: { eq: "Home" }) {
+      allCards: body {
+        ...CardFragment
+      }
+    }
     message: contentfulMessage {
       title
       videoUrl
