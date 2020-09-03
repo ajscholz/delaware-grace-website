@@ -8,8 +8,8 @@ const OutreachPage = ({ data }) => {
   return (
     <>
       <SEO
-      // title="Plan A Visit"
-      // description="Plan a visit today to Delaware Grace. We would love to meet you."
+        title="Outreach"
+        // description="Plan a visit today to Delaware Grace. We would love to meet you."
       />
       <PageBanner
         image={page.banner.image}

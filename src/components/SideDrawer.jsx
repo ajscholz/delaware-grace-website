@@ -13,7 +13,7 @@ const SideDrawer = ({ links }) => {
   })
 
   const slideTransitions = useTransition(open, null, {
-    from: { position: "absolute", transform: "translateX(100%)" },
+    from: { transform: "translateX(100%)" },
     enter: { transform: "translateX(0)" },
     leave: { transform: "translateX(100%)" },
   })
