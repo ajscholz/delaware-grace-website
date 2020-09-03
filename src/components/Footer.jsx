@@ -1,6 +1,5 @@
 import React from "react"
 import tw from "twin.macro"
-import Container from "./Container"
 
 const StyledFooter = tw.footer`w-full p-10 mt-8 bg-white shadow-xl`
 
@@ -28,3 +27,5 @@ const Footer = () => {
 }
 
 export default Footer
+
+const Container = tw.div`max-w-screen-lg mx-auto py-3 px-8 h-full overflow-hidden flex justify-center`

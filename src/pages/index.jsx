@@ -20,6 +20,7 @@ import { RiHandHeartFill } from "react-icons/ri"
 
 import Button from "../components/Button"
 import Leave from "../components/Leave"
+import Container from "../components/Container"
 
 const IndexPage = ({ data }) => {
   const { page, message } = data
@@ -28,7 +29,7 @@ const IndexPage = ({ data }) => {
   const cards = allCards.slice(1)
 
   return (
-    <>
+    <Container>
       <SEO title="Home" />
 
       {/* PLAN A VISIT */}
@@ -192,7 +193,7 @@ const IndexPage = ({ data }) => {
           </ListBox>
         </RightCol>
       </FlexContainer>
-    </>
+    </Container>
   )
 }
 
@@ -222,7 +223,7 @@ const InfoChip = tw.div`inline-block bg-dgBlue rounded-full mb-1 px-2 py-1 text-
 `
 const Title = tw.h1`text-white text-5xl ml-1`
 
-const Subtitle = tw.p`text-gray-200 text-xl ml-1`
+const Subtitle = tw.p`text-gray-200 text-lg ml-1`
 
 const Row = tw.div`border-b-2 border-gray-400 py-4 flex items-center font-bold text-gray-700`
 

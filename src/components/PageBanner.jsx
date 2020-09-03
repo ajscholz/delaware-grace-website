@@ -14,7 +14,7 @@ const PageBanner = ({ banner, overlay }) => {
   )
 
   return (
-    <div css={[tw`relative -mx-4 md:-mx-8 overflow-hidden h-144`]}>
+    <div css={[tw`relative overflow-hidden h-144`]}>
       <Image
         fluid={image.fluid}
         className="h-full"
@@ -27,7 +27,7 @@ const PageBanner = ({ banner, overlay }) => {
           tw`absolute inset-0 flex flex-col justify-end items-center p-6 text-center`,
         ]}
       >
-        <h1 className="text-white text-5xl">{title}</h1>
+        <h1 className="text-white text-6xl">{title}</h1>
         {subtitle && (
           <p className="text-white text-xl -mt-3 text-gray-200">{subtitle}</p>
         )}
