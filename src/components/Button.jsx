@@ -1,25 +1,30 @@
-import React, { useState } from "react"
+import React from "react"
 import tw, { styled } from "twin.macro"
 import { useSpring, animated } from "react-spring"
 
-const Button = ({ primary, white, green, children }, props) => {
-  const [state, setState] = useState(false)
-  const scale = useSpring({
-    transform: state ? "scale(1.05)" : "scale(1)",
-  })
+const Button = ({ primary, white, green, children, ...props }) => {
+  const [hover, set] = useSpring(() => ({
+    transform: "scale(1)",
+  }))
 
-  // const AnimatedButtonBase = animated(ButtonBase)
+  const grow = () => {
+    set({ transform: "scale(1.05)" })
+  }
+
+  const shrink = () => {
+    set({ transform: "scale(1)" })
+  }
 
   return (
     <AnimatedButton
       primary={primary}
       white={white}
       green={green}
-      onFocus={() => setState(true)}
-      onBlur={() => setState(false)}
-      onMouseOver={() => setState(true)}
-      onMouseOut={() => setState(false)}
-      style={scale}
+      onFocus={() => grow()}
+      onBlur={() => shrink()}
+      onMouseEnter={() => grow()}
+      onMouseLeave={() => shrink()}
+      style={hover}
       {...props}
     >
       {children}

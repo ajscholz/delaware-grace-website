@@ -14,7 +14,7 @@ const PageBanner = ({ banner, overlay }) => {
   )
 
   return (
-    <div css={[tw`relative overflow-hidden h-144`]}>
+    <section css={[tw`relative overflow-hidden h-144`]}>
       <Image
         fluid={image.fluid}
         className="h-full"
@@ -32,7 +32,7 @@ const PageBanner = ({ banner, overlay }) => {
           <p className="text-white text-xl -mt-3 text-gray-200">{subtitle}</p>
         )}
       </div>
-    </div>
+    </section>
   )
 }
 
