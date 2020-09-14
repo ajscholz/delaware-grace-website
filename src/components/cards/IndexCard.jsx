@@ -12,8 +12,8 @@ const ContentContainer = tw.div`absolute bottom-0 p-4 leading-tight`
 
 const classes = "absolute h-full w-full object-cover"
 
-const IndexCard = ({ card, video, large, children, overlay }, props) => {
-  const position = !video
+const IndexCard = ({ card, message, large, children, overlay }, props) => {
+  const position = !message
     ? getImagePosition(
         card.image.file.details.image,
         card.focalPoint.focalPoint
@@ -22,21 +22,14 @@ const IndexCard = ({ card, video, large, children, overlay }, props) => {
 
   return (
     <CardBase large={large}>
-      {video ? (
-        <VideoImage
-          url={video}
-          alt="Latest message at Delaware Grace"
-          className={classes}
-        />
-      ) : (
-        <Image
-          fluid={card.image.fluid}
-          alt={props.alt}
-          className={classes}
-          style={{ objectPosition: position }}
-          objectPosition={position}
-        />
-      )}
+      <Image
+        fluid={message ? card.thumbnail.image.fluid : card.image.fluid}
+        alt={props.alt}
+        className={classes}
+        style={{ objectPosition: position }}
+        objectPosition={position}
+      />
+
       {overlay && <Overlay />}
       <ContentContainer>{children}</ContentContainer>
     </CardBase>

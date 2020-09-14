@@ -23,10 +23,11 @@ import Leave from "../components/Leave"
 import Container from "../components/Container"
 
 const IndexPage = ({ data }) => {
-  const { page, message } = data
+  const { page, messages } = data
+  const message = messages.all[0]
   const { allCards } = page
   const headerCard = allCards[0]
-  const cards = allCards.slice(1)
+  const cards = [...allCards].slice(1)
 
   return (
     <Container>
@@ -45,13 +46,17 @@ const IndexPage = ({ data }) => {
 
       <FlexContainer>
         <LeftCol>
-          {/* {cards.map((card, i) => (
-        
-      ))} */}
-          <IndexCard video={message.videoUrl}>
+          {/* LATEST MESSAGE CARD */}
+          <IndexCard card={message} message>
             <InfoChip>Latest Message</InfoChip>
             <Title>{message.title}</Title>
-            <Button primary>Watch Message</Button>
+            <Button primary>
+              <Link
+                to={`https://delaware-grace.netlify.app/messages/series/${message.series.slug}/${message.slug}`}
+              >
+                Watch Message
+              </Link>
+            </Button>
             <Button>
               <Link to="https://delaware-grace.netlify.app/messages">
                 View More Messages
@@ -68,20 +73,6 @@ const IndexPage = ({ data }) => {
               </Button>
             </IndexCard>
           ))}
-          {/* EVENTS CARD */}
-
-          {/* NEXT STEPS CARD */}
-          {/* <IndexCard
-            data={{
-              image:
-                "https://images.unsplash.com/40/OSASuBX1SGu4kb3ozvne_IMG_1088.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80",
-            }}
-            alt={"next steps"}
-          >
-            <Title>Take Your Next Step</Title>
-            <Subtitle>Check out the next Discover Grace class</Subtitle>
-            <Button white>Learn More</Button>
-          </IndexCard> */}
         </LeftCol>
 
         <RightCol>
@@ -206,9 +197,24 @@ export const data = graphql`
         ...CardFragment
       }
     }
-    message: contentfulMessage {
-      title
-      videoUrl
+    messages: allContentfulMessage(
+      sort: { fields: date, order: DESC }
+      limit: 1
+    ) {
+      all: nodes {
+        title
+        slug
+        thumbnail {
+          image: childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+        series {
+          slug
+        }
+      }
     }
   }
 `
