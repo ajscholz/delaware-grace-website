@@ -1,55 +1,56 @@
-import React, { useState, useRef } from "react"
+import React, { useRef } from "react"
 import { useSpring, useChain, animated } from "react-spring"
+import resolveConfig from "tailwindcss/resolveConfig"
+import tailwindConfig from "../../../tailwind.config"
 
-const springConfig = {
-  tension: 425,
-  friction: 25,
-  clamp: true,
-}
+const fullConfig = resolveConfig(tailwindConfig)
+console.log(fullConfig)
+
+// const springConfig = {
+//   tension: 425,
+//   friction: 25,
+//   clamp: true,
+// }
 
 const FilterChip = ({ children, className, click, active }) => {
-  const [focused, setFocused] = useState(false)
+  // const [focused, setFocused] = useState(false)
+
   const buttonSpring = useSpring({
-    config: springConfig,
-    borderWidth: focused ? "2px " : "0px",
-    background: active ? "#A5CF47" : "#eeeeee",
-    color: active ? "#212121" : "#616161",
+    // config: springConfig,
+    // borderWidth: focused ? "2px " : "0px",
+    background: active
+      ? fullConfig.theme.colors.dgGreen
+      : fullConfig.theme.colors.gray[300],
+    color: active
+      ? fullConfig.theme.colors.green[900]
+      : fullConfig.theme.colors.gray[900],
   })
   const shiftRef = useRef()
   const shiftSpring = useSpring({
-    config: springConfig,
+    // config: springConfig,
     ref: shiftRef,
     marginLeft: active ? "16px" : "0px",
   })
 
   const checkRef = useRef()
   const checkSpring = useSpring({
-    config: springConfig,
+    // config: springConfig,
     ref: checkRef,
     from: { offset: 24 },
     offset: active ? 0 : 24,
   })
   useChain(active ? [shiftRef, checkRef] : [checkRef, shiftRef], [0, 0.1])
 
-  /*
-  height: 2rem;
-  font-size: 14px;
-  border-radius: 50px;
-  padding: 0 12px;
-  margin: 4px;
-  border: 0px inset rgba(33, 33, 33, 0.4);
-  box-sizing: border-box;
-  */
   return (
     <>
       <animated.button
-        className="h-8 text-xs rounded-full py-0 px-6 m-1 shadow-inner"
+        className="h-6 text-xs rounded-full py-0 px-6 m-1 shadow-inner"
         onClick={() => click()}
         style={buttonSpring}
-        onFocus={() => setFocused(true)}
-        onBlur={() => {
-          setFocused(false)
-        }}
+        // onFocus={() => setFocused(true)}
+        // onBlur={() => {
+        //   setFocused(false)
+        // }}
       >
         <div style={{ position: "relative" }}>
           <span
@@ -66,7 +67,7 @@ const FilterChip = ({ children, className, click, active }) => {
               height={14}
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#212121"
+              stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -41,7 +41,7 @@ const Filter = ({ data, filterType, update }) => {
           Clear
         </FilterClearButton>
       )}
-      <div>
+      <div className="-mx-1">
         {dataArr.map(item => {
           return (
             <FilterChip

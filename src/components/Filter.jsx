@@ -51,7 +51,7 @@ const Filter = () => {
         Filter Messages
       </Button>
       <animated.div
-        tw="h-64 col-span-2 overflow-hidden grid grid-cols-4 border-t-2 border-gray-300 pt-6"
+        tw="h-64 col-span-2 overflow-hidden grid grid-cols-4 gap-x-2 border-t-2 border-gray-300 pt-6"
         style={open}
       >
         {Object.keys(filter).some(key => filter[key].selected.length !== 0) && (
