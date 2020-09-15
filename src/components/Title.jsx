@@ -1,5 +1,5 @@
-import tw from "twin.macro"
+import tw, { styled } from "twin.macro"
 
-const Title = tw.h1`text-5xl`
+const Title = styled.h1(() => [tw`text-5xl`])
 
 export default Title
