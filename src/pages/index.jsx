@@ -21,6 +21,7 @@ import { RiHandHeartFill } from "react-icons/ri"
 import Button from "../components/Button"
 import Leave from "../components/Leave"
 import Container from "../components/Container"
+import InfoChip from "../components/InfoChip"
 
 const IndexPage = ({ data }) => {
   const { page, messages } = data
@@ -225,8 +226,6 @@ const LeftCol = tw.div`w-full md:w-2/3`
 
 const RightCol = tw.div`md:w-1/3 mt-5 md:ml-5`
 
-const InfoChip = tw.div`inline-block bg-dgBlue rounded-full mb-1 px-2 py-1 text-xs text-blue-100 w-auto
-`
 const Title = tw.h1`text-white text-5xl ml-1`
 
 const Subtitle = tw.p`text-gray-200 text-lg ml-1`
