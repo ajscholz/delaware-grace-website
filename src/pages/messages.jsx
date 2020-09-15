@@ -6,24 +6,13 @@ import MessageCard from "../components/cards/MessageCard"
 import Container from "../components/Container"
 import InfoChip from "../components/InfoChip"
 import tw from "twin.macro"
-import { VscTriangleDown } from "react-icons/vsc"
-import { useSpring, animated } from "react-spring"
-import Button from "../components/Button"
+import Filter from "../components/Filter"
 
 const MessagesPage = ({ data }) => {
   // const { page } = data
   const messages = [...data.messages.all]
   const latestMessage = messages.shift()
 
-  const [showFilters, setShowFilters] = useState(false)
-
-  const flip = useSpring({
-    transform: showFilters ? "rotate(180deg)" : "rotate(0deg)",
-  })
-
-  // const
-
-  const AnimatedIcon = animated(VscTriangleDown)
   return (
     <>
       <SEO
@@ -32,18 +21,9 @@ const MessagesPage = ({ data }) => {
       />
       {/* <PageBanner banner={page.banner} /> */}
       <Container className="pt-12">
-        <div className="w-full flex justify-between">
+        <div className="w-full grid grid-cols-2">
           <Title tw="text-black text-6xl">Messages</Title>
-          <Button
-            onClick={() => setShowFilters(!showFilters)}
-            tw="flex items-center my-auto mr-0 py-2 px-4 bg-dgBlue border-dgBlue text-blue-100 rounded-full active:outline-none focus:outline-none shadow-sm"
-          >
-            <span tw="mr-2">
-              <AnimatedIcon style={flip} />
-            </span>
-            {/* {`${showFilters ? `Show` : `Hide`} Filters`} */}
-            Filter Messages
-          </Button>
+          <Filter />
         </div>
         <MessageCard large message={latestMessage} overlay fadeUp>
           <div>
