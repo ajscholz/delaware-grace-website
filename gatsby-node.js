@@ -1,11 +1,12 @@
 const path = require(`path`)
 const axios = require("axios")
 const { createRemoteFileNode } = require("gatsby-source-filesystem")
+const { O_NOCTTY } = require("constants")
 
 // process vimeo thumbnails to be used by Gatsby Image
 exports.onCreateNode = async ({
   node,
-  actions: { createNode },
+  actions: { createNode, create },
   store,
   cache,
   createNodeId,
@@ -38,6 +39,8 @@ exports.onCreateNode = async ({
       node_locale: "en-US",
     }
     */
+    const year = new Date(node.date).getFullYear()
+    node.year = year
 
     let url
 
@@ -156,78 +159,79 @@ exports.onCreatePage = ({ page, actions }) => {
 }
 
 // Define graphql types
-// exports.createSchemaCustomization = ({ actions, schema }) => {
-//   const { createTypes } = actions
-//   const typeDefs = [
-//     `type ContentfulNotificationBar implements Node {
-//       title: String
-//       showBar: Boolean
-// 			text: String
-// 			autoOff: Date @dateformat
-//       clickthroughLink: String
-//       updatedAt: Date
-//     }
-//     `,
-//     `type ContentfulResourceVideo implements Node {
-//       contentful_id: String
-//       title: String
-//       url: String
-//       slug: String
-//       tags: [String]
-//       videoUserGuide: ContentfulAsset
-//       description: contentfulResourceVideoDescriptionTextNode
-//     }`,
-//     `type ContentfulAsset implements Node {
-//       file: ContentfulAssetFile
-//     }`,
-//     `type ContentfulAssetFile {
-//       url: String
-//       fileName: String
-//     }`,
-//     `type contentfulResourceVideoDescriptionTextNode implements Node {
-//       childMdx: Mdx
-//     }`,
-//     `type Mdx implements Node {
-//       body: String!
-//     }`,
-//     `type ContentfulMessage implements Node {
-//       messageSeries: ContentfulMessageSeries
-//     }`,
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createTypes } = actions
+  const typeDefs = [
+    // `type ContentfulMessage implements Node {
+    //   year: String
+    // }
+    // `,
+    // `type ContentfulResourceVideo implements Node {
+    //   contentful_id: String
+    //   title: String
+    //   url: String
+    //   slug: String
+    //   tags: [String]
+    //   videoUserGuide: ContentfulAsset
+    //   description: contentfulResourceVideoDescriptionTextNode
+    // }`,
+    // `type ContentfulAsset implements Node {
+    //   file: ContentfulAssetFile
+    // }`,
+    // `type ContentfulAssetFile {
+    //   url: String
+    //   fileName: String
+    // }`,
+    // `type contentfulResourceVideoDescriptionTextNode implements Node {
+    //   childMdx: Mdx
+    // }`,
+    // `type Mdx implements Node {
+    //   body: String!
+    // }`,
+    // `type ContentfulMessage implements Node {
+    //   messageSeries: ContentfulMessageSeries
+    // }`,
 
-//     schema.buildObjectType({
-//       name: "ContentfulStreamingVideo",
-//       fields: {
-//         videoId: {
-//           type: "String!",
-//           resolve: source => source.videoId || "503812663636183",
-//         },
-//         dateTime: {
-//           type: "Date!",
-//           resolve: source => source.dateTime || new Date(2000, 0, 1),
-//         },
-//         length: {
-//           type: "Int!",
-//           resolve: source => source.length || 1,
-//         },
-//         videoUrl: {
-//           type: "String!",
-//           resolve: source =>
-//             // `https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpathwaymarietta%2Fvideos%2F${source.videoId}%2F&width=auto`,
-//             `https://vimeo.com/${source.videoId}`,
-//         },
-//       },
-//       interfaces: ["Node"],
-//     }),
-//     schema.buildObjectType({
-//       name: "ContentfulMessageSeries",
-//       fields: {
-//         slug: {
-//           type: "String!",
-//           resolve: source => source.slug || "unnamed-series-1",
-//         },
-//       },
-//       interfaces: ["Node"],
-//     }),
-//   ]
-//   createTypes(typeDefs)
-// }
+    // schema.buildObjectType({
+    //   name: "ContentfulStreamingVideo",
+    //   fields: {
+    //     videoId: {
+    //       type: "String!",
+    //       resolve: source => source.videoId || "503812663636183",
+    //     },
+    //     dateTime: {
+    //       type: "Date!",
+    //       resolve: source => source.dateTime || new Date(2000, 0, 1),
+    //     },
+    //     length: {
+    //       type: "Int!",
+    //       resolve: source => source.length || 1,
+    //     },
+    //     videoUrl: {
+    //       type: "String!",
+    //       resolve: source =>
+    //         // `https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpathwaymarietta%2Fvideos%2F${source.videoId}%2F&width=auto`,
+    //         `https://vimeo.com/${source.videoId}`,
+    //     },
+    //   },
+    //   interfaces: ["Node"],
+    // }),
+    schema.buildObjectType({
+      name: "ContentfulMessage",
+      fields: {
+        // create a "year" field to make filtering by year much easier
+        year: {
+          type: "String!",
+          resolve: source => new Date(source.date).getFullYear(),
+        },
+        // make all tags lowercase by default
+        tags: {
+          type: "[String!]",
+          resolve: source => source.tags.map(tag => tag.toLowerCase()),
+        },
+      },
+      interfaces: ["Node"],
+    }),
+  ]
+  createTypes(typeDefs)
+}

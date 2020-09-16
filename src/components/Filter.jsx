@@ -6,16 +6,26 @@ import Button from "./Button"
 import SingleFilter from "./filter/Filter"
 import { filterData } from "../utils/data"
 import FilterClearButton from "./filter/FilterClearButton"
-
-const initialState = Object.fromEntries(
-  Object.keys(filterData).map(key => {
-    return [key, { selected: [], unselected: filterData[key] }]
-  })
-)
+import { graphql, useStaticQuery } from "gatsby"
 
 const Filter = () => {
-  const [showFilters, setShowFilters] = useState(false)
+  const queryData = useStaticQuery(graphql`
+    {
+      communicator: allContentfulMessage {
+        unselected: distinct(field: communicator___name)
+      }
+      tags: allContentfulMessage {
+        unselected: distinct(field: tags)
+      }
+      year: allContentfulMessage {
+        unselected: distinct(field: year)
+      }
+    }
+  `)
+  Object.keys(queryData).forEach(key => (queryData[key].selected = []))
+  const initialState = { ...queryData }
 
+  const [showFilters, setShowFilters] = useState(false)
   const [filter, setFilter] = useState(initialState)
 
   const clearFilters = () => setFilter(initialState)
@@ -51,7 +61,7 @@ const Filter = () => {
         Filter Messages
       </Button>
       <animated.div
-        tw="h-64 col-span-2 overflow-hidden grid grid-cols-4 gap-x-2 border-t-2 border-gray-300 pt-6"
+        tw="h-64 col-span-2 overflow-hidden grid grid-cols-3 gap-x-4 border-t-2 border-gray-300 pt-6"
         style={open}
       >
         {Object.keys(filter).some(key => filter[key].selected.length !== 0) && (

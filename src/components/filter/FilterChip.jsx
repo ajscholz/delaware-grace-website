@@ -39,12 +39,12 @@ const FilterChip = ({ children, className, click, active }) => {
     from: { offset: 24 },
     offset: active ? 0 : 24,
   })
-  useChain(active ? [shiftRef, checkRef] : [checkRef, shiftRef], [0, 0.1])
+  useChain(active ? [shiftRef, checkRef] : [checkRef, shiftRef], [0, 0.2])
 
   return (
     <>
       <animated.button
-        className="h-6 text-xs rounded-full py-0 px-6 m-1 shadow-inner"
+        className="h-6 text-xs rounded-full py-0 px-3 m-1 shadow-inner"
         onClick={() => click()}
         style={buttonSpring}
         // onFocus={() => setFocused(true)}

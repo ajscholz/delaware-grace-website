@@ -1,6 +1,7 @@
 import React from "react"
 import FilterClearButton from "./FilterClearButton"
 import FilterChip from "./FilterChip"
+import "twin.macro"
 
 // helper functions to add or remove from an array - don't need
 // instantiated on every render
@@ -28,19 +29,22 @@ const Filter = ({ data, filterType, update }) => {
 
   return (
     <div className="relative text-left">
-      <h3>{filterType}</h3>
-      {!noFilters && (
-        <FilterClearButton
-          click={() =>
-            update(filterType, {
-              selected: [],
-              unselected: data.unselected.concat(data.selected).sort(),
-            })
-          }
-        >
-          Clear
-        </FilterClearButton>
-      )}
+      <div tw="flex items-center">
+        {!noFilters && (
+          <button
+            tw="mr-2"
+            onClick={() =>
+              update(filterType, {
+                selected: [],
+                unselected: data.unselected.concat(data.selected).sort(),
+              })
+            }
+          >
+            X
+          </button>
+        )}
+        <h3>{filterType}</h3>
+      </div>
       <div className="-mx-1">
         {dataArr.map(item => {
           return (
