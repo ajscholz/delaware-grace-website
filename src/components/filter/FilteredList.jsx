@@ -1,12 +1,7 @@
-import React, { useMemo } from "react"
+import React from "react"
 import { useTransition, a } from "react-spring"
-// import shuffle from "lodash/shuffle"
 import useMeasure from "../../hooks/useMeasure"
 import useMedia from "../../hooks/useMedia"
-// import data from "./data"
-// import "./styles.css"
-// import cardData from "../../utils/data"
-import Card from "../Card"
 import MessageCard from "../cards/MessageCard"
 import "twin.macro"
 
@@ -40,7 +35,6 @@ const FilteredList = ({ filteredCards }) => {
     trail: 50,
   })
   // Render the grid
-  const AnimatedMessageCard = a(MessageCard)
   return (
     <div
       {...bind}

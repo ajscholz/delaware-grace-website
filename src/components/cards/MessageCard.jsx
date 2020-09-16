@@ -21,7 +21,6 @@ const MessageCard = ({
     config: config.wobbly,
   }))
 
-  console.log(message)
   const grow = () => {
     set({ transform: "scale(1.05)" })
   }
