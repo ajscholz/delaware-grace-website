@@ -68,7 +68,7 @@ const Filter = () => {
           <FilterClearButton click={clearFilters}>Clear All</FilterClearButton>
         )} */}
         <div tw="grid grid-cols-3 grid-rows-none gap-x-4">
-          {Object.keys(filterData).map(item => (
+          {Object.keys(queryData).map(item => (
             <SingleFilter
               data={filter[item]}
               filterType={item}
