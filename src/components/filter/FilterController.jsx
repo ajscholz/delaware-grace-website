@@ -15,6 +15,8 @@ const initialState = Object.fromEntries(
 const FilterController = () => {
   const [filter, setFilter] = useState(initialState)
 
+  console.log(filter)
+
   const clearFilters = () => setFilter(initialState)
 
   const update = (filterType, newState) => {

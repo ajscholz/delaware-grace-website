@@ -1,17 +1,10 @@
 import React from "react"
 import FilterChip from "./FilterChip"
 import "twin.macro"
-import { useTransition, animated, useSpring } from "react-spring"
+import { useTransition, animated } from "react-spring"
 import { FiX } from "react-icons/fi"
 
-import resolveConfig from "tailwindcss/resolveConfig"
-import tailwindConfig from "../../../tailwind.config"
 import { useHocus } from "../../hooks/useHocus"
-
-const {
-  theme: { colors, borderWidth, ...rest },
-} = resolveConfig(tailwindConfig)
-console.log(rest)
 
 // helper functions to add or remove from an array - don't need
 // instantiated on every render

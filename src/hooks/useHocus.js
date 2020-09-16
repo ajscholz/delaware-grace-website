@@ -31,7 +31,7 @@ export const useHocus = (additionalStyles, grow) => {
         })
         break
       default:
-        throw "Hocus called with invalid argument."
+        throw new Error("Hocus called with invalid argument.")
     }
   }
 
