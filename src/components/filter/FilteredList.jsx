@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react"
 import { useTransition, a } from "react-spring"
 // import shuffle from "lodash/shuffle"
-import useMeasure from "../hooks/useMeasure"
-import useMedia from "../hooks/useMedia"
+import useMeasure from "../../hooks/useMeasure"
+import useMedia from "../../hooks/useMedia"
 // import data from "./data"
-import "./styles.css"
-import cardData from "../utils/data"
-import Card from "./Card"
+// import "./styles.css"
+// import cardData from "../../utils/data"
+import Card from "../Card"
 
-const Grid = ({ filters }) => {
+const FilteredList = ({ filters, cardData }) => {
   console.log(filters)
   const categories = Object.keys(filters)
+  console.log("categories", categories)
 
   // filter only that cards that meet all the selected filters
   const cards = cardData.filter((card, i) => {
+    console.log("card", card)
     // test each card with all the criteria
     // !categories.some is because .some returns as soon as it's truthy
     // so the card has to pass all the tests with FALSE instead of TRUE
     // That way as soon as it's truthy it exits the and excludes the card
     const includeCard = !categories.some(category => {
+      console.log("category", category)
       // if there is not a filter applied stop checking this category
       if (filters[category].selected.length === 0) {
         return false
@@ -29,6 +32,13 @@ const Grid = ({ filters }) => {
           ? false
           : true
       }
+
+      // this is because communicator has a name field underneath it
+      if (category === "communicator")
+        return filters[category].selected.includes(card[category].name)
+          ? false
+          : true
+
       // if there is a filter and it's not a string (it's an array)
       // return whether the
       return !filters[category].selected.some(item =>
@@ -65,7 +75,7 @@ const Grid = ({ filters }) => {
     update: ({ xy, width, height }) => ({ xy, width, height }),
     leave: { height: 0, opacity: 0 },
     config: { mass: 5, tension: 500, friction: 100 },
-    trail: 25,
+    trail: 50,
   })
   // Render the grid
   return (
@@ -90,4 +100,4 @@ const Grid = ({ filters }) => {
   )
 }
 
-export default Grid
+export default FilteredList

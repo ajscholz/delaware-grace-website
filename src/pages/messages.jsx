@@ -7,7 +7,7 @@ import Container from "../components/Container"
 import InfoChip from "../components/InfoChip"
 import tw from "twin.macro"
 // import Filter from "../components/Filter"
-import Grid from "../components/Grid"
+import FilteredList from "../components/filter/FilteredList"
 import { VscTriangleDown } from "react-icons/vsc"
 import { useSpring, animated } from "react-spring"
 import Button from "../components/Button"
@@ -20,32 +20,30 @@ const MessagesPage = ({ data }) => {
     ...rest
   } = data
 
-  const testData = {
-    communicator: {
-      unselected: ["Dave Pacheco", "Jeff Martin"],
-    },
-    topics: {
-      unselected: ["bible", "church", "humility", "life", "relationships"],
-    },
-    year: {
-      unselected: ["2020", "2019"],
-    },
-  }
+  // const testData = {
+  //   communicator: {
+  //     unselected: ["Dave Pacheco", "Jeff Martin"],
+  //   },
+  //   topics: {
+  //     unselected: ["bible", "church", "humility", "life", "relationships"],
+  //   },
+  //   year: {
+  //     unselected: ["2020", "2019"],
+  //   },
+  // }
 
   const queryData = { ...rest }
   const latestMessage = [...messages].shift()
   const restOfMessages = [...messages].splice(1)
 
-  Object.keys(testData).forEach(key => (testData[key].selected = []))
-  const initialState = { ...testData }
-  // Object.keys(queryData).forEach(key => (queryData[key].selected = []))
-  // const initialState = { ...queryData }
+  // Object.keys(testData).forEach(key => (testData[key].selected = []))
+  // const initialState = { ...testData }
+  Object.keys(queryData).forEach(key => (queryData[key].selected = []))
+  const initialState = { ...queryData }
 
   // console.log(queryData)
   const [showFilters, setShowFilters] = useState(false)
   const [filter, setFilter] = useState(initialState)
-
-  console.log(filter)
 
   const update = (filterType, newState) => {
     setFilter({
@@ -64,6 +62,9 @@ const MessagesPage = ({ data }) => {
   })
 
   const AnimatedIcon = animated(VscTriangleDown)
+
+  console.log(messages)
+  console.log(initialState)
 
   return (
     <>
@@ -114,7 +115,7 @@ const MessagesPage = ({ data }) => {
           </animated.div>
           {/* <Filter /> */}
         </div>
-        <Grid filters={filter} />
+        <FilteredList filters={filter} cardData={messages} />
 
         {/* <MessageCard large message={latestMessage} overlay fadeUp>
           <div>
@@ -146,6 +147,7 @@ export const data = graphql`
     messages: allContentfulMessage(sort: { fields: date, order: DESC }) {
       all: nodes {
         ...MessageCardFragment
+        year: date(formatString: "YYYY")
       }
     }
     communicator: allContentfulMessage {
