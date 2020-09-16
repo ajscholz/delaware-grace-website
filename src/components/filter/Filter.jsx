@@ -1,7 +1,17 @@
 import React from "react"
-import FilterClearButton from "./FilterClearButton"
 import FilterChip from "./FilterChip"
 import "twin.macro"
+import { useTransition, animated, useSpring } from "react-spring"
+import { FiX } from "react-icons/fi"
+
+import resolveConfig from "tailwindcss/resolveConfig"
+import tailwindConfig from "../../../tailwind.config"
+import { useHocus } from "../../hooks/useHocus"
+
+const {
+  theme: { colors, borderWidth, ...rest },
+} = resolveConfig(tailwindConfig)
+console.log(rest)
 
 // helper functions to add or remove from an array - don't need
 // instantiated on every render
@@ -15,6 +25,37 @@ const removeFromdata = (arr, item) =>
 const Filter = ({ data, filterType, update }) => {
   const noFilters = data.selected.length === 0
 
+  // close button transition
+  const showButton = useTransition(!noFilters, null, {
+    from: {
+      position: "relative",
+      opacity: 0,
+      width: "0px",
+      marginRight: "0px",
+    },
+    enter: {
+      opacity: 1,
+      width: "18px",
+      marginRight: "4px",
+    },
+    leave: {
+      opacity: 0,
+      width: "0px",
+      marginRight: "0px",
+    },
+  })
+  const rotate = useTransition(!noFilters, null, {
+    from: { transform: "rotate(-180deg)" },
+    enter: { transform: "rotate(0deg)" },
+    leave: { transform: "rotate(-180deg)" },
+  })
+  //
+
+  const [hocus, blur, styles] = useHocus({
+    from: { border: `2px solid rgba(248, 165, 174, 0)` },
+    to: { border: `2px solid rgba(248, 165, 174, 1)` },
+  })
+
   // create a new array with key/value pairs based on whether the item is selected or not
   const dataArr = noFilters
     ? // if there are no filters just create a new array with every key/falue pair set to false
@@ -27,23 +68,47 @@ const Filter = ({ data, filterType, update }) => {
         // sort the concatted array to alphabetize
         .sort()
 
+  const AnimatedClose = animated(FiX)
+
   return (
     <div className="relative text-left">
       <div tw="flex items-center">
-        {!noFilters && (
-          <button
-            tw="mr-2"
-            onClick={() =>
-              update(filterType, {
-                selected: [],
-                unselected: data.unselected.concat(data.selected).sort(),
-              })
-            }
-          >
-            X
-          </button>
+        {showButton.map(
+          ({ item, key, props }) =>
+            item && (
+              <animated.div key={key} style={props} tw="self-center">
+                <animated.button
+                  onFocus={() => hocus()}
+                  onBlur={() => blur()}
+                  onMouseEnter={() => hocus()}
+                  onMouseLeave={() => blur()}
+                  style={{ left: "-2px", ...styles }}
+                  aria-label={`Clear ${filterType} Filter`}
+                  tw="relative box-content text-dgRed-100 rounded-full p-xs border-solid bg-dgRed-500 focus:outline-none bg-clip-padding"
+                  onClick={() =>
+                    update(filterType, {
+                      selected: [],
+                      unselected: data.unselected.concat(data.selected).sort(),
+                    })
+                  }
+                >
+                  {rotate.map(
+                    ({ item, key, props }) =>
+                      item && (
+                        <AnimatedClose
+                          tw="text-xs"
+                          key={key}
+                          // style={{ height: "12px", width: "12px" }}
+                          style={props}
+                        />
+                      )
+                  )}
+                </animated.button>
+              </animated.div>
+            )
         )}
-        <h3>{filterType}</h3>
+
+        <h3 className="text-2xl leading-none">{filterType}</h3>
       </div>
       <div className="-mx-1">
         {dataArr.map(item => {

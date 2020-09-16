@@ -3,8 +3,9 @@ import { useSpring, useChain, animated } from "react-spring"
 import resolveConfig from "tailwindcss/resolveConfig"
 import tailwindConfig from "../../../tailwind.config"
 
-const fullConfig = resolveConfig(tailwindConfig)
-console.log(fullConfig)
+const {
+  theme: { colors },
+} = resolveConfig(tailwindConfig)
 
 // const springConfig = {
 //   tension: 425,
@@ -18,12 +19,8 @@ const FilterChip = ({ children, className, click, active }) => {
   const buttonSpring = useSpring({
     // config: springConfig,
     // borderWidth: focused ? "2px " : "0px",
-    background: active
-      ? fullConfig.theme.colors.dgGreen
-      : fullConfig.theme.colors.gray[300],
-    color: active
-      ? fullConfig.theme.colors.green[900]
-      : fullConfig.theme.colors.gray[900],
+    background: active ? colors.dgGreen[500] : colors.gray[300],
+    color: active ? colors.dgGreen[800] : colors.gray[900],
   })
   const shiftRef = useRef()
   const shiftSpring = useSpring({
@@ -44,7 +41,7 @@ const FilterChip = ({ children, className, click, active }) => {
   return (
     <>
       <animated.button
-        className="h-6 text-xs rounded-full py-0 px-3 m-1 shadow-inner"
+        className="h-6 text-xs rounded-full py-0 px-3 m-1 shadow-inner focus:outline-none"
         onClick={() => click()}
         style={buttonSpring}
         // onFocus={() => setFocused(true)}
@@ -73,7 +70,7 @@ const FilterChip = ({ children, className, click, active }) => {
               strokeLinejoin="round"
               strokeDasharray={24}
               strokeDashoffset={checkSpring.offset}
-              className="feather-check"
+              // className="feather-check"
             >
               <polyline points="4 12 9 17 20 6" />
             </animated.svg>
