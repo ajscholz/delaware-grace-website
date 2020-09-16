@@ -1,24 +1,39 @@
 import { useSpring } from "react-spring"
 
-export const useHocus = additionalStyles => {
+export const useHocus = (additionalStyles, grow) => {
+  const transformProps =
+    grow === false
+      ? { from: {}, to: {} }
+      : { from: { transform: "scale(1)" }, to: { transform: "scale(1.2)" } }
   const [styles, set] = useSpring(() => ({
-    transform: "scale(1)",
+    ...transformProps.from,
     ...(additionalStyles && additionalStyles.from),
   }))
 
-  const hocus = () => {
-    set({
-      transform: "scale(1.2)",
-      ...(additionalStyles && additionalStyles.to),
-    })
+  const hocus = hocus => {
+    switch (hocus) {
+      case true:
+        set({
+          ...transformProps.to,
+          ...(additionalStyles && additionalStyles.to),
+        })
+        break
+      case false:
+        set({
+          ...transformProps.from,
+          ...(additionalStyles && additionalStyles.from),
+        })
+        break
+      case "activeTrue":
+        set({
+          ...transformProps.to,
+          ...(additionalStyles && additionalStyles.to),
+        })
+        break
+      default:
+        throw "Hocus called with invalid argument."
+    }
   }
 
-  const blur = () => {
-    set({
-      transform: "scale(1)",
-      ...(additionalStyles && additionalStyles.from),
-    })
-  }
-
-  return [hocus, blur, styles]
+  return [hocus, styles]
 }

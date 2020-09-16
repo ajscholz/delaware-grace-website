@@ -51,7 +51,7 @@ const Filter = ({ data, filterType, update }) => {
   })
   //
 
-  const [hocus, blur, styles] = useHocus({
+  const [hocus, styles] = useHocus({
     from: { border: `2px solid rgba(248, 165, 174, 0)` },
     to: { border: `2px solid rgba(248, 165, 174, 1)` },
   })
@@ -78,10 +78,10 @@ const Filter = ({ data, filterType, update }) => {
             item && (
               <animated.div key={key} style={props} tw="self-center">
                 <animated.button
-                  onFocus={() => hocus()}
-                  onBlur={() => blur()}
-                  onMouseEnter={() => hocus()}
-                  onMouseLeave={() => blur()}
+                  onFocus={() => hocus(true)}
+                  onBlur={() => hocus(false)}
+                  onMouseEnter={() => hocus(true)}
+                  onMouseLeave={() => hocus(false)}
                   style={{ left: "-2px", ...styles }}
                   aria-label={`Clear ${filterType} Filter`}
                   tw="relative box-content text-dgRed-100 rounded-full p-xs border-solid bg-dgRed-500 focus:outline-none bg-clip-padding"

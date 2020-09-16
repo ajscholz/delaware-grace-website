@@ -2,6 +2,7 @@ import React, { useRef } from "react"
 import { useSpring, useChain, animated } from "react-spring"
 import resolveConfig from "tailwindcss/resolveConfig"
 import tailwindConfig from "../../../tailwind.config"
+import { useHocus } from "../../hooks/useHocus"
 
 const {
   theme: { colors },
@@ -20,7 +21,7 @@ const FilterChip = ({ children, className, click, active }) => {
     // config: springConfig,
     // borderWidth: focused ? "2px " : "0px",
     background: active ? colors.dgGreen[500] : colors.gray[300],
-    color: active ? colors.dgGreen[800] : colors.gray[900],
+    color: active ? colors.dgGreen[900] : colors.gray[800],
   })
   const shiftRef = useRef()
   const shiftSpring = useSpring({
@@ -38,16 +39,33 @@ const FilterChip = ({ children, className, click, active }) => {
   })
   useChain(active ? [shiftRef, checkRef] : [checkRef, shiftRef], [0, 0.2])
 
+  const [hocus, hocusStyles] = useHocus(
+    {
+      from: {
+        border: active
+          ? `2px solid rgba(74, 93, 32, 0)`
+          : `2px solid rgba(113, 128, 150, 0)`,
+      },
+      to: {
+        border: active
+          ? `2px solid rgba(74, 93, 32, 1)`
+          : `2px solid rgba(113, 128, 150, 1)`,
+      },
+    },
+    false
+  )
+
   return (
     <>
       <animated.button
         className="h-6 text-xs rounded-full py-0 px-3 m-1 shadow-inner focus:outline-none"
-        onClick={() => click()}
-        style={buttonSpring}
-        // onFocus={() => setFocused(true)}
-        // onBlur={() => {
-        //   setFocused(false)
-        // }}
+        onClick={() => {
+          click()
+          // hocus("reverse")
+        }}
+        style={{ ...buttonSpring, ...hocusStyles }}
+        onFocus={() => hocus(true)}
+        onBlur={() => hocus(false)}
       >
         <div style={{ position: "relative" }}>
           <span
