@@ -97,7 +97,7 @@ const MessagesPage = ({ data }) => {
 
         return includeCard
       }),
-    [categories, messages]
+    [categories, messages, filter]
   )
 
   const AnimatedIcon = animated(VscTriangleDown)
