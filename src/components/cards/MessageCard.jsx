@@ -8,44 +8,46 @@ import Overlay from "../Overlay"
 
 const ContentContainer = tw.div`absolute w-full bottom-0 p-4 leading-tight flex justify-between`
 
-const MessageCard = ({ message, children, fadeUp, overlay, ...props }) => {
-  const [hover, set] = useSpring(() => ({
-    transform: "scale(1)",
-    config: config.wobbly,
-  }))
+const MessageCard = React.memo(
+  ({ message, children, fadeUp, overlay, ...props }) => {
+    const [hover, set] = useSpring(() => ({
+      transform: "scale(1)",
+      config: config.wobbly,
+    }))
 
-  const grow = () => {
-    set({ transform: "scale(1.05)" })
+    const grow = () => {
+      set({ transform: "scale(1.05)" })
+    }
+
+    const shrink = () => {
+      set({ transform: "scale(1)" })
+    }
+
+    const AnimatedCardBase = animated(CardBase)
+    return (
+      <AnimatedCardBase
+        className="mt-5"
+        style={hover}
+        onMouseEnter={() => grow()}
+        onMouseLeave={() => shrink()}
+        onFocus={() => grow()}
+        onBlur={() => shrink()}
+        {...props}
+      >
+        <Link to={`/messages/series/${message.series.slug}/${message.slug}`}>
+          {/* <CardBase {...props}> */}
+          <Image
+            className="h-full w-full absolute"
+            fluid={message.thumbnail.image.fluid}
+          />
+          {overlay && <Overlay fadeUp={fadeUp} />}
+          <ContentContainer>{children}</ContentContainer>
+          {/* </CardBase> */}
+        </Link>
+      </AnimatedCardBase>
+    )
   }
-
-  const shrink = () => {
-    set({ transform: "scale(1)" })
-  }
-
-  const AnimatedCardBase = animated(CardBase)
-  return (
-    <AnimatedCardBase
-      className="mt-5"
-      style={hover}
-      onMouseEnter={() => grow()}
-      onMouseLeave={() => shrink()}
-      onFocus={() => grow()}
-      onBlur={() => shrink()}
-      {...props}
-    >
-      <Link to={`/messages/series/${message.series.slug}/${message.slug}`}>
-        {/* <CardBase {...props}> */}
-        <Image
-          className="h-full w-full absolute"
-          fluid={message.thumbnail.image.fluid}
-        />
-        {overlay && <Overlay fadeUp={fadeUp} />}
-        <ContentContainer>{children}</ContentContainer>
-        {/* </CardBase> */}
-      </Link>
-    </AnimatedCardBase>
-  )
-}
+)
 
 export default MessageCard
 
