@@ -1,10 +1,10 @@
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import SEO from "../components/SEO"
 import { graphql } from "gatsby"
 // import PageBanner from "../components/PageBanner"
-import MessageCard from "../components/cards/MessageCard"
+// import MessageCard from "../components/cards/MessageCard"
 import Container from "../components/Container"
-import InfoChip from "../components/InfoChip"
+// import InfoChip from "../components/InfoChip"
 import tw from "twin.macro"
 // import Filter from "../components/Filter"
 import FilteredList from "../components/filter/FilteredList"
@@ -33,15 +33,14 @@ const MessagesPage = ({ data }) => {
   // }
 
   const queryData = { ...rest }
-  const latestMessage = [...messages].shift()
-  const restOfMessages = [...messages].splice(1)
+  // const latestMessage = [...messages].shift()
+  // const restOfMessages = [...messages].splice(1)
 
   // Object.keys(testData).forEach(key => (testData[key].selected = []))
   // const initialState = { ...testData }
   Object.keys(queryData).forEach(key => (queryData[key].selected = []))
   const initialState = { ...queryData }
 
-  // console.log(queryData)
   const [showFilters, setShowFilters] = useState(false)
   const [filter, setFilter] = useState(initialState)
 
@@ -61,10 +60,47 @@ const MessagesPage = ({ data }) => {
     opacity: showFilters ? 1 : 0,
   })
 
-  const AnimatedIcon = animated(VscTriangleDown)
+  const categories = Object.keys(filter)
 
-  console.log(messages)
-  console.log(initialState)
+  // filter only that cards that meet all the selected filters
+  const cards = useMemo(
+    () =>
+      messages.filter((card, i) => {
+        // test each card with all the criteria
+        // !categories.some is because .some returns as soon as it's truthy
+        // so the card has to pass all the tests with FALSE instead of TRUE
+        // That way as soon as it's truthy it exits the and excludes the card
+        const includeCard = !categories.some(category => {
+          // if there is not a filter applied stop checking this category
+          if (filter[category].selected.length === 0) {
+            return false
+            // if there is a filter and it's an array, not a string
+          } else if (typeof card[category] === "string") {
+            // return whether the filter includes the card data
+            return filter[category].selected.includes(card[category])
+              ? false
+              : true
+          }
+
+          // this is because communicator has a name field underneath it
+          if (category === "communicator")
+            return filter[category].selected.includes(card[category].name)
+              ? false
+              : true
+
+          // if there is a filter and it's not a string (it's an array)
+          // return whether the
+          return !filter[category].selected.some(item =>
+            card[category].includes(item)
+          )
+        })
+
+        return includeCard
+      }),
+    [categories, messages]
+  )
+
+  const AnimatedIcon = animated(VscTriangleDown)
 
   return (
     <>
@@ -115,7 +151,7 @@ const MessagesPage = ({ data }) => {
           </animated.div>
           {/* <Filter /> */}
         </div>
-        <FilteredList filters={filter} cardData={messages} />
+        <FilteredList filteredCards={cards} />
 
         {/* <MessageCard large message={latestMessage} overlay fadeUp>
           <div>
