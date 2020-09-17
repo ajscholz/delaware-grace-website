@@ -8,8 +8,11 @@ import "twin.macro"
 const FilteredList = ({ filteredCards }) => {
   // Hook1: Tie media queries to the number of columns
   const columns = useMedia(
-    ["(min-width: 1500px)", "(min-width: 1000px)", "(min-width: 600px)"],
+    // Media queries
+    ["(min-width: 1200px)", "(min-width: 900px)", "(min-width: 600px)"],
+    // Column counts (relates to above media queries by array index)
     [5, 4, 3],
+    // Default column count
     2
   )
   // Hook2: Measure the width of the container element
@@ -34,6 +37,7 @@ const FilteredList = ({ filteredCards }) => {
     config: { mass: 5, tension: 500, friction: 100 },
     trail: 25,
   })
+
   // Render the grid
   return (
     <div

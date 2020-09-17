@@ -7,9 +7,10 @@ export default function useMeasure() {
   const [ro] = useState(
     () => new ResizeObserver(([entry]) => set(entry.contentRect))
   )
+
   useEffect(() => {
     ro.observe(ref.current)
-    return ro.disconnect
+    return () => ro.disconnect()
   }, [ro])
 
   return [{ ref }, bounds]
