@@ -45,6 +45,7 @@ const FilterController = ({ setFilter, queryData, filter }) => {
       </Button>
       <animated.div
         tw="col-span-2 overflow-hidden border-t-2 border-b-2 border-gray-300"
+        aria-hidden={showFilters ? false : true}
         style={open}
       >
         <div
