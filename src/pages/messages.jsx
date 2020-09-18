@@ -37,6 +37,7 @@ const MessagesPage = ({ data }) => {
   const initialState = { ...queryData }
 
   const [filter, setFilter] = useState(initialState)
+  const [showFilters, setShowFilters] = useState(false)
 
   const categories = Object.keys(filter)
 
@@ -92,11 +93,13 @@ const MessagesPage = ({ data }) => {
           <FilterController
             setFilter={setFilter}
             queryData={queryData}
+            showFilters={showFilters}
+            setShowFilters={setShowFilters}
             filter={filter}
           />
           {/* <Filter /> */}
         </div>
-        <FilteredList filteredCards={cards} />
+        <FilteredList showFilters={showFilters} filteredCards={cards} />
 
         {/* <MessageCard large message={latestMessage} overlay fadeUp>
           <div>

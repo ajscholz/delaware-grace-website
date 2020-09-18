@@ -6,9 +6,13 @@ import { useSpring, animated } from "react-spring"
 import Button from "../Button"
 import useMeasure from "../../hooks/useMeasure"
 
-const FilterController = ({ setFilter, queryData, filter }) => {
-  const [showFilters, setShowFilters] = useState(false)
-
+const FilterController = ({
+  setFilter,
+  queryData,
+  filter,
+  showFilters,
+  setShowFilters,
+}) => {
   const [bind, { height }] = useMeasure()
 
   const update = (filterType, newState) => {
