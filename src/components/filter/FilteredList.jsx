@@ -3,13 +3,14 @@ import { useTransition, a } from "react-spring"
 import useMeasure from "../../hooks/useMeasure"
 import useMedia from "../../hooks/useMedia"
 import MessageCard from "../cards/MessageCard"
+import Title from "../Title"
+import InfoChip from "../InfoChip"
 import "twin.macro"
 
-const latestHeight = 256
+const latestHeight = 425
 const otherHeights = 128
 
 const FilteredList = ({ filteredCards, showFilters }) => {
-  console.log(showFilters)
   // Hook1: Tie media queries to the number of columns
   const columns = useMedia(
     // Media queries
@@ -25,7 +26,10 @@ const FilteredList = ({ filteredCards, showFilters }) => {
     1
   )
   // Hook2: Measure the width of the container element
-  const [bind, { width }] = useMeasure()
+  const [bind, { width: measuredWidth }] = useMeasure()
+
+  const width = measuredWidth + 24
+
   // Form a grid of stacked items using width & columns we got from hooks 1 & 2
   let heights = new Array(columns).fill(0) // Each column gets a height starting with zero
   let gridItems = filteredCards.map((card, i) => {
@@ -64,14 +68,14 @@ const FilteredList = ({ filteredCards, showFilters }) => {
   return (
     <div
       {...bind}
-      className="relative h-full w-full"
+      className="relative h-full w-full -mx-3"
       style={{ height: Math.max(...heights) }}
     >
       {transitions.map(({ item, props: { xy, ...rest }, key }, index) => {
         return index === 0 ? (
           <a.div
             key={key}
-            className="absolute p-2"
+            className="absolute p-3"
             style={{
               transform: xy.interpolate(
                 (x, y) => `translate3d(${x}px,${y}px,0)`
@@ -79,12 +83,25 @@ const FilteredList = ({ filteredCards, showFilters }) => {
               ...rest,
             }}
           >
-            <MessageCard message={item} tw="h-full" />
+            <MessageCard overlay fadeUp message={item} tw="h-full">
+              {!showFilters && (
+                <>
+                  <div>
+                    <InfoChip>Latest Message</InfoChip>
+                    <Title>{item.title}</Title>
+                  </div>
+
+                  <h6 className="text-gray-200 mr-1 flex items-end mb-3 text-2xl">
+                    {item.date} | {item.communicator.name}
+                  </h6>
+                </>
+              )}
+            </MessageCard>
           </a.div>
         ) : (
           <a.div
             key={key}
-            className="absolute p-2"
+            className="absolute p-3"
             style={{
               transform: xy.interpolate(
                 (x, y) => `translate3d(${x}px,${y}px,0)`

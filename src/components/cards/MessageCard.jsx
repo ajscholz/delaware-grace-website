@@ -6,7 +6,7 @@ import { useSpring, animated, config } from "react-spring"
 import tw from "twin.macro"
 import Overlay from "../Overlay"
 
-const ContentContainer = tw.div`absolute w-full bottom-0 p-4 leading-tight flex justify-between`
+const ContentContainer = tw.div`absolute w-full bottom-0 p-4 leading-tight flex justify-between text-white`
 
 const MessageCard = ({
   message,
