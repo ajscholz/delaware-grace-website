@@ -56,7 +56,7 @@ exports.onCreateNode = async ({
     } else {
       url = `https://img.youtube.com/vi/${node.videoUrl.match(
         /(?<=watch\?v=)\w+(?=\W)?/
-      )}/hqdefault.jpg`
+      )}/hq3.jpg`
     }
 
     let fileNode = await createRemoteFileNode({
