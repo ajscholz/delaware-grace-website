@@ -7,7 +7,7 @@ import Button from "../Button"
 import useMeasure from "../../hooks/useMeasure"
 
 const FilterController = ({ setFilter, queryData, filter }) => {
-  const [showFilters, setShowFilters] = useState(true)
+  const [showFilters, setShowFilters] = useState(false)
 
   const [bind, { height }] = useMeasure()
 
@@ -36,7 +36,7 @@ const FilterController = ({ setFilter, queryData, filter }) => {
     <>
       <Button
         onClick={() => setShowFilters(!showFilters)}
-        tw="flex items-center my-auto mr-0 ml-auto py-2 px-8 bg-dgBlue-500 border-dgBlue-500 text-blue-100 rounded-full active:outline-none focus:outline-none shadow-sm"
+        tw="flex items-center row-start-2 -mt-2 mb-6 ml-0 mr-auto text-sm py-1 px-6 md:row-start-1 md:col-start-2 md:my-auto md:mr-0 md:ml-auto md:text-base md:py-2 md:px-8 bg-dgBlue-500 border-dgBlue-500 text-blue-100 rounded-full active:outline-none focus:outline-none shadow-sm"
       >
         <span tw="mr-2">
           <AnimatedIcon style={flip} />
@@ -44,10 +44,13 @@ const FilterController = ({ setFilter, queryData, filter }) => {
         Filter Messages
       </Button>
       <animated.div
-        tw="h-64 col-span-2 overflow-hidden border-t-2 border-b-2 border-gray-300"
+        tw="col-span-2 overflow-hidden border-t-2 border-b-2 border-gray-300"
         style={open}
       >
-        <div tw="grid grid-cols-3 grid-rows-none gap-x-4" {...bind}>
+        <div
+          tw="grid grid-cols-1 md:grid-cols-3 grid-rows-none gap-x-4"
+          {...bind}
+        >
           {Object.keys(queryData).map(item => (
             <Filter
               data={filter[item]}

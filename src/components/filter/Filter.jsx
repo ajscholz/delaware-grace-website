@@ -64,7 +64,7 @@ const Filter = ({ data, filterType, update }) => {
   const AnimatedClose = animated(FiX)
 
   return (
-    <div className="relative text-left">
+    <div tw="relative text-left mb-6 md:(mb-0) last-of-type:(mb-0)">
       <div tw="flex items-center">
         {showButton.map(
           ({ item, key, props }) =>

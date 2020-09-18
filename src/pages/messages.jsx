@@ -85,9 +85,9 @@ const MessagesPage = ({ data }) => {
         // description="Plan a visit today to Delaware Grace. We would love to meet you."
       />
       {/* <PageBanner banner={page.banner} /> */}
-      <Container className="pt-12">
-        <div className="w-full grid grid-cols-2">
-          <Title tw="text-black text-6xl">Messages</Title>
+      <Container className="pt-10">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2">
+          <Title tw="text-black text-5xl md:text-6xl">Messages</Title>
 
           <FilterController
             setFilter={setFilter}
