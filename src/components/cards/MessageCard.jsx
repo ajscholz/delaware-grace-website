@@ -42,12 +42,14 @@ const MessageCard = ({
     >
       <Link to={`/messages/series/${message.series.slug}/${message.slug}`}>
         {/* <CardBase {...props}> */}
-        <Image
-          className="h-full w-full absolute"
-          fluid={message.thumbnail.image.fluid}
-        />
-        {overlay && <Overlay fadeUp={fadeUp} />}
-        <ContentContainer>{children}</ContentContainer>
+        <div tw="relative h-0" style={{ paddingBottom: "56.25%" }}>
+          <Image
+            tw="h-full w-full absolute! inset-0"
+            fluid={message.thumbnail.image.fluid}
+          />
+          {overlay && <Overlay fadeUp={fadeUp} />}
+          <ContentContainer>{children}</ContentContainer>
+        </div>
         {/* </CardBase> */}
       </Link>
     </AnimatedCardBase>
@@ -63,7 +65,7 @@ export const query = graphql`
   fragment MessageCardFragment on ContentfulMessage {
     id: contentful_id
     title
-    date
+    date(formatString: "MMM D, YYYY")
     communicator {
       name
     }

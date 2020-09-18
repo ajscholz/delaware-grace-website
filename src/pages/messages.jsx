@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from "react"
 import SEO from "../components/SEO"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 // import PageBanner from "../components/PageBanner"
 // import MessageCard from "../components/cards/MessageCard"
 import Container from "../components/Container"
 import tw from "twin.macro"
 import FilteredList from "../components/filter/FilteredList"
 import FilterController from "../components/filter/FilterController"
+import Button from "../components/Button"
 
 const MessagesPage = ({ data }) => {
   const {
@@ -101,21 +102,12 @@ const MessagesPage = ({ data }) => {
         </div>
         <FilteredList showFilters={showFilters} filteredCards={cards} />
 
-        {/* <MessageCard large message={latestMessage} overlay fadeUp>
-          <div>
-            <InfoChip>Latest Message</InfoChip>
-            <Title>{latestMessage.title}</Title>
-          </div>
-
-          <h6 className="text-gray-200 mr-1 flex items-end mb-3 text-2xl">
-            {latestMessage.date} | {latestMessage.communicator.name}
-          </h6>
-        </MessageCard>
-        <div className="grid grid-cols-3 gap-5">
-          {restOfMessages.map(message => (
-            <MessageCard key={message.id} message={message} />
-          ))}
-        </div> */}
+        {/* <Button blue>Load More Messages</Button> */}
+        <div tw="w-full flex justify-center border-t-2 mt-6 pt-6">
+          <Link to="/messages/series">
+            <Button green>View Message Series</Button>
+          </Link>
+        </div>
       </Container>
     </>
   )

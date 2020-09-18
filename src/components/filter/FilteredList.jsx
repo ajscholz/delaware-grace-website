@@ -1,5 +1,5 @@
 import React from "react"
-import { useTransition, a } from "react-spring"
+import { useTransition, a, useSpring } from "react-spring"
 import useMeasure from "../../hooks/useMeasure"
 import useMedia from "../../hooks/useMedia"
 import MessageCard from "../cards/MessageCard"
@@ -8,26 +8,27 @@ import InfoChip from "../InfoChip"
 import "twin.macro"
 
 const latestHeight = 425
-const otherHeights = 128
+const otherHeights = 100
 
 const FilteredList = ({ filteredCards, showFilters }) => {
   // Hook1: Tie media queries to the number of columns
   const columns = useMedia(
     // Media queries
     [
-      "(min-width: 1200px)",
-      "(min-width: 900px)",
+      // "(min-width: 1200px)",
+      "(min-width: 1200)",
       "(min-width: 600px)",
-      "(min-width: 476px)",
+      // "(min-width: 476px)",
     ],
     // Column counts (relates to above media queries by array index)
-    [5, 4, 3, 2],
+    [4, 3],
     // Default column count
     1
   )
   // Hook2: Measure the width of the container element
   const [bind, { width: measuredWidth }] = useMeasure()
-
+  // const [imageRef, { height }] = useMeasure()
+  // console.log(height)
   const width = measuredWidth + 24
 
   // Form a grid of stacked items using width & columns we got from hooks 1 & 2
@@ -64,6 +65,7 @@ const FilteredList = ({ filteredCards, showFilters }) => {
     trail: 25,
   })
 
+  const shrinkCard = useSpring({ width: showFilters ? "40%" : "100%" })
   // Render the grid
   return (
     <div
@@ -75,7 +77,7 @@ const FilteredList = ({ filteredCards, showFilters }) => {
         return index === 0 ? (
           <a.div
             key={key}
-            className="absolute p-3"
+            className="absolute p-3 flex"
             style={{
               transform: xy.interpolate(
                 (x, y) => `translate3d(${x}px,${y}px,0)`
@@ -83,25 +85,41 @@ const FilteredList = ({ filteredCards, showFilters }) => {
               ...rest,
             }}
           >
-            <MessageCard overlay fadeUp message={item} tw="h-full">
-              {!showFilters && (
-                <>
-                  <div>
-                    <InfoChip>Latest Message</InfoChip>
-                    <Title>{item.title}</Title>
-                  </div>
+            <a.div style={shrinkCard} tw="flex h-auto self-start">
+              <MessageCard
+                overlay
+                fadeUp
+                message={item}
+                tw="h-auto max-h-full self-start"
+              >
+                {!showFilters && (
+                  <>
+                    <div>
+                      <InfoChip>Latest Message</InfoChip>
+                      <Title>{item.title}</Title>
+                    </div>
 
-                  <h6 className="text-gray-200 mr-1 flex items-end mb-3 text-2xl">
-                    {item.date} | {item.communicator.name}
-                  </h6>
-                </>
-              )}
-            </MessageCard>
+                    <h6 className="text-gray-200 mr-1 flex items-end mb-3 text-2xl">
+                      {item.date} | {item.communicator.name}
+                    </h6>
+                  </>
+                )}
+              </MessageCard>
+            </a.div>
+            {showFilters && (
+              <div tw="w-3/5 ml-3">
+                <h1 tw="text-xl leading-none text-gray-900">{item.title}</h1>
+                <p tw="text-gray-600 leading-tight text-xs mt-1">
+                  {item.communicator.name}
+                </p>
+                <p tw="text-gray-600 leading-tight text-xs">{item.date}</p>
+              </div>
+            )}
           </a.div>
         ) : (
           <a.div
             key={key}
-            className="absolute p-3"
+            className="absolute p-3 flex"
             style={{
               transform: xy.interpolate(
                 (x, y) => `translate3d(${x}px,${y}px,0)`
@@ -109,7 +127,14 @@ const FilteredList = ({ filteredCards, showFilters }) => {
               ...rest,
             }}
           >
-            <MessageCard message={item} tw="h-full" />
+            <MessageCard message={item} tw="h-auto w-2/5 self-start" />
+            <div tw="w-3/5 ml-3">
+              <h1 tw="text-xl leading-none text-gray-900">{item.title}</h1>
+              <p tw="text-gray-600 leading-tight text-xs mt-1">
+                {item.communicator.name}
+              </p>
+              <p tw="text-gray-600 leading-tight text-xs">{item.date}</p>
+            </div>
           </a.div>
         )
       })}
