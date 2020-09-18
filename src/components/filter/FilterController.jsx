@@ -1,23 +1,15 @@
 import React, { useState } from "react"
+import "twin.macro"
 import Filter from "./Filter"
-import List from "./List"
+import { VscTriangleDown } from "react-icons/vsc"
+import { useSpring, animated } from "react-spring"
+import Button from "../Button"
+import useMeasure from "../../hooks/useMeasure"
 
-import { filterData } from "../data"
-import FilterClearButton from "./FilterClearButton"
+const FilterController = ({ setFilter, queryData, filter }) => {
+  const [showFilters, setShowFilters] = useState(true)
 
-// create an array of key/value pairs to transform back into a useable object
-const initialState = Object.fromEntries(
-  Object.keys(filterData).map(key => {
-    return [key, { selected: [], unselected: filterData[key] }]
-  })
-)
-
-const FilterController = () => {
-  const [filter, setFilter] = useState(initialState)
-
-  console.log(filter)
-
-  const clearFilters = () => setFilter(initialState)
+  const [bind, { height }] = useMeasure()
 
   const update = (filterType, newState) => {
     setFilter({
@@ -26,29 +18,46 @@ const FilterController = () => {
     })
   }
 
+  const flip = useSpring({
+    transform: showFilters ? "rotate(180deg)" : "rotate(0deg)",
+  })
+
+  const open = useSpring({
+    // height is adding height of
+    height: showFilters ? height + 48 : 0,
+    opacity: showFilters ? 1 : 0,
+    // paddingBottom: showFilters ? 24 : 12,
+    paddingTop: showFilters ? 24 : 0,
+    marginBottom: showFilters ? 24 : 0,
+  })
+
+  const AnimatedIcon = animated(VscTriangleDown)
   return (
     <>
-      <div
-        className="container"
-        style={{ position: "relative", padding: "1em" }}
+      <Button
+        onClick={() => setShowFilters(!showFilters)}
+        tw="flex items-center my-auto mr-0 ml-auto py-2 px-8 bg-dgBlue-500 border-dgBlue-500 text-blue-100 rounded-full active:outline-none focus:outline-none shadow-sm"
       >
-        <h2>Filters</h2>
-        {Object.keys(filter).some(key => filter[key].selected.length !== 0) && (
-          <FilterClearButton click={clearFilters}>Clear All</FilterClearButton>
-        )}
-        {Object.keys(filterData).map(item => (
-          <Filter
-            data={filter[item]}
-            filterType={item}
-            update={update}
-            key={item}
-          />
-        ))}
-      </div>
-      <div className="container" style={{ borderLeft: "1px solid black" }}>
-        <h2>List</h2>
-        <List filters={filter} />
-      </div>
+        <span tw="mr-2">
+          <AnimatedIcon style={flip} />
+        </span>
+        Filter Messages
+      </Button>
+      <animated.div
+        tw="h-64 col-span-2 overflow-hidden border-t-2 border-b-2 border-gray-300"
+        style={open}
+      >
+        <div tw="grid grid-cols-3 grid-rows-none gap-x-4" {...bind}>
+          {Object.keys(queryData).map(item => (
+            <Filter
+              data={filter[item]}
+              filterType={item}
+              update={update}
+              key={item}
+            />
+          ))}
+        </div>
+      </animated.div>
     </>
   )
 }

@@ -4,19 +4,14 @@ import { graphql } from "gatsby"
 // import PageBanner from "../components/PageBanner"
 // import MessageCard from "../components/cards/MessageCard"
 import Container from "../components/Container"
-// import InfoChip from "../components/InfoChip"
 import tw from "twin.macro"
-// import Filter from "../components/Filter"
 import FilteredList from "../components/filter/FilteredList"
-import { VscTriangleDown } from "react-icons/vsc"
-import { useSpring, animated } from "react-spring"
-import Button from "../components/Button"
-import Filter from "../components/filter/Filter"
+import FilterController from "../components/filter/FilterController"
 
 const MessagesPage = ({ data }) => {
   const {
     page,
-    messages: { all: messages },
+    messages: { messages },
     ...rest
   } = data
 
@@ -41,24 +36,7 @@ const MessagesPage = ({ data }) => {
   Object.keys(queryData).forEach(key => (queryData[key].selected = []))
   const initialState = { ...queryData }
 
-  const [showFilters, setShowFilters] = useState(false)
   const [filter, setFilter] = useState(initialState)
-
-  const update = (filterType, newState) => {
-    setFilter({
-      ...filter,
-      [filterType]: newState,
-    })
-  }
-
-  const flip = useSpring({
-    transform: showFilters ? "rotate(180deg)" : "rotate(0deg)",
-  })
-
-  const open = useSpring({
-    height: showFilters ? "256px" : "0px",
-    opacity: showFilters ? 1 : 0,
-  })
 
   const categories = Object.keys(filter)
 
@@ -100,8 +78,6 @@ const MessagesPage = ({ data }) => {
     [categories, messages, filter]
   )
 
-  const AnimatedIcon = animated(VscTriangleDown)
-
   return (
     <>
       <SEO
@@ -112,43 +88,12 @@ const MessagesPage = ({ data }) => {
       <Container className="pt-12">
         <div className="w-full grid grid-cols-2">
           <Title tw="text-black text-6xl">Messages</Title>
-          <Button
-            onClick={() => setShowFilters(!showFilters)}
-            tw="flex items-center my-auto mr-0 ml-auto py-2 px-8 bg-dgBlue-500 border-dgBlue-500 text-blue-100 rounded-full active:outline-none focus:outline-none shadow-sm"
-          >
-            <span tw="mr-2">
-              <AnimatedIcon style={flip} />
-            </span>
-            {/* {`${showFilters ? `Show` : `Hide`} Filters`} */}
-            Filter Messages
-          </Button>
-          <animated.div
-            tw="h-64 col-span-2 overflow-hidden border-t-2 border-gray-300 pt-6"
-            style={open}
-          >
-            {/* {Object.keys(filter).some(key => filter[key].selected.length !== 0) && (
-          <FilterClearButton click={clearFilters}>Clear All</FilterClearButton>
-        )} */}
-            <div tw="grid grid-cols-3 grid-rows-none gap-x-4">
-              {Object.keys(queryData).map(item => (
-                <Filter
-                  data={filter[item]}
-                  filterType={item}
-                  update={update}
-                  key={item}
-                />
-              ))}
-            </div>
 
-            {/* <div tw="flex mt-6">
-          <button
-            tw="mx-auto text-sm bg-dgRed-200 text-dgRed-100 py-1 px-6"
-            onClick={() => clearFilters()}
-          >
-            Clear All
-          </button>
-        </div> */}
-          </animated.div>
+          <FilterController
+            setFilter={setFilter}
+            queryData={queryData}
+            filter={filter}
+          />
           {/* <Filter /> */}
         </div>
         <FilteredList filteredCards={cards} />
@@ -181,7 +126,7 @@ export const data = graphql`
       ...PageBannerFragment
     }
     messages: allContentfulMessage(sort: { fields: date, order: DESC }) {
-      all: nodes {
+      messages: nodes {
         ...MessageCardFragment
         year: date(formatString: "YYYY")
       }
