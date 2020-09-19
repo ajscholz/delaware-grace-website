@@ -33,7 +33,7 @@ const MessageCard = ({
   return (
     <AnimatedCardBase
       tw="mt-0 h-32"
-      style={hover}
+      style={{ ...hover, willChange: "transform, height, width" }}
       onMouseEnter={() => grow()}
       onMouseLeave={() => shrink()}
       onFocus={() => grow()}

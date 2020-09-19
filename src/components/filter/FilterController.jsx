@@ -43,14 +43,14 @@ const FilterController = ({
         tw="flex items-center row-start-2 -mt-2 mb-6 ml-0 mr-auto text-sm py-1 px-6 md:row-start-1 md:col-start-2 md:my-auto md:mr-0 md:ml-auto md:text-base md:py-2 md:px-8 bg-dgBlue-500 border-dgBlue-500 text-blue-100 rounded-full active:outline-none focus:outline-none shadow-sm"
       >
         <span tw="mr-2">
-          <AnimatedIcon style={flip} />
+          <AnimatedIcon style={{ willChange: "transform", ...flip }} />
         </span>
         Filter Messages
       </Button>
       <animated.div
-        tw="col-span-2 overflow-hidden border-t-2 border-b-2 border-gray-300"
+        tw="col-span-2 overflow-hidden border-t-2 border-b-2 border-gray-300 overflow-visible"
         aria-hidden={showFilters ? false : true}
-        style={open}
+        style={{ willChange: "height, opacity, padding, margin", ...open }}
       >
         <div
           tw="grid grid-cols-1 md:grid-cols-3 grid-rows-none gap-x-4"

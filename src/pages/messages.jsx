@@ -45,7 +45,7 @@ const MessagesPage = ({ data }) => {
   // filter only that cards that meet all the selected filters
   const cards = useMemo(
     () =>
-      messages.filter((card, i) => {
+      messages.filter(card => {
         // test each card with all the criteria
         // !categories.some is because .some returns as soon as it's truthy
         // so the card has to pass all the tests with FALSE instead of TRUE
@@ -84,7 +84,7 @@ const MessagesPage = ({ data }) => {
     <>
       <SEO
         title="Messages"
-        // description="Plan a visit today to Delaware Grace. We would love to meet you."
+        description="Listen to Sunday messages from Delaware Grace Church."
       />
       {/* <PageBanner banner={page.banner} /> */}
       <Container className="pt-10">

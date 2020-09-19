@@ -63,7 +63,11 @@ const FilterChip = ({ children, className, click, active }) => {
           click()
           // hocus("reverse")
         }}
-        style={{ ...buttonSpring, ...hocusStyles }}
+        style={{
+          willChange: "background, color, border",
+          ...buttonSpring,
+          ...hocusStyles,
+        }}
         onFocus={() => hocus(true)}
         onBlur={() => hocus(false)}
       >
@@ -88,12 +92,15 @@ const FilterChip = ({ children, className, click, active }) => {
               strokeLinejoin="round"
               strokeDasharray={24}
               strokeDashoffset={checkSpring.offset}
+              style={{ willChange: "offset" }}
               // className="feather-check"
             >
               <polyline points="4 12 9 17 20 6" />
             </animated.svg>
           </span>
-          <animated.span style={{ ...shiftSpring }}>{children}</animated.span>
+          <animated.span style={{ willChange: "margin", ...shiftSpring }}>
+            {children}
+          </animated.span>
         </div>
       </animated.button>
     </>

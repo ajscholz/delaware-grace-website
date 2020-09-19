@@ -37,7 +37,7 @@ const SideDrawer = ({ links }) => {
             <animated.div
               className="md:hidden fixed z-40 bg-black bg-opacity-75 inset-0 cursor-default"
               key={key}
-              style={props}
+              style={{ willChange: "opacity", ...props }}
               onClick={() => closeDrawer()}
               role="button"
             />
@@ -48,7 +48,7 @@ const SideDrawer = ({ links }) => {
           item && (
             <animated.div
               key={key}
-              style={props}
+              style={{ willChange: "opacity", ...props }}
               className="md:hidden fixed text-lg top-0 right-0 h-full w-2/3 p-8 flex flex-col items-end bg-white z-50"
             >
               <button

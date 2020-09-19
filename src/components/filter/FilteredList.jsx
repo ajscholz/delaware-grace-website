@@ -7,7 +7,7 @@ import Title from "../Title"
 import InfoChip from "../InfoChip"
 import "twin.macro"
 
-const latestHeight = 425
+const height = 425
 const otherHeights = 100
 
 const FilteredList = ({ filteredCards, showFilters }) => {
@@ -31,6 +31,7 @@ const FilteredList = ({ filteredCards, showFilters }) => {
   // console.log(height)
   const width = measuredWidth + 24
 
+  const latestHeight = width * 0.57
   // Form a grid of stacked items using width & columns we got from hooks 1 & 2
   let heights = new Array(columns).fill(0) // Each column gets a height starting with zero
   let gridItems = filteredCards.map((card, i) => {
@@ -83,9 +84,17 @@ const FilteredList = ({ filteredCards, showFilters }) => {
                 (x, y) => `translate3d(${x}px,${y}px,0)`
               ),
               ...rest,
+              maxHeight: "100px",
+              willChange: "transform, width, height, opacity",
             }}
           >
-            <a.div style={shrinkCard} tw="flex h-auto self-start">
+            <a.div
+              style={{
+                ...shrinkCard,
+                willChange: "transform, width, height, opacity",
+              }}
+              tw="flex h-auto self-start max-h-full"
+            >
               <MessageCard
                 overlay
                 fadeUp
@@ -125,6 +134,7 @@ const FilteredList = ({ filteredCards, showFilters }) => {
                 (x, y) => `translate3d(${x}px,${y}px,0)`
               ),
               ...rest,
+              willChange: "transform, width, height, opacity",
             }}
           >
             <MessageCard message={item} tw="h-auto w-2/5 self-start" />

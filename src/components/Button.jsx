@@ -25,7 +25,7 @@ const Button = ({ primary, white, green, blue, children, ...props }) => {
       onBlur={() => shrink()}
       onMouseEnter={() => grow()}
       onMouseLeave={() => shrink()}
-      style={hover}
+      style={{ willChange: "transform", ...hover }}
       {...props}
     >
       {children}

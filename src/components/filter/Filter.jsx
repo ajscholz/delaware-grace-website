@@ -69,13 +69,24 @@ const Filter = ({ data, filterType, update }) => {
         {showButton.map(
           ({ item, key, props }) =>
             item && (
-              <animated.div key={key} style={props} tw="self-center">
+              <animated.div
+                key={key}
+                style={{
+                  willChange: "position, opacity, width, margin",
+                  ...props,
+                }}
+                tw="self-center"
+              >
                 <animated.button
                   onFocus={() => hocus(true)}
                   onBlur={() => hocus(false)}
                   onMouseEnter={() => hocus(true)}
                   onMouseLeave={() => hocus(false)}
-                  style={{ left: "-2px", ...styles }}
+                  style={{
+                    willChange: "border, transform",
+                    left: "-2px",
+                    ...styles,
+                  }}
                   aria-label={`Clear ${filterType} Filter`}
                   tw="relative box-content text-dgRed-100 rounded-full p-xs border-solid bg-dgRed-500 focus:outline-none bg-clip-padding"
                   onClick={() =>
@@ -92,7 +103,7 @@ const Filter = ({ data, filterType, update }) => {
                           tw="text-xs"
                           key={key}
                           // style={{ height: "12px", width: "12px" }}
-                          style={props}
+                          style={{ willChange: "transform", ...props }}
                         />
                       )
                   )}
