@@ -6,6 +6,7 @@ module.exports = {
   siteMetadata: {
     title: `Delaware Grace`,
     description: `Leading people into a growing relationship with Jesus Christ.`,
+    url: "https://delawaregrace.org",
   },
   plugins: [
     {
