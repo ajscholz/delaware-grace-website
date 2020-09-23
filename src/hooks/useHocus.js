@@ -1,10 +1,13 @@
 import { useSpring } from "react-spring"
 
-export const useHocus = (additionalStyles, grow) => {
+export const useHocus = (additionalStyles, grow, scale = "1.2") => {
   const transformProps =
     grow === false
       ? { from: {}, to: {} }
-      : { from: { transform: "scale(1)" }, to: { transform: "scale(1.2)" } }
+      : {
+          from: { transform: "scale(1)" },
+          to: { transform: `scale(${scale})` },
+        }
   const [styles, set] = useSpring(() => ({
     ...transformProps.from,
     ...(additionalStyles && additionalStyles.from),
