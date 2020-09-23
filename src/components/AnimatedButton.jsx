@@ -2,7 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 import { animated } from "react-spring"
 import { useHocus } from "../hooks/useHocus"
-import "twin.macro"
 
 const AnimatedButton = ({
   style,
