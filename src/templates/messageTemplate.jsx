@@ -22,6 +22,8 @@ import { HiOutlineLink } from "react-icons/hi"
 
 const iconProps = { size: 42, round: true }
 
+const shareButtonStyles = "w-1/5 flex flex-col items-center"
+
 const MessageTemplate = ({ data }) => {
   const { message } = data
 
@@ -49,7 +51,7 @@ const MessageTemplate = ({ data }) => {
             width={width}
             height={width * 0.5625}
           />
-          <div tw="w-full pt-8 flex content-between">
+          <div tw="w-full pt-8 flex justify-center">
             <div>
               <h1 tw="text-5xl leading-tight">{message.title}</h1>
               <p tw="text-gray-500 font-bold">
@@ -68,7 +70,7 @@ const MessageTemplate = ({ data }) => {
                 <div tw="rounded-full bg-dgGreen-700 flex flex-col items-center content-center p-4 mb-1">
                   <MdShare
                     size={24}
-                    tw="relative text-dgGreen-100"
+                    className="relative text-dgGreen-100"
                     // strokeWidth="1"
                     style={{ right: 2 }}
                   />
@@ -77,14 +79,18 @@ const MessageTemplate = ({ data }) => {
               </AnimatedButton>
               <BottomModal
                 isOpen={modalOpen}
-                tw="bg-gray-100 px-6 py-8 w-auto"
+                tw="bg-gray-100 sm:px-6 px-2 sm:py-8 py-6 w-full max-w-sm rounded-none sm:rounded-t-lg"
                 onRequestClose={() => setModalOpen(false)}
               >
                 {/* <h1>Share this message now!</h1> */}
-                <div tw="flex items-center justify-evenly">
+                <div
+                  tw="relative flex items-center max-w-full"
+                  style={{ top: 4 }}
+                >
+                  {/* <div tw="flex items-center justify-between max-w-full"> */}
                   <EmailShareButton
                     url={location.href}
-                    tw="mx-4 flex flex-col items-center"
+                    className={shareButtonStyles}
                   >
                     <EmailIcon
                       {...iconProps}
@@ -102,7 +108,7 @@ const MessageTemplate = ({ data }) => {
                   </EmailShareButton>
                   <FacebookShareButton
                     url={location.href}
-                    tw="mx-4 flex flex-col items-center"
+                    className={shareButtonStyles}
                   >
                     <FacebookIcon {...iconProps} />
                     <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
@@ -111,7 +117,7 @@ const MessageTemplate = ({ data }) => {
                   </FacebookShareButton>
                   <TwitterShareButton
                     url={location.href}
-                    tw="mx-4 flex flex-col items-center"
+                    className={shareButtonStyles}
                   >
                     <TwitterIcon {...iconProps} />
                     <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
@@ -119,7 +125,7 @@ const MessageTemplate = ({ data }) => {
                     </span>
                   </TwitterShareButton>
                   <a
-                    tw="mx-4 flex flex-col items-center"
+                    className={shareButtonStyles}
                     href={`sms:?body=Check out this message from Delaware Grace Church I just listened to. ${encodeURI(
                       location.href
                     )}`}
@@ -135,7 +141,7 @@ const MessageTemplate = ({ data }) => {
                     </span>
                   </a>
                   <button
-                    tw="mx-4 flex flex-col items-center"
+                    className={shareButtonStyles}
                     aria-label="copy link"
                     onClick={() =>
                       navigator.clipboard.writeText("Copied Text").then(
