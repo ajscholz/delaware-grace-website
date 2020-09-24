@@ -23,6 +23,7 @@ import {
 } from "react-share"
 import { MdTextsms } from "react-icons/md"
 import { HiOutlineLink } from "react-icons/hi"
+import TagList from "../components/TagList"
 
 const iconProps = { size: 42, round: true }
 
@@ -51,14 +52,18 @@ const MessageTemplate = ({ data }) => {
       />
       <div tw="bg-gray-900 text-gray-100 pt-12 pb-6 md:py-12">
         <Container {...bind}>
+          {/* VIDEO */}
           <ReactPlayer
             url={message.videoUrl}
             width={width}
             height={width * 0.5625}
           />
+
+          {/* MESSAGE INFORMATION */}
           <div tw="w-full pt-8 flex flex-col md:flex-row justify-center">
             <div>
-              <h1 tw="text-4xl md:text-5xl leading-tight text-gray-100">
+              <TagList tags={message.tags} />
+              <h1 tw="text-4xl md:text-5xl leading-tight text-gray-100 mt-4">
                 {message.title}
               </h1>
               <p tw="text-sm md:text-base text-gray-600 font-bold">
@@ -66,11 +71,16 @@ const MessageTemplate = ({ data }) => {
                 <span tw="mx-4">|</span>
                 {message.date}
               </p>
+              {/* <div> */}
+
+              {/* </div> */}
               <hr tw="w-1/5 my-6 border-gray-700" />
               <div tw="text-gray-400">
                 <RichText>{message.description.json}</RichText>
               </div>
             </div>
+
+            {/* SHARE BUTTON */}
             <div tw="mr-auto mt-4 md:(ml-auto mr-0 mt-0)">
               <AnimatedButton
                 scale="1.1"
@@ -95,6 +105,8 @@ const MessageTemplate = ({ data }) => {
                   Share
                 </span>
               </AnimatedButton>
+
+              {/* SHARE MODAL */}
               <BottomModal
                 isOpen={modalOpen}
                 tw="bg-gray-100 sm:px-6 px-2 sm:py-8 py-6 w-full max-w-sm rounded-none sm:rounded-t-lg"
@@ -186,6 +198,8 @@ const MessageTemplate = ({ data }) => {
           </div>
         </Container>
       </div>
+
+      {/* MORE MESSAGES */}
       <Container tw="py-12">
         {otherMessages.all.length !== 0 && (
           <>
@@ -249,6 +263,7 @@ export const data = graphql`
       image: thumbnail {
         url
       }
+      tags
     }
     otherMessages: allContentfulMessage(
       filter: { series: { title: { eq: $seriesTitle } }, slug: { ne: $slug } }
