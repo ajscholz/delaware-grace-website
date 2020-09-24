@@ -27,10 +27,14 @@ const BreadcrumbText = ({ crumb, children }) => {
 const Breadcrumb = ({ path, linkText }) => {
   const scrollRef = useHorizontalScroll()
 
+  let progressivePath = ""
   const crumbs = path
     .split("/")
     .filter(item => item !== "")
-    .map(item => `/${item}`)
+    .map(item => {
+      progressivePath = progressivePath.concat(`/${item}`)
+      return progressivePath
+    })
 
   return (
     <nav
