@@ -22,6 +22,7 @@ import Button from "../components/Button"
 import Leave from "../components/Leave"
 import Container from "../components/Container"
 import InfoChip from "../components/InfoChip"
+import ButtonLink from "../components/ButtonLink"
 
 const IndexPage = ({ data }) => {
   const { page, messages } = data
@@ -39,9 +40,9 @@ const IndexPage = ({ data }) => {
         <IndexCard overlay large card={headerCard} alt={"calendar"}>
           <Title>{headerCard.title}</Title>
           <Subtitle>{headerCard.subtitle}</Subtitle>
-          <Button green>
-            <Link to={headerCard.button.link}>{headerCard.button.text}</Link>
-          </Button>
+          <ButtonLink green to={headerCard.button.link}>
+            {headerCard.button.text}
+          </ButtonLink>
         </IndexCard>
       </div>
 
@@ -51,27 +52,26 @@ const IndexPage = ({ data }) => {
           <IndexCard card={message} message>
             <InfoChip>Latest Message</InfoChip>
             <Title>{message.title}</Title>
-            <Button primary>
-              <Link
-                to={`https://delaware-grace.netlify.app/messages/series/${message.series.slug}/${message.slug}`}
-              >
-                Watch Message
-              </Link>
-            </Button>
-            <Button>
-              <Link to="https://delaware-grace.netlify.app/messages">
-                View More Messages
-              </Link>
-            </Button>
+            {/* <div tw="flex"> */}
+            <ButtonLink
+              to={`https://delaware-grace.netlify.app/messages/series/${message.series.slug}/${message.slug}`}
+              primary
+            >
+              Watch Message
+            </ButtonLink>
+            <ButtonLink to="https://delaware-grace.netlify.app/messages">
+              View More Messages
+            </ButtonLink>
           </IndexCard>
 
           {cards.map(card => (
             <IndexCard overlay key={card.id} card={card} alt={"calendar"}>
               <Title>{card.title}</Title>
               <Subtitle>{card.subtitle}</Subtitle>
-              <Button white>
-                <Link to={card.button.link}>{card.button.text}</Link>
-              </Button>
+
+              <ButtonLink to={card.button.link} white>
+                {card.button.text}
+              </ButtonLink>
             </IndexCard>
           ))}
         </LeftCol>
