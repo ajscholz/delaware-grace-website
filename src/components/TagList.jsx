@@ -18,7 +18,7 @@ const TagList = ({ tags, ...rest }) => {
   return (
     <ul tw="flex list-none" {...rest}>
       {tags.map(tag => (
-        <Item>{tag}</Item>
+        <Item key={tag}>{tag}</Item>
       ))}
     </ul>
   )
