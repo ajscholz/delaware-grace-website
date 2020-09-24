@@ -42,7 +42,10 @@ const MessageCard = ({
     >
       <Link to={`/messages/series/${message.series.slug}/${message.slug}`}>
         {/* <CardBase {...props}> */}
-        <div tw="relative h-0" style={{ paddingBottom: "56.25%" }}>
+        <div
+          tw="relative h-0 text-gray-900"
+          style={{ paddingBottom: "56.25%" }}
+        >
           <Image
             tw="h-full w-full absolute! inset-0"
             fluid={message.thumbnail.image.fluid}

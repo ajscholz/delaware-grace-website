@@ -1,5 +1,6 @@
+import React from "react"
 import { BLOCKS, MARKS } from "@contentful/rich-text-types"
-import { documentToReactComponents } from "@conten"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import "twin.macro"
 
 const Bold = ({ children }) => <span tw="font-bold">{children}</span>
@@ -44,4 +45,7 @@ const options = {
   },
 }
 
-documentToReactComponents(node.bodyRichText.json, options)
+const RichText = ({ children, ...rest }) =>
+  documentToReactComponents(children, options)
+
+export default RichText

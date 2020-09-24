@@ -12,6 +12,7 @@ import { useLocation } from "@reach/router"
 import MessageCard from "../components/cards/MessageCard"
 import Button from "../components/Button"
 import useMedia from "../hooks/useMedia"
+import RichText from "../components/RichText"
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -57,12 +58,18 @@ const MessageTemplate = ({ data }) => {
           />
           <div tw="w-full pt-8 flex flex-col md:flex-row justify-center">
             <div>
-              <h1 tw="text-4xl md:text-5xl leading-tight">{message.title}</h1>
-              <p tw="text-sm md:text-base text-gray-500 font-bold">
+              <h1 tw="text-4xl md:text-5xl leading-tight text-gray-100">
+                {message.title}
+              </h1>
+              <p tw="text-sm md:text-base text-gray-600 font-bold">
                 {message.communicator.name}
                 <span tw="mx-4">|</span>
                 {message.date}
               </p>
+              <hr tw="w-1/5 my-6 border-gray-700" />
+              <div tw="text-gray-400">
+                <RichText>{message.description.json}</RichText>
+              </div>
             </div>
             <div tw="mr-auto mt-4 md:(ml-auto mr-0 mt-0)">
               <AnimatedButton
@@ -182,7 +189,9 @@ const MessageTemplate = ({ data }) => {
       <Container tw="py-12">
         {otherMessages.all.length !== 0 && (
           <>
-            <h1 tw="text-4xl md:text-5xl text-center">More From This Series</h1>
+            <h1 tw="text-4xl md:text-5xl text-center text-gray-900">
+              More From This Series
+            </h1>
             <div tw="flex flex-wrap mt-6">
               {otherMessages.all.map(thisMessage => (
                 <div key={thisMessage.id} tw="p-3 flex w-full md:w-1/2">
