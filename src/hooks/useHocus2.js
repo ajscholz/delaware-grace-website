@@ -12,22 +12,24 @@ const useHocus2 = () => {
     color: baseColor,
   }))
 
-  const hocus = () => set({ color: theme`colors.gray.500` })
-
-  const blur = () => set({ color: baseColor })
-
   useEffect(() => {
-    ref.current.addEventListener("focusin", hocus)
-    ref.current.addEventListener("mouseover", hocus)
-    ref.current.addEventListener("blur", blur)
-    ref.current.addEventListener("mouseout", blur)
+    const el = ref.current
+    console.log("el", el)
+    // el = ref.current
+    const hocus = () => set({ color: theme`colors.gray.500` })
+    const blur = () => set({ color: baseColor })
+
+    el.addEventListener("focusin", hocus)
+    el.addEventListener("mouseover", hocus)
+    el.addEventListener("blur", blur)
+    el.addEventListener("mouseout", blur)
     return () => {
-      ref.current.removeEventListener("focusin", hocus)
-      ref.current.removeEventListener("mouseover", hocus)
-      ref.current.removeEventListener("blur", blur)
-      ref.current.removeEventListener("mouseout", blur)
+      el.removeEventListener("focusin", hocus)
+      el.removeEventListener("mouseover", hocus)
+      el.removeEventListener("blur", blur)
+      el.removeEventListener("mouseout", blur)
     }
-  }, [ref])
+  })
 
   return [{ ref }, animation]
 }

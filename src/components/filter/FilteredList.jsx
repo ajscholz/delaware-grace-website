@@ -7,7 +7,6 @@ import Title from "../Title"
 import InfoChip from "../InfoChip"
 import "twin.macro"
 
-const height = 425
 const otherHeights = 100
 
 const FilteredList = ({ filteredCards, showFilters }) => {

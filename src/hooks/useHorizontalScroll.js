@@ -8,21 +8,21 @@ const useHorizontalScroll = () => {
     config: { mass: 320, tension: 150, friction: 10, clamp: true },
   }))
 
-  const scroll = coord => {
-    setX({
-      x: coord,
-      reset: true,
-      from: { x: 0 },
-      delay: 1000,
-      onFrame: props => ref.current.scroll(props.x, 0),
-    })
-  }
-
   useEffect(() => {
+    const scroll = coord => {
+      setX({
+        x: coord,
+        reset: true,
+        from: { x: 0 },
+        delay: 1000,
+        onFrame: props => ref.current.scroll(props.x, 0),
+      })
+    }
+
     const scrollWidth = ref.current.scrollWidth
     const clientWidth = ref.current.clientWidth
     if (scrollWidth > clientWidth) scroll(scrollWidth)
-  }, [ref])
+  }, [ref, setX])
 
   return { ref }
 }

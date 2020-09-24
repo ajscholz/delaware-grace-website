@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import "twin.macro"
 import Filter from "./Filter"
 import { VscTriangleDown } from "react-icons/vsc"
