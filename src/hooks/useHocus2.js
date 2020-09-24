@@ -14,7 +14,6 @@ const useHocus2 = () => {
 
   useEffect(() => {
     const el = ref.current
-    console.log("el", el)
     // el = ref.current
     const hocus = () => set({ color: theme`colors.gray.500` })
     const blur = () => set({ color: baseColor })
