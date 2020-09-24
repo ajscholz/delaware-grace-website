@@ -59,11 +59,11 @@ const MessageTemplate = ({ data, path }) => {
             width={width}
             height={width * 0.5625}
           />
-          <div tw="mt-6 mb-4">
+          <div tw="mt-6 mb-2 w-full whitespace-no-wrap overflow-x-scroll">
             <Breadcrumb
+              scrollable
               path={path}
               linkText={[
-                "Home",
                 "Messages",
                 "Series",
                 message.series.title,
