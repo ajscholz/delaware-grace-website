@@ -1,7 +1,7 @@
 import React from "react"
 import tw from "twin.macro"
 
-const StyledFooter = tw.footer`w-full p-10 mt-8 bg-white shadow-xl`
+const StyledFooter = tw.footer`w-full p-10 bg-white shadow-xl`
 
 const Footer = () => {
   return (
