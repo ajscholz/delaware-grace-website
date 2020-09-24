@@ -9,6 +9,8 @@ import { MdShare } from "react-icons/md"
 import AnimatedButton from "../components/AnimatedButton"
 import { BottomModal } from "react-spring-modal"
 import { useLocation } from "@reach/router"
+
+import useMedia from "../hooks/useMedia"
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -30,6 +32,9 @@ const MessageTemplate = ({ data }) => {
   const [modalOpen, setModalOpen] = useState(false)
   const [bind, { width }] = useMeasure()
   const location = useLocation()
+  const mediaWidth = useMedia(["(min-width:768px)"], ["md"], "sm")
+
+  console.log(mediaWidth)
 
   const openModal = () => setModalOpen(true)
 
@@ -44,50 +49,55 @@ const MessageTemplate = ({ data }) => {
           .replace(/ {2,}/g, " ")}
         image={message.image.url}
       />
-      <div tw="bg-gray-900 text-gray-100 py-12">
+      <div tw="bg-gray-900 text-gray-100 pt-12 pb-6 md:py-12">
         <Container {...bind}>
           <ReactPlayer
             url={message.videoUrl}
             width={width}
             height={width * 0.5625}
           />
-          <div tw="w-full pt-8 flex justify-center">
+          <div tw="w-full pt-8 flex flex-col md:flex-row justify-center">
             <div>
-              <h1 tw="text-5xl leading-tight">{message.title}</h1>
-              <p tw="text-gray-500 font-bold">
+              <h1 tw="text-4xl md:text-5xl leading-tight">{message.title}</h1>
+              <p tw="text-sm md:text-base text-gray-500 font-bold">
                 {message.communicator.name}
                 <span tw="mx-4">|</span>
                 {message.date}
               </p>
             </div>
-            <div tw="ml-auto">
+            <div tw="mr-auto mt-4 md:(ml-auto mr-0 mt-0)">
               <AnimatedButton
                 scale="1.1"
                 grow
-                tw="text-sm font-bold"
+                tw="font-bold"
                 onClick={() => openModal()}
               >
-                <div tw="rounded-full bg-dgGreen-700 flex flex-col items-center content-center p-4 mb-1">
+                <div
+                  css={[
+                    tw`rounded-full bg-dgGreen-500 flex flex-col items-center content-center`,
+                    mediaWidth === "md" ? tw`p-4 mb-1` : tw`p-3 mb-0`,
+                  ]}
+                >
                   <MdShare
-                    size={24}
+                    size={mediaWidth === "md" ? 24 : 18}
                     className="relative text-dgGreen-100"
                     // strokeWidth="1"
                     style={{ right: 2 }}
                   />
                 </div>
-                Share
+                <span css={[mediaWidth === "md" ? tw`text-sm` : tw`text-xs`]}>
+                  Share
+                </span>
               </AnimatedButton>
               <BottomModal
                 isOpen={modalOpen}
                 tw="bg-gray-100 sm:px-6 px-2 sm:py-8 py-6 w-full max-w-sm rounded-none sm:rounded-t-lg"
                 onRequestClose={() => setModalOpen(false)}
               >
-                {/* <h1>Share this message now!</h1> */}
                 <div
                   tw="relative flex items-center max-w-full"
                   style={{ top: 4 }}
                 >
-                  {/* <div tw="flex items-center justify-between max-w-full"> */}
                   <EmailShareButton
                     url={location.href}
                     className={shareButtonStyles}
@@ -182,7 +192,7 @@ export const data = graphql`
       title
       videoUrl
       slug
-      date
+      date(formatString: "MMMM DD, YYYY")
       communicator {
         name
       }

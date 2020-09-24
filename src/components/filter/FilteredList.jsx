@@ -16,7 +16,7 @@ const FilteredList = ({ filteredCards, showFilters }) => {
     // Media queries
     [
       // "(min-width: 1200px)",
-      "(min-width: 1200)",
+      "(min-width: 1200px)",
       "(min-width: 600px)",
       // "(min-width: 476px)",
     ],
