@@ -13,6 +13,7 @@ import MessageCard from "../components/cards/MessageCard"
 import Button from "../components/Button"
 import useMedia from "../hooks/useMedia"
 import RichText from "../components/RichText"
+import { FiX } from "react-icons/fi"
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -130,60 +131,72 @@ const MessageTemplate = ({ data, path }) => {
                 tw="relative bottom-0 w-full max-w-sm shadow-lg"
                 onRequestClose={() => setModalOpen(false)}
               >
-                <div tw="flex items-center max-w-full h-full w-full sm:px-5 px-2 sm:py-5 py-6 bg-gray-100 rounded-none sm:rounded-t-lg">
-                  <EmailShareButton
-                    url={location.href}
-                    className={shareButtonStyles}
+                <div tw="h-full w-full sm:px-5 px-2 sm:py-5 py-6 bg-gray-100 rounded-none sm:rounded-t-lg">
+                  <h1 tw="text-center text-2xl mb-3 text-gray-800">
+                    Share This Message
+                  </h1>
+                  <button
+                    tw="absolute top-0 right-0 mt-2 mr-2 text-gray-600"
+                    onClick={() => setModalOpen(false)}
+                    aria-label="close"
                   >
-                    <EmailIcon
-                      {...iconProps}
-                      css={[
-                        css`
-                          & circle {
-                            fill: #718096;
-                          }
-                        `,
-                      ]}
-                    />
-                    <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
-                      Email
-                    </span>
-                  </EmailShareButton>
-                  <FacebookShareButton
-                    url={location.href}
-                    className={shareButtonStyles}
-                  >
-                    <FacebookIcon {...iconProps} />
-                    <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
-                      Facebook
-                    </span>
-                  </FacebookShareButton>
-                  <TwitterShareButton
-                    url={location.href}
-                    className={shareButtonStyles}
-                  >
-                    <TwitterIcon {...iconProps} />
-                    <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
-                      Twitter
-                    </span>
-                  </TwitterShareButton>
-                  <a
-                    className={shareButtonStyles}
-                    href={`sms:?body=Check out this message from Delaware Grace Church I just listened to. ${encodeURI(
-                      location.href
-                    )}`}
-                  >
-                    <div
-                      style={{ width: "42px", height: "42px" }}
-                      tw="rounded-full bg-dgGreen-600 flex justify-center items-center p-2"
+                    <FiX />
+                  </button>
+                  <div tw="flex items-center w-full max-w-full">
+                    <EmailShareButton
+                      url={location.href}
+                      className={shareButtonStyles}
                     >
-                      <MdTextsms tw="w-full h-full m-px text-white m-px" />
-                    </div>
-                    <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
-                      Text
-                    </span>
-                  </a>
-                  <CopyButton text={location.href} />
+                      <EmailIcon
+                        {...iconProps}
+                        css={[
+                          css`
+                            & circle {
+                              fill: #718096;
+                            }
+                          `,
+                        ]}
+                      />
+                      <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
+                        Email
+                      </span>
+                    </EmailShareButton>
+                    <FacebookShareButton
+                      url={location.href}
+                      className={shareButtonStyles}
+                    >
+                      <FacebookIcon {...iconProps} />
+                      <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
+                        Facebook
+                      </span>
+                    </FacebookShareButton>
+                    <TwitterShareButton
+                      url={location.href}
+                      className={shareButtonStyles}
+                    >
+                      <TwitterIcon {...iconProps} />
+                      <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
+                        Twitter
+                      </span>
+                    </TwitterShareButton>
+                    <a
+                      className={shareButtonStyles}
+                      href={`sms:?body=Check out this message from Delaware Grace Church I just listened to. ${encodeURI(
+                        location.href
+                      )}`}
+                    >
+                      <div
+                        style={{ width: "42px", height: "42px" }}
+                        tw="rounded-full bg-dgGreen-600 flex justify-center items-center p-2"
+                      >
+                        <MdTextsms tw="w-full h-full m-px text-white m-px" />
+                      </div>
+                      <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
+                        Text
+                      </span>
+                    </a>
+                    <CopyButton text={location.href} />
+                  </div>
                 </div>
               </BottomModal>
             </div>
