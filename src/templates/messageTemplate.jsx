@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Container from "../components/Container"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import SEO from "../components/SEO"
 import ReactPlayer from "react-player"
 import tw, { css } from "twin.macro"
@@ -10,7 +10,7 @@ import AnimatedButton from "../components/AnimatedButton"
 import { BottomModal } from "react-spring-modal"
 import { useLocation } from "@reach/router"
 import MessageCard from "../components/cards/MessageCard"
-
+import Button from "../components/Button"
 import useMedia from "../hooks/useMedia"
 import {
   EmailShareButton,
@@ -179,32 +179,40 @@ const MessageTemplate = ({ data }) => {
           </div>
         </Container>
       </div>
-      {otherMessages.all.length !== 0 && (
-        <Container tw="py-12">
-          <h1 tw="text-4xl md:text-5xl text-center">More From This Series</h1>
-          <div tw="flex flex-wrap">
-            {otherMessages.all.map(thisMessage => (
-              <div key={thisMessage.id} tw="p-3 flex w-full md:w-1/2">
-                <MessageCard
-                  message={thisMessage}
-                  tw="h-auto w-2/5 self-start"
-                />
-                <div tw="w-3/5 ml-3">
-                  <h1 tw="text-xl leading-none text-gray-900">
-                    {thisMessage.title}
-                  </h1>
-                  <p tw="text-gray-600 leading-tight text-xs mt-1">
-                    {thisMessage.communicator.name}
-                  </p>
-                  <p tw="text-gray-600 leading-tight text-xs">
-                    {thisMessage.date}
-                  </p>
+      <Container tw="py-12">
+        {otherMessages.all.length !== 0 && (
+          <>
+            <h1 tw="text-4xl md:text-5xl text-center">More From This Series</h1>
+            <div tw="flex flex-wrap mt-6">
+              {otherMessages.all.map(thisMessage => (
+                <div key={thisMessage.id} tw="p-3 flex w-full md:w-1/2">
+                  <MessageCard
+                    message={thisMessage}
+                    tw="h-auto w-2/5 self-start"
+                  />
+                  <div tw="w-3/5 ml-3">
+                    <h1 tw="text-xl leading-none text-gray-900">
+                      {thisMessage.title}
+                    </h1>
+                    <p tw="text-gray-600 leading-tight text-xs mt-1">
+                      {thisMessage.communicator.name}
+                    </p>
+                    <p tw="text-gray-600 leading-tight text-xs">
+                      {thisMessage.date}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      )}
+              ))}
+            </div>
+            <hr tw="my-8" />
+          </>
+        )}
+        <div tw="w-full flex justify-center">
+          <Link to="/messages">
+            <Button green>More Messages</Button>
+          </Link>
+        </div>
+      </Container>
     </>
   )
 }
