@@ -32,7 +32,7 @@ const IndexPage = ({ data }) => {
   const cards = [...allCards].slice(1)
 
   return (
-    <Container>
+    <Container tw="pb-12">
       <SEO title="Home" />
 
       {/* PLAN A VISIT */}

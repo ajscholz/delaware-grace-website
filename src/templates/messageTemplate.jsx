@@ -28,6 +28,7 @@ import TagList from "../components/TagList"
 import Breadcrumb from "../components/Breadcrumb"
 import { IoMdCalendar, IoMdPerson } from "react-icons/io"
 import CopyButton from "../components/CopyButton"
+import ButtonLink from "../components/ButtonLink"
 
 const iconProps = { size: 42, round: true }
 
@@ -236,9 +237,9 @@ const MessageTemplate = ({ data, path }) => {
           </>
         )}
         <div tw="w-full flex justify-center">
-          <Link to="/messages">
-            <Button green>More Messages</Button>
-          </Link>
+          <ButtonLink to="/messages" green>
+            More Messages
+          </ButtonLink>
         </div>
       </Container>
     </>

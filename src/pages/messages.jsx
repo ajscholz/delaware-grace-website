@@ -7,7 +7,7 @@ import Container from "../components/Container"
 import tw from "twin.macro"
 import FilteredList from "../components/filter/FilteredList"
 import FilterController from "../components/filter/FilterController"
-import Button from "../components/Button"
+import ButtonLink from "../components/ButtonLink"
 
 const MessagesPage = ({ data }) => {
   const {
@@ -87,7 +87,7 @@ const MessagesPage = ({ data }) => {
         description="Listen to Sunday messages from Delaware Grace Church."
       />
       {/* <PageBanner banner={page.banner} /> */}
-      <Container className="pt-10">
+      <Container className="py-10">
         <div className="w-full grid grid-cols-1 md:grid-cols-2">
           <Title tw="text-black text-5xl md:text-6xl">Messages</Title>
 
@@ -104,9 +104,9 @@ const MessagesPage = ({ data }) => {
 
         {/* <Button blue>Load More Messages</Button> */}
         <div tw="w-full flex justify-center border-t-2 mt-6 pt-6">
-          <Link to="/messages/series">
-            <Button green>View Message Series</Button>
-          </Link>
+          <ButtonLink to="/messages/series" green>
+            View Message Series
+          </ButtonLink>
         </div>
       </Container>
     </>
