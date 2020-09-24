@@ -24,14 +24,15 @@ import {
 import { MdTextsms } from "react-icons/md"
 import { HiOutlineLink } from "react-icons/hi"
 import TagList from "../components/TagList"
+import Breadcrumb from "../components/Breadcrumb"
+import { IoMdCalendar, IoMdPerson } from "react-icons/io"
 
 const iconProps = { size: 42, round: true }
 
 const shareButtonStyles = "w-1/5 flex flex-col items-center"
 
-const MessageTemplate = ({ data }) => {
+const MessageTemplate = ({ data, path }) => {
   const { message, otherMessages } = data
-
   const [modalOpen, setModalOpen] = useState(false)
   const [bind, { width }] = useMeasure()
   const location = useLocation()
@@ -58,24 +59,40 @@ const MessageTemplate = ({ data }) => {
             width={width}
             height={width * 0.5625}
           />
-
+          <div tw="mt-6 mb-4">
+            <Breadcrumb
+              path={path}
+              linkText={[
+                "Home",
+                "Messages",
+                "Series",
+                message.series.title,
+                message.title,
+              ]}
+            />
+          </div>
           {/* MESSAGE INFORMATION */}
-          <div tw="w-full pt-8 flex flex-col md:flex-row justify-center">
+          <div tw="w-full pt-4 flex flex-col md:flex-row justify-center">
             <div>
-              <TagList tags={message.tags} />
-              <h1 tw="text-4xl md:text-5xl leading-tight text-gray-100 mt-4">
+              <h1 tw="text-4xl md:text-5xl leading-tight text-gray-100">
                 {message.title}
               </h1>
-              <p tw="text-sm md:text-base text-gray-600 font-bold">
-                {message.communicator.name}
-                <span tw="mx-4">|</span>
-                {message.date}
-              </p>
+              <div tw="text-gray-600 text-sm md:text-base font-bold">
+                <TagList tags={message.tags} icon tw="mb-px" />
+                <span tw="inline-flex items-center" aria-label="communicator">
+                  <IoMdPerson tw="mr-3" aria-label="communicator" />
+                  {message.communicator.name}
+                </span>
+                <span tw="ml-6 inline-flex items-center" aria-label="date">
+                  <IoMdCalendar tw="mr-3" aria-label="date" />
+                  {message.date}
+                </span>
+              </div>
               {/* <div> */}
 
               {/* </div> */}
               <hr tw="w-1/5 my-6 border-gray-700" />
-              <div tw="text-gray-400">
+              <div tw="text-gray-200">
                 <RichText>{message.description.json}</RichText>
               </div>
             </div>
@@ -264,6 +281,9 @@ export const data = graphql`
         url
       }
       tags
+      series {
+        title
+      }
     }
     otherMessages: allContentfulMessage(
       filter: { series: { title: { eq: $seriesTitle } }, slug: { ne: $slug } }

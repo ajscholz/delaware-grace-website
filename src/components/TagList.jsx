@@ -1,27 +1,42 @@
 // import React from "react"
 import React from "react"
-import tw, { styled, css, theme } from "twin.macro"
+import PropTypes from "prop-types"
+import tw, { styled, css } from "twin.macro"
+import { IoMdPricetags } from "react-icons/io"
 
 const Item = styled.li(() => [
-  tw`text-dgBlue-600 font-semibold text-xs flex items-center before:(mx-2 bg-dgBlue-600 rounded-full mt-px)`,
+  tw`flex items-center before:(mx-2 mt-px)`,
   css`
     &:not(:first-of-type)::before {
       display: block;
-      content: "";
-      height: 3px;
-      width: 3px;
+      content: "•";
+      /* content: ""; */
     }
   `,
 ])
 
-const TagList = ({ tags, ...rest }) => {
+const TagList = ({ tags, icon, ...rest }) => {
   return (
-    <ul tw="flex list-none" {...rest}>
+    <ul tw="flex list-none items-center" {...rest}>
+      {icon !== false && (
+        <span aria-label="tags" tw="mr-3">
+          <IoMdPricetags />
+        </span>
+      )}
       {tags.map(tag => (
         <Item key={tag}>{tag}</Item>
       ))}
     </ul>
   )
+}
+
+TagList.propTypes = {
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  icon: PropTypes.bool,
+}
+
+TagList.defaultProps = {
+  icon: false,
 }
 
 export default TagList
