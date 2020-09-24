@@ -9,6 +9,8 @@ import useHorizontalScroll from "../hooks/useHorizontalScroll"
 const BreadcrumbText = ({ crumb, children }) => {
   const [bind, animation] = useHocus2()
 
+  console.log("bind", bind)
+
   const AnimatedLink = animated(Link)
 
   return (

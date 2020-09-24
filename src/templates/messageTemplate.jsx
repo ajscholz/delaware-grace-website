@@ -22,10 +22,11 @@ import {
   TwitterIcon,
 } from "react-share"
 import { MdTextsms } from "react-icons/md"
-import { HiOutlineLink } from "react-icons/hi"
+
 import TagList from "../components/TagList"
 import Breadcrumb from "../components/Breadcrumb"
 import { IoMdCalendar, IoMdPerson } from "react-icons/io"
+import CopyButton from "../components/CopyButton"
 
 const iconProps = { size: 42, round: true }
 
@@ -126,13 +127,10 @@ const MessageTemplate = ({ data, path }) => {
               {/* SHARE MODAL */}
               <BottomModal
                 isOpen={modalOpen}
-                tw="bg-gray-100 sm:px-6 px-2 sm:py-8 py-6 w-full max-w-sm rounded-none sm:rounded-t-lg"
+                tw="relative bottom-0 w-full max-w-sm shadow-lg"
                 onRequestClose={() => setModalOpen(false)}
               >
-                <div
-                  tw="relative flex items-center max-w-full"
-                  style={{ top: 4 }}
-                >
+                <div tw="flex items-center max-w-full h-full w-full sm:px-5 px-2 sm:py-5 py-6 bg-gray-100 rounded-none sm:rounded-t-lg">
                   <EmailShareButton
                     url={location.href}
                     className={shareButtonStyles}
@@ -185,30 +183,7 @@ const MessageTemplate = ({ data, path }) => {
                       Text
                     </span>
                   </a>
-                  <button
-                    className={shareButtonStyles}
-                    aria-label="copy link"
-                    onClick={() =>
-                      navigator.clipboard.writeText("Copied Text").then(
-                        () => {
-                          alert("clipped")
-                        },
-                        () => {
-                          alert("failed")
-                        }
-                      )
-                    }
-                  >
-                    <div
-                      tw="rounded-full bg-dgRed-600 flex justify-center items-center p-2"
-                      style={{ width: "42px", height: "42px" }}
-                    >
-                      <HiOutlineLink tw="w-full h-full m-px text-white m-px" />
-                    </div>
-                    <span tw="text-xs leading-none text-gray-600 font-semibold mt-2">
-                      Copy
-                    </span>
-                  </button>
+                  <CopyButton text={location.href} />
                 </div>
               </BottomModal>
             </div>
