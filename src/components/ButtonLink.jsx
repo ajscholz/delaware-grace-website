@@ -1,5 +1,5 @@
 import React from "react"
-import tw, { css } from "twin.macro"
+import tw from "twin.macro"
 import { useSpring, animated } from "react-spring"
 import Link from "./Link"
 

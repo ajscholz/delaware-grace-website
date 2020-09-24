@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react"
 import SEO from "../components/SEO"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 // import PageBanner from "../components/PageBanner"
 // import MessageCard from "../components/cards/MessageCard"
 import Container from "../components/Container"

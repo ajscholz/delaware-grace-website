@@ -18,7 +18,6 @@ import {
 } from "react-icons/fa"
 import { RiHandHeartFill } from "react-icons/ri"
 
-import Button from "../components/Button"
 import Leave from "../components/Leave"
 import Container from "../components/Container"
 import InfoChip from "../components/InfoChip"
