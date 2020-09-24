@@ -9,6 +9,7 @@ import { MdShare } from "react-icons/md"
 import AnimatedButton from "../components/AnimatedButton"
 import { BottomModal } from "react-spring-modal"
 import { useLocation } from "@reach/router"
+import MessageCard from "../components/cards/MessageCard"
 
 import useMedia from "../hooks/useMedia"
 import {
@@ -27,14 +28,12 @@ const iconProps = { size: 42, round: true }
 const shareButtonStyles = "w-1/5 flex flex-col items-center"
 
 const MessageTemplate = ({ data }) => {
-  const { message } = data
+  const { message, otherMessages } = data
 
   const [modalOpen, setModalOpen] = useState(false)
   const [bind, { width }] = useMeasure()
   const location = useLocation()
   const mediaWidth = useMedia(["(min-width:768px)"], ["md"], "sm")
-
-  console.log(mediaWidth)
 
   const openModal = () => setModalOpen(true)
 
@@ -180,6 +179,32 @@ const MessageTemplate = ({ data }) => {
           </div>
         </Container>
       </div>
+      {otherMessages.all.length !== 0 && (
+        <Container tw="py-12">
+          <h1 tw="text-4xl md:text-5xl text-center">More From This Series</h1>
+          <div tw="flex flex-wrap">
+            {otherMessages.all.map(thisMessage => (
+              <div key={thisMessage.id} tw="p-3 flex w-full md:w-1/2">
+                <MessageCard
+                  message={thisMessage}
+                  tw="h-auto w-2/5 self-start"
+                />
+                <div tw="w-3/5 ml-3">
+                  <h1 tw="text-xl leading-none text-gray-900">
+                    {thisMessage.title}
+                  </h1>
+                  <p tw="text-gray-600 leading-tight text-xs mt-1">
+                    {thisMessage.communicator.name}
+                  </p>
+                  <p tw="text-gray-600 leading-tight text-xs">
+                    {thisMessage.date}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      )}
     </>
   )
 }
@@ -187,7 +212,7 @@ const MessageTemplate = ({ data }) => {
 export default MessageTemplate
 
 export const data = graphql`
-  query($slug: String!) {
+  query($slug: String!, $seriesTitle: String!) {
     message: contentfulMessage(slug: { eq: $slug }) {
       title
       videoUrl
@@ -206,6 +231,13 @@ export const data = graphql`
       }
       image: thumbnail {
         url
+      }
+    }
+    otherMessages: allContentfulMessage(
+      filter: { series: { title: { eq: $seriesTitle } }, slug: { ne: $slug } }
+    ) {
+      all: nodes {
+        ...MessageCardFragment
       }
     }
   }
