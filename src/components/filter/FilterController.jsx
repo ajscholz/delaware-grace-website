@@ -12,6 +12,7 @@ const FilterController = ({
   filter,
   showFilters,
   setShowFilters,
+  children,
 }) => {
   const [bind, { height }] = useMeasure()
 
@@ -45,7 +46,7 @@ const FilterController = ({
         <span tw="mr-2">
           <AnimatedIcon style={{ willChange: "transform", ...flip }} />
         </span>
-        Filter Messages
+        {children}
       </Button>
       <animated.div
         tw="col-span-2 overflow-hidden border-t-2 border-b-2 border-gray-300 overflow-visible"

@@ -3,9 +3,10 @@ import { useSpring, useChain, animated } from "react-spring"
 import resolveConfig from "tailwindcss/resolveConfig"
 import tailwindConfig from "../../../tailwind.config"
 import { useHocus } from "../../hooks/useHocus"
+import "twin.macro"
 
 const {
-  theme: { colors },
+  theme: { colors, boxShadow },
 } = resolveConfig(tailwindConfig)
 
 // const springConfig = {
@@ -13,7 +14,7 @@ const {
 //   friction: 25,
 //   clamp: true,
 // }
-
+console.log(boxShadow)
 const FilterChip = ({ children, className, click, active }) => {
   // const [focused, setFocused] = useState(false)
 
@@ -42,31 +43,30 @@ const FilterChip = ({ children, className, click, active }) => {
   const [hocus, hocusStyles] = useHocus(
     {
       from: {
-        border: active
-          ? `2px solid rgba(74, 93, 32, 0)`
-          : `2px solid rgba(113, 128, 150, 0)`,
+        boxShadow:
+          "0px 0px 0px rgba(0, 0, 0, 0.12), 0px 0px 0px rgba(0, 0, 0, 0.24)",
       },
       to: {
-        border: active
-          ? `2px solid rgba(74, 93, 32, 1)`
-          : `2px solid rgba(113, 128, 150, 1)`,
+        boxShadow: boxShadow.md,
       },
     },
     false
   )
 
   return (
-    <>
+    <animated.div
+      style={{ willChange: "box-shadow", ...hocusStyles }}
+      tw="inline-block rounded-full m-1"
+    >
       <animated.button
-        className="h-6 text-xs rounded-full py-0 px-3 m-1 shadow-inner focus:outline-none"
+        className="h-6 text-xs rounded-full py-0 px-3 shadow-inner focus:outline-none"
         onClick={() => {
           click()
           // hocus("reverse")
         }}
         style={{
-          willChange: "background, color, border",
+          willChange: "background, color",
           ...buttonSpring,
-          ...hocusStyles,
         }}
         onFocus={() => hocus(true)}
         onBlur={() => hocus(false)}
@@ -103,7 +103,7 @@ const FilterChip = ({ children, className, click, active }) => {
           </animated.span>
         </div>
       </animated.button>
-    </>
+    </animated.div>
   )
 }
 

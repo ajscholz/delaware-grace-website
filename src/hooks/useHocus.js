@@ -11,6 +11,7 @@ export const useHocus = (additionalStyles, grow, scale = "1.2") => {
   const [styles, set] = useSpring(() => ({
     ...transformProps.from,
     ...(additionalStyles && additionalStyles.from),
+    config: { clamp: true },
   }))
 
   const hocus = hocus => {

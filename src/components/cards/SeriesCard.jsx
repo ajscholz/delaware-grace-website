@@ -8,14 +8,7 @@ import Overlay from "../Overlay"
 
 const ContentContainer = tw.div`absolute w-full bottom-0 p-4 leading-tight flex justify-between text-white`
 
-const MessageCard = ({
-  message,
-  children,
-  fadeUp,
-  overlay,
-  list,
-  ...props
-}) => {
+const SeriesCard = ({ series, children, fadeUp, overlay, list, ...props }) => {
   const [hover, set] = useSpring(() => ({
     transform: "scale(1)",
     config: config.wobbly,
@@ -40,7 +33,7 @@ const MessageCard = ({
       onBlur={() => shrink()}
       {...props}
     >
-      <Link to={`/messages/series/${message.series.slug}/${message.slug}`}>
+      <Link to={`/messages/series/${series.slug}`}>
         {/* <CardBase {...props}> */}
         <div
           tw="relative h-0 text-gray-900 h-full"
@@ -48,7 +41,7 @@ const MessageCard = ({
         >
           <Image
             tw="h-full w-full absolute! inset-0"
-            fluid={message.thumbnail.image.fluid}
+            fluid={series.graphic.fluid}
           />
           {overlay && <Overlay fadeUp={fadeUp} />}
           <ContentContainer>{children}</ContentContainer>
@@ -60,29 +53,24 @@ const MessageCard = ({
 }
 
 export default React.memo(
-  MessageCard,
+  SeriesCard,
   (prevProps, nextProps) => prevProps.message === nextProps.message
 )
 
 export const query = graphql`
-  fragment MessageCardFragment on ContentfulMessage {
+  fragment SeriesCardFragment on ContentfulMessageSeries {
     id: contentful_id
     title
-    date(formatString: "MMM D, YYYY")
-    communicator {
-      name
-    }
+    startMo: startingDate(formatString: "MMM")
+    endMo: endingDate(formatString: "MMM")
+    month
+    topics: tags
+    year
     slug
-    series {
-      slug
-    }
-    thumbnail {
-      image: childImageSharp {
-        fluid(webpQuality: 100, maxWidth: 960) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
+    graphic {
+      fluid(maxWidth: 300, quality: 50) {
+        ...GatsbyContentfulFluid_withWebp
       }
     }
-    topics: tags
   }
 `

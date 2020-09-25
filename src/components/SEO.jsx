@@ -88,3 +88,16 @@ const query = graphql`
     }
   }
 `
+
+export const data = graphql`
+  fragment SeoFragment on ContentfulPage {
+    title
+    banner {
+      image {
+        file {
+          url
+        }
+      }
+    }
+  }
+`

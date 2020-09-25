@@ -1,39 +1,22 @@
 import React, { useState, useMemo } from "react"
-import SEO from "../components/SEO"
 import { graphql } from "gatsby"
-// import PageBanner from "../components/PageBanner"
-// import MessageCard from "../components/cards/MessageCard"
-import Container from "../components/Container"
 import tw from "twin.macro"
-import FilteredList from "../components/filter/FilteredList"
-import FilterController from "../components/filter/FilterController"
-import ButtonLink from "../components/ButtonLink"
 
-const MessagesPage = ({ data }) => {
+import SEO from "../../components/SEO"
+import Container from "../../components/Container"
+import FilteredList from "../../components/filter/FilteredList"
+import FilterController from "../../components/filter/FilterController"
+import ButtonLink from "../../components/ButtonLink"
+
+const MessageArchivePage = ({ data }) => {
   const {
     page,
     messages: { messages },
     ...rest
   } = data
 
-  // const testData = {
-  //   communicator: {
-  //     unselected: ["Dave Pacheco", "Jeff Martin"],
-  //   },
-  //   topics: {
-  //     unselected: ["bible", "church", "humility", "life", "relationships"],
-  //   },
-  //   year: {
-  //     unselected: ["2020", "2019"],
-  //   },
-  // }
-
   const queryData = { ...rest }
-  // const latestMessage = [...messages].shift()
-  // const restOfMessages = [...messages].splice(1)
 
-  // Object.keys(testData).forEach(key => (testData[key].selected = []))
-  // const initialState = { ...testData }
   Object.keys(queryData).forEach(key => (queryData[key].selected = []))
   const initialState = { ...queryData }
 
@@ -83,8 +66,9 @@ const MessagesPage = ({ data }) => {
   return (
     <>
       <SEO
-        title="Messages"
-        description="Listen to Sunday messages from Delaware Grace Church."
+        title={page.title}
+        description="All the Sunday messages from Delaware Grace Church. Filter by topic, communicator, or date to find a message to help you today."
+        image={page.banner.image.file.url}
       />
       {/* <PageBanner banner={page.banner} /> */}
       <Container className="py-10">
@@ -97,7 +81,9 @@ const MessagesPage = ({ data }) => {
             showFilters={showFilters}
             setShowFilters={setShowFilters}
             filter={filter}
-          />
+          >
+            Filter Messages
+          </FilterController>
           {/* <Filter /> */}
         </div>
         <FilteredList showFilters={showFilters} filteredCards={cards} />
@@ -108,22 +94,17 @@ const MessagesPage = ({ data }) => {
             View Message Series
           </ButtonLink>
         </div>
-        <div tw="w-full flex justify-center border-t-2 mt-6 pt-6">
-          <ButtonLink to="/messages/message-archive" green>
-            View All Messages
-          </ButtonLink>
-        </div>
       </Container>
     </>
   )
 }
 
-export default MessagesPage
+export default MessageArchivePage
 
 export const data = graphql`
   {
-    page: contentfulPage(title: { eq: "Messages" }) {
-      ...PageBannerFragment
+    page: contentfulPage(title: { eq: "Message Archive" }) {
+      ...SeoFragment
     }
     messages: allContentfulMessage(sort: { fields: date, order: DESC }) {
       messages: nodes {

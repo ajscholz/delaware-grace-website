@@ -157,9 +157,42 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 //   }
 // }
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+]
+
 // Define graphql types
 exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createTypes } = actions
+
+  const customFields = {
+    // create a "year" field to make filtering by year easier
+    year: {
+      type: "String!",
+      resolve: source =>
+        new Date(
+          source.internal.type === "ContentfulMessage"
+            ? source.date
+            : source.startingDate
+        ).getFullYear(),
+    },
+    // make all tags lowercase by default
+    tags: {
+      type: "[String!]",
+      resolve: source => source.tags.map(tag => tag.toLowerCase()),
+    },
+  }
   const typeDefs = [
     // `type ContentfulMessage implements Node {
     //   year: String
@@ -217,16 +250,27 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     // }),
     schema.buildObjectType({
       name: "ContentfulMessage",
+      fields: customFields,
+      interfaces: ["Node"],
+    }),
+    schema.buildObjectType({
+      name: "ContentfulMessageSeries",
       fields: {
-        // create a "year" field to make filtering by year much easier
-        year: {
-          type: "String!",
-          resolve: source => new Date(source.date).getFullYear(),
-        },
-        // make all tags lowercase by default
-        tags: {
+        ...customFields,
+        // create a "month" field to make filtering by month easier
+        month: {
           type: "[String!]",
-          resolve: source => source.tags.map(tag => tag.toLowerCase()),
+          resolve: source => {
+            const startMonth = new Date(source.startingDate).getMonth()
+            const endMonth = new Date(source.endingDate).getMonth()
+
+            let seriesMonths = []
+            for (let i = startMonth; i <= endMonth; i++) {
+              seriesMonths.push(months[i])
+            }
+
+            return seriesMonths
+          },
         },
       },
       interfaces: ["Node"],
