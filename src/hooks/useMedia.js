@@ -40,7 +40,7 @@ const useMedia = (queries, values, defaultValue) => {
     [] // Empty array ensures effect is only run on mount and unmount
   )
 
-  return value
+  return value === undefined ? 1 : value
 }
 
 export default useMedia
