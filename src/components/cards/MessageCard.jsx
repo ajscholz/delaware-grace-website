@@ -6,7 +6,7 @@ import { useSpring, animated, config } from "react-spring"
 import tw from "twin.macro"
 import Overlay from "../Overlay"
 
-const ContentContainer = tw.div`absolute w-full bottom-0 p-4 leading-tight flex justify-between text-white`
+const ContentContainer = tw.div`relative flex-col justify-between self-end w-full p-4 leading-tight text-white`
 
 const MessageCard = ({
   message,
@@ -43,7 +43,7 @@ const MessageCard = ({
       <Link to={`/messages/series/${message.series.slug}/${message.slug}`}>
         {/* <CardBase {...props}> */}
         <div
-          tw="relative h-0 text-gray-900 h-full"
+          tw="relative h-0 text-gray-900 h-full flex"
           // style={{ paddingBottom: "56.25%" }}
         >
           <Image

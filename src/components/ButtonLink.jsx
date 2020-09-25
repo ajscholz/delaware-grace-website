@@ -33,7 +33,7 @@ const ButtonLink = ({ primary, white, green, blue, children, ...props }) => {
         green={green}
         blue={blue}
         css={[
-          tw`py-3 px-5 mr-3 mt-2 border-2 border-white outline-none! rounded-lg font-semibold uppercase`,
+          tw`py-3 px-5 mt-2 border-2 border-white outline-none! rounded-lg font-semibold uppercase`,
           primary
             ? tw`bg-dgRed-500 border-dgRed-500 text-dgRed-100`
             : white

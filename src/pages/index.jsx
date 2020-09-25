@@ -53,6 +53,7 @@ const IndexPage = ({ data }) => {
             <Title>{message.title}</Title>
             {/* <div tw="flex"> */}
             <ButtonLink
+              tw="mr-3"
               to={`https://delaware-grace.netlify.app/messages/series/${message.series.slug}/${message.slug}`}
               primary
             >
