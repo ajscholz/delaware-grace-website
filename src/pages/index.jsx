@@ -22,6 +22,7 @@ import Leave from "../components/Leave"
 import Container from "../components/Container"
 import InfoChip from "../components/InfoChip"
 import ButtonLink from "../components/ButtonLink"
+import TestButton from "../components/TestButton"
 
 const IndexPage = ({ data }) => {
   const { page, messages } = data
@@ -36,6 +37,7 @@ const IndexPage = ({ data }) => {
 
       {/* PLAN A VISIT */}
       <div className="pt-3">
+        <TestButton />
         <IndexCard overlay large card={headerCard} alt={"calendar"}>
           <Title>{headerCard.title}</Title>
           <Subtitle>{headerCard.subtitle}</Subtitle>
