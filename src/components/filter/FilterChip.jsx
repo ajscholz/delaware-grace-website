@@ -14,7 +14,7 @@ const {
 //   friction: 25,
 //   clamp: true,
 // }
-console.log(boxShadow)
+
 const FilterChip = ({ children, className, click, active }) => {
   // const [focused, setFocused] = useState(false)
 
