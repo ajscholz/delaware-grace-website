@@ -37,7 +37,7 @@ const IndexPage = ({ data }) => {
 
       {/* PLAN A VISIT */}
       <div className="pt-3">
-        <TestButton />
+        {/* <TestButton /> */}
         <IndexCard overlay large card={headerCard} alt={"calendar"}>
           <Title>{headerCard.title}</Title>
           <Subtitle>{headerCard.subtitle}</Subtitle>
