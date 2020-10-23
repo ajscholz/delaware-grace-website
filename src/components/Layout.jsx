@@ -41,7 +41,6 @@ const Layout = ({ children }) => {
       } else {
         if (typeof window !== "undefined") {
           if (window.scrollY !== 0) {
-            console.log("animating")
             setY({
               from: { y: window.scrollY },
               to: { y: 0 },

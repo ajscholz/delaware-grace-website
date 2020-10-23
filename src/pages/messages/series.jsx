@@ -42,16 +42,12 @@ const SeriesPage = ({ data }) => {
 
   // filter only that cards that meet all the selected filters
   const cards = useMemo(() => {
-    console.log("filter", filter)
-    console.log("categories", categories)
     return series.all.filter(card => {
-      console.log("current card: ", card)
       // test each card with all the criteria
       // !categories.some is because .some returns as soon as it's truthy
       // so the card has to pass all the tests with FALSE instead of TRUE
       // That way as soon as it's truthy it exits the and excludes the card
       const includeCard = !categories.some(category => {
-        console.log("current category: ", category)
         // if there is not a filter applied stop checking this category
         if (filter[category].selected.length === 0) {
           return false
@@ -79,8 +75,6 @@ const SeriesPage = ({ data }) => {
       return includeCard
     })
   }, [categories, series.all, filter])
-
-  console.log(cards)
 
   return (
     <>

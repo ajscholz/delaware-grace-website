@@ -12,8 +12,6 @@ const Metadata = props => {
   const { type, data } = props
   const { tags, communicator, date, month, year, length } = data
 
-  console.log(data)
-
   const dispDate =
     type === "Message"
       ? date
