@@ -14,7 +14,7 @@ import RichText from "../components/RichText"
 import Breadcrumb from "../components/Breadcrumb"
 import ButtonLink from "../components/ButtonLink"
 import ShareModalController from "../components/ShareModalController"
-import Title from "../components/messageAndSeriesInfo/title"
+import Title from "../components/messageAndSeriesInfo/Title"
 import Metadata from "../components/messageAndSeriesInfo/Metadata"
 import Description from "../components/messageAndSeriesInfo/Description"
 

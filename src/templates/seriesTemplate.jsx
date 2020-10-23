@@ -14,7 +14,7 @@ import InfoContainer from "../components/messageAndSeriesInfo/Container"
 import RichText from "../components/RichText"
 
 import ShareModalController from "../components/ShareModalController"
-import Title from "../components/messageAndSeriesInfo/title"
+import Title from "../components/messageAndSeriesInfo/Title"
 import Metadata from "../components/messageAndSeriesInfo/Metadata"
 import Description from "../components/messageAndSeriesInfo/Description"
 import MessageCard from "../components/cards/MessageCard"
