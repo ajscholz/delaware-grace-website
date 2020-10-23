@@ -84,7 +84,7 @@ const MessageTemplate = ({ data, path }) => {
                 <div key={thisMessage.id} tw="p-3 flex w-full md:w-1/2">
                   <MessageCard
                     message={thisMessage}
-                    tw="h-auto w-2/5 self-start"
+                    tw="h-24 w-2/5 self-start"
                   />
                   <div tw="w-3/5 ml-3">
                     <h1 tw="text-xl leading-none text-gray-900">
