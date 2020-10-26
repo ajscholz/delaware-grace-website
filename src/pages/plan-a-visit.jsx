@@ -5,9 +5,8 @@ import PageBanner from "../components/PageBanner"
 import Section from "../components/Section"
 import Container from "../components/Container"
 import Title from "../components/Title"
-import tw from "twin.macro"
 
-const Padding = tw.div`py-8`
+import Padding from "../components/Padding"
 
 const PlanAVisitPage = ({ data }) => {
   const { page } = data

@@ -7,7 +7,7 @@ import Container from "../components/Container"
 import Title from "../components/Title"
 import Padding from "../components/Padding"
 
-const ConnectPage = ({ data }) => {
+const GetInvolvedPage = ({ data }) => {
   const { page } = data
   return (
     <>
@@ -151,11 +151,11 @@ const ConnectPage = ({ data }) => {
   )
 }
 
-export default ConnectPage
+export default GetInvolvedPage
 
 export const data = graphql`
   {
-    page: contentfulPage(title: { eq: "Connect" }) {
+    page: contentfulPage(title: { eq: "Get Involved" }) {
       ...PageBannerFragment
     }
   }

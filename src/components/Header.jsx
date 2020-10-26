@@ -11,6 +11,7 @@ import { jsx, css } from "@emotion/core"
 
 const links = [
   { text: "Connect", to: "/connect" },
+  { text: "Get Involved", to: "/get-involved" },
   { text: "Messages", to: "/messages" },
   { text: "Daycare", to: "/daycare" },
   { text: "Outreach", to: "/outreach" },
