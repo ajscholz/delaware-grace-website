@@ -66,5 +66,8 @@ export const query = graphql`
       text
       link
     }
+    internal {
+      type
+    }
   }
 `

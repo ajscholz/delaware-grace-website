@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React from "react"
 import SEO from "../components/SEO"
 import { graphql } from "gatsby"
 // import PageBanner from "../components/PageBanner"
