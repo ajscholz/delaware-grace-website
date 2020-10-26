@@ -22,7 +22,7 @@ const Link = ({ to, children, ...props }) => {
       {children}
     </GatsbyLink>
   ) : (
-    <a href={url.href} {...props}>
+    <a href={url.href} target="_blank" rel="noopener noreferrer" {...props}>
       {children}
     </a>
   )
