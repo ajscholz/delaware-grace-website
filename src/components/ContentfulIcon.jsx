@@ -1,16 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
-
 import IconWrapper from "./Icons/IconWrapper"
 
-const colors = {
-  facebook: "#4267B2",
-  twitter: "#1DA1F2",
-  instagram: "#E1306C",
-  youtube: "#FF0000",
-  vimeo: "#1ab7ea",
-}
+import colors from "../utils/socialColors"
 
 const getColor = icon => {
   if (icon.includes("Facebook")) return colors.facebook
