@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState } from "react"
 
 const useMedia = (queries, values, defaultValue) => {
   // Array containing a media query list for each query

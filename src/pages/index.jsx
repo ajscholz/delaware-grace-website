@@ -130,5 +130,3 @@ const RightCol = tw.div`md:w-1/3 mt-5 md:ml-5`
 const Title = tw.h1`text-white text-5xl ml-1`
 
 const Subtitle = tw.p`text-gray-200 text-lg ml-1`
-
-const Row = tw.div`border-b-2 border-gray-400 py-4 flex items-center font-bold text-gray-700`
