@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 // import PageBanner from "../components/PageBanner"
 // import MessageCard from "../components/cards/MessageCard"
 import Container from "../components/Container"
-import "twin.macro"
+import tw from "twin.macro"
 import ButtonLink from "../components/ButtonLink"
 import MessageCard from "../components/cards/MessageCard"
 import SeriesCard from "../components/cards/SeriesCard"
@@ -18,6 +18,10 @@ const MessagesPage = ({ data }) => {
   const message = currentMessage.message[0]
   const series = currentSeries.series[0]
 
+  const CardContainer = tw(
+    Container
+  )`justify-self-stretch flex flex-col items-center lg:(mb-0 items-end) px-0! mx-0 `
+
   return (
     <>
       <SEO
@@ -25,44 +29,47 @@ const MessagesPage = ({ data }) => {
         description="Listen to Sunday messages from Delaware Grace Church."
       />
       <PageBanner banner={page.banner} />
-      <div tw="flex flex-col lg:(flex-row)">
-        <Container tw="py-12 flex flex-col items-center lg:(w-1/2 ml-auto mb-0 items-end)">
-          <MessageCard
-            message={message}
-            overlay
-            fadeUp
-            tw="w-full sm:(max-w-lg h-72) md:(h-96 max-w-2xl) lg:(h-64)"
-          >
-            <div tw="pl-3">
-              <InfoChip>Latest Message</InfoChip>
-              <Title>{message.title}</Title>
-            </div>
-          </MessageCard>
-          <ButtonLink
-            to="/messages/message-archive"
-            green
-            tw="mt-6 self-center"
-          >
-            View All Messages
-          </ButtonLink>
-        </Container>
-        <Container tw="bg-gray-900 py-12 flex flex-col items-center justify-start lg:(w-1/2 mr-auto mb-0 bg-transparent items-start)">
-          <SeriesCard
-            series={series}
-            overlay
-            fadeUp
-            tw="w-full sm:(max-w-lg h-72) md:(h-96 max-w-2xl) lg:(h-64)"
-          >
-            <div tw="pl-3">
-              <InfoChip>Latest Series</InfoChip>
-              <Title>{series.title}</Title>
-            </div>
-          </SeriesCard>
-          <ButtonLink to="/messages/series" green tw="mt-6 self-center">
-            View All Series
-          </ButtonLink>
-        </Container>
-      </div>
+      <Container>
+        <div tw="grid grid-cols-1 gap-16 lg:gap-10 lg:grid-cols-2 py-12 px-0 sm:px-12 md:px-24 lg:px-0">
+          <CardContainer>
+            <MessageCard
+              message={message}
+              overlay
+              fadeUp
+              tw="w-full p-0 mx-0 h-64 sm:(h-84) md:(h-84) lg:(h-64)"
+            >
+              <div tw="pl-3">
+                <InfoChip>Latest Message</InfoChip>
+                <Title>{message.title}</Title>
+              </div>
+            </MessageCard>
+            <ButtonLink
+              to="/messages/message-archive"
+              green
+              tw="mt-6 self-center"
+            >
+              View All Messages
+            </ButtonLink>
+          </CardContainer>
+
+          <CardContainer>
+            <SeriesCard
+              series={series}
+              overlay
+              fadeUp
+              tw="w-full p-0 mx-0 h-64 sm:(h-84) md:(h-84) lg:(h-64)"
+            >
+              <div tw="pl-3">
+                <InfoChip>Latest Series</InfoChip>
+                <Title>{series.title}</Title>
+              </div>
+            </SeriesCard>
+            <ButtonLink to="/messages/series" green tw="mt-6 self-center">
+              View All Series
+            </ButtonLink>
+          </CardContainer>
+        </div>
+      </Container>
     </>
   )
 }
