@@ -26,7 +26,7 @@ const ContentfulIcon = props => {
 }
 
 ContentfulIcon.propTypes = {
-  iconName: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
 }
 
 export default ContentfulIcon

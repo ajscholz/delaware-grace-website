@@ -1,9 +1,11 @@
 import React from "react"
+import PropTypes from "prop-types"
 import tw from "twin.macro"
 import { useSpring, animated } from "react-spring"
 import Link from "./Link"
 
-const ButtonLink = ({ primary, white, green, blue, children, ...props }) => {
+const ButtonLink = props => {
+  const { primary, white, green, blue, children, ...rest } = props
   const [hover, set] = useSpring(() => ({
     transform: "scale(1)",
   }))
@@ -20,7 +22,7 @@ const ButtonLink = ({ primary, white, green, blue, children, ...props }) => {
 
   return (
     <Link
-      {...props}
+      {...rest}
       tw="inline-block"
       onFocus={() => grow()}
       onBlur={() => shrink()}
@@ -28,10 +30,6 @@ const ButtonLink = ({ primary, white, green, blue, children, ...props }) => {
       onMouseLeave={() => shrink()}
     >
       <animated.div
-        primary={primary}
-        white={white}
-        green={green}
-        blue={blue}
         css={[
           tw`py-3 px-5 mt-2 border-2 border-white outline-none! rounded-lg font-semibold uppercase`,
           primary
@@ -50,6 +48,20 @@ const ButtonLink = ({ primary, white, green, blue, children, ...props }) => {
       </animated.div>
     </Link>
   )
+}
+
+ButtonLink.propTypes = {
+  primary: PropTypes.bool,
+  white: PropTypes.bool,
+  green: PropTypes.bool,
+  blue: PropTypes.bool,
+}
+
+ButtonLink.defaultProps = {
+  primary: false,
+  white: false,
+  green: false,
+  blue: false,
 }
 
 export default ButtonLink
