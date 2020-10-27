@@ -6,10 +6,11 @@ import ActionSection from "./ActionSection"
 
 const Sections = props => {
   const sections = props.data.body.map(section => {
-    if (section.__typename === "ContentfulExpandingCardsSection")
+    if (section.__typename === "ContentfulExpandingCardsSection") {
       return <ExpandingCardsSection section={section} key={section.id} />
-    else if (section.__typename === "ContentfulActionSection")
+    } else if (section.__typename === "ContentfulActionSection") {
       return <ActionSection section={section} key={section.id} />
+    } else return null
   })
 
   return sections.map(section => section)
