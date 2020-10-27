@@ -19,6 +19,7 @@ import Metadata from "../components/messageAndSeriesInfo/Metadata"
 import Description from "../components/messageAndSeriesInfo/Description"
 import MessageCard from "../components/cards/MessageCard"
 import ButtonLink from "../components/ButtonLink"
+import Link from "../components/Link"
 
 const SeriesTemplate = ({ data, path }) => {
   const { series } = data
@@ -69,7 +70,11 @@ const SeriesTemplate = ({ data, path }) => {
               <MessageCard message={thisMessage} tw="h-24 w-2/5 self-start" />
               <div tw="w-3/5 ml-3">
                 <h1 tw="text-xl leading-none text-gray-900">
-                  {thisMessage.title}
+                  <Link
+                    to={`/messages/series/${thisMessage.series.slug}/${thisMessage.slug}`}
+                  >
+                    {thisMessage.title}
+                  </Link>
                 </h1>
                 <p tw="text-gray-600 leading-tight text-xs mt-1">
                   {thisMessage.communicator.name}

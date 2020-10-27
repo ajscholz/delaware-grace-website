@@ -17,6 +17,7 @@ import ShareModalController from "../components/ShareModalController"
 import Title from "../components/messageAndSeriesInfo/Title"
 import Metadata from "../components/messageAndSeriesInfo/Metadata"
 import Description from "../components/messageAndSeriesInfo/Description"
+import Link from "../components/Link"
 
 const MessageTemplate = ({ data, path }) => {
   const { message, otherMessages } = data
@@ -88,7 +89,11 @@ const MessageTemplate = ({ data, path }) => {
                   />
                   <div tw="w-3/5 ml-3">
                     <h1 tw="text-xl leading-none text-gray-900">
-                      {thisMessage.title}
+                      <Link
+                        to={`/messages/series/${thisMessage.series.slug}/${thisMessage.slug}`}
+                      >
+                        {thisMessage.title}
+                      </Link>
                     </h1>
                     <p tw="text-gray-600 leading-tight text-xs mt-1">
                       {thisMessage.communicator.name}
