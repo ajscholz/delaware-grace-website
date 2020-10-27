@@ -47,13 +47,16 @@ const ExpandingCard = props => {
         <h2 tw="text-3xl">{card.title}</h2>
         <p tw="text-gray-700">{card.previewText.previewText}</p>
         <button
-          tw="flex items-center bg-none outline-none shadow-none text-dgBlue-500 mt-2 font-bold text-sm uppercase"
+          tw="flex items-center bg-none outline-none shadow-none text-dgBlue-500 mt-2 font-bold text-sm uppercase mb-2"
           onClick={() => handleClick()}
         >
           <AnimatedIcon tw="mr-2" style={{ transform: open.transform }} />
           Read More
         </button>
-        <animated.div tw="overflow-hidden" style={{ height: open.height }}>
+        <animated.div
+          tw="overflow-hidden text-gray-600"
+          style={{ height: open.height }}
+        >
           <div {...bind}>
             {card.expandedContent.map(
               item =>

@@ -6,7 +6,11 @@ import "twin.macro"
 const Bold = ({ children }) => <span tw="font-bold">{children}</span>
 const Italic = ({ children }) => <span tw="italic">{children}</span>
 const Underline = ({ children }) => <span tw="underline">{children}</span>
-const Text = ({ children, ...props }) => <p {...props}>{children}</p>
+const Text = ({ children, ...props }) => (
+  <p tw="not-first-of-type:mt-3" {...props}>
+    {children}
+  </p>
+)
 const H1 = ({ children, ...props }) => <h1 {...props}>{children}</h1>
 const H2 = ({ children, ...props }) => <h2 {...props}>{children}</h2>
 const H3 = ({ children, ...props }) => <h3 {...props}>{children}</h3>
