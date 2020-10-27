@@ -1,12 +1,13 @@
 import React from "react"
 import SEO from "../components/SEO"
 import { graphql } from "gatsby"
+import "twin.macro"
 
 import PageBanner from "../components/PageBanner"
 import Section from "../components/Section"
 import Container from "../components/Container"
-import Title from "../components/Title"
 import Padding from "../components/Padding"
+import ExpandingCardsSection from "../components/layout/ExpandingCardsSection"
 
 const OutreachPage = ({ data }) => {
   const { page } = data
@@ -22,7 +23,7 @@ const OutreachPage = ({ data }) => {
         <Container>
           <Padding>
             {/* <Title>Why Delaware Grace?</Title> */}
-            <p>
+            <p tw="text-center">
               At Delaware Grace, we are passionate about making God famous and
               giving Jesus away to a hurting world, whether it is here in
               Delaware or around the world. That involves meeting physical needs
@@ -33,21 +34,7 @@ const OutreachPage = ({ data }) => {
         </Container>
       </Section>
 
-      <Section>
-        <Container>
-          <Padding>
-            <Title>Reaching Delaware</Title>
-          </Padding>
-        </Container>
-      </Section>
-
-      <Section>
-        <Container>
-          <Padding>
-            <Title>Reaching the world</Title>
-          </Padding>
-        </Container>
-      </Section>
+      <ExpandingCardsSection data={page} />
     </>
   )
 }
@@ -58,6 +45,7 @@ export const data = graphql`
   {
     page: contentfulPage(title: { eq: "Outreach" }) {
       ...PageBannerFragment
+      ...ExpandingCardsSectionFragment
     }
   }
 `
