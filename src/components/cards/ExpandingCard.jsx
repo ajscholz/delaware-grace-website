@@ -19,14 +19,15 @@ const ExpandingCard = props => {
   const [bind, { height }] = useMeasure()
   const [open, setOpen] = useSpring(() => ({
     height: 0,
+    opacity: 0.25,
     transform: "rotate(0deg)",
   }))
 
   const handleClick = () => {
     if (isOpen.current) {
-      setOpen({ height: 0, transform: "rotate(0deg)" })
+      setOpen({ height: 0, opacity: 0.25, transform: "rotate(0deg)" })
     } else {
-      setOpen({ height: height, transform: "rotate(180deg)" })
+      setOpen({ height: height, opacity: 1, transform: "rotate(180deg)" })
     }
     isOpen.current = !isOpen.current
   }
@@ -55,7 +56,7 @@ const ExpandingCard = props => {
         </button>
         <animated.div
           tw="overflow-hidden text-gray-600"
-          style={{ height: open.height }}
+          style={{ height: open.height, opacity: open.opacity }}
         >
           <div {...bind}>
             {card.expandedContent.map(
