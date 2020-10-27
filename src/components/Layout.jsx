@@ -57,14 +57,14 @@ const Layout = ({ children }) => {
   })
 
   return (
-    <div className="flex flex-col min-h-screen relative">
+    <div className="flex flex-col justify-between min-h-screen relative">
       <Header siteTitle={data.site.siteMetadata.title} />
       {pageTransition.map(({ item, props, key }) => (
-        <animated.div key={key} style={{ ...props }} tw="w-full">
+        <animated.div key={key} style={{ ...props }} tw="w-full min-h-full">
           <main className="mt-20 mb-auto">{item}</main>
-          <Footer />
         </animated.div>
       ))}
+      <Footer />
     </div>
   )
 }

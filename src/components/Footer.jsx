@@ -6,7 +6,7 @@ import { FaFacebookSquare, FaInstagram, FaYoutube } from "react-icons/fa"
 import colors from "../utils/socialColors"
 import Link from "./Link"
 
-const StyledFooter = tw.footer`w-full bg-white shadow-xl flex flex-col`
+const StyledFooter = tw.footer`w-full bg-white shadow-xl flex flex-col z-10`
 
 const StyledLink = tw.a`flex items-center not-last-of-type:after:(lg:content block w-1 h-1 rounded-full bg-gray-500 mx-3)`
 
