@@ -10,7 +10,7 @@ import SideDrawer from "./SideDrawer"
 import { jsx, css } from "@emotion/core"
 
 const links = [
-  { text: "Connect", to: "/connect" },
+  { text: "Core", to: "/core" },
   { text: "Get Involved", to: "/get-involved" },
   { text: "Messages", to: "/messages" },
   { text: "Daycare", to: "/daycare" },
