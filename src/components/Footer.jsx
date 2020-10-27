@@ -2,7 +2,7 @@ import React from "react"
 import tw from "twin.macro"
 import { graphql, useStaticQuery } from "gatsby"
 
-import Link from "./Link"
+// import Link from "./Link"
 
 import { MdMap, MdPhone, MdEmail } from "react-icons/md"
 import { FaFacebookSquare, FaInstagram, FaYoutube } from "react-icons/fa"
@@ -12,8 +12,8 @@ const StyledFooter = tw.footer`w-full bg-white shadow-xl flex flex-col z-10`
 
 const StyledLink = tw.a`flex items-center not-last-of-type:after:(lg:content block w-1 h-1 rounded-full bg-gray-500 mx-3)`
 
-const FooterNavHeader = tw.div`text-xs uppercase text-gray-500 font-bold`
-const FooterGridSection = tw.div`w-auto`
+// const FooterNavHeader = tw.div`text-xs uppercase text-gray-500 font-bold`
+// const FooterGridSection = tw.div`w-auto`
 
 const footerNavPages = [
   "Core",
