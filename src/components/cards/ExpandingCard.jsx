@@ -42,7 +42,6 @@ const ExpandingCard = props => {
           alt=""
           focalPoint={card.focalPoint.focalPoint}
         />
-        {/* <Image fluid={card.image.fluid} /> */}
       </CardBase>
       <div tw="mt-3">
         <h2 tw="text-3xl text-gray-800">{card.title}</h2>

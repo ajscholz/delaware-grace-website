@@ -3,7 +3,7 @@ import SEO from "../components/SEO"
 import { graphql } from "gatsby"
 import PageBanner from "../components/PageBanner"
 
-import ExpandingCardsSection from "../components/layout/ExpandingCardsSection"
+import Sections from "../components/layout/Sections"
 
 const CorePage = ({ data }) => {
   const { page } = data
@@ -16,7 +16,7 @@ const CorePage = ({ data }) => {
       />
       <PageBanner banner={page.banner} />
 
-      <ExpandingCardsSection data={page} />
+      <Sections data={page} />
     </>
   )
 }
@@ -27,7 +27,7 @@ export const data = graphql`
   {
     page: contentfulPage(title: { eq: "Core" }) {
       ...PageBannerFragment
-      ...ExpandingCardsSectionFragment
+      ...SectionsFragment
     }
   }
 `

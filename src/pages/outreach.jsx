@@ -7,7 +7,7 @@ import PageBanner from "../components/PageBanner"
 import Section from "../components/Section"
 import Container from "../components/Container"
 import Padding from "../components/Padding"
-import ExpandingCardsSection from "../components/layout/ExpandingCardsSection"
+import Sections from "../components/layout/Sections"
 
 const OutreachPage = ({ data }) => {
   const { page } = data
@@ -34,7 +34,7 @@ const OutreachPage = ({ data }) => {
         </Container>
       </Section>
 
-      <ExpandingCardsSection data={page} />
+      <Sections data={page} />
     </>
   )
 }
@@ -45,7 +45,7 @@ export const data = graphql`
   {
     page: contentfulPage(title: { eq: "Outreach" }) {
       ...PageBannerFragment
-      ...ExpandingCardsSectionFragment
+      ...SectionsFragment
     }
   }
 `

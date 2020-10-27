@@ -2,7 +2,7 @@ import React from "react"
 import SEO from "../components/SEO"
 import { graphql } from "gatsby"
 import PageBanner from "../components/PageBanner"
-import ExpandingCardsSection from "../components/layout/ExpandingCardsSection"
+import Sections from "../components/layout/Sections"
 
 const GetInvolvedPage = ({ data }) => {
   const { page } = data
@@ -14,7 +14,7 @@ const GetInvolvedPage = ({ data }) => {
       />
       <PageBanner banner={page.banner} />
 
-      <ExpandingCardsSection data={page} />
+      <Sections data={page} />
     </>
   )
 }
@@ -25,7 +25,7 @@ export const data = graphql`
   {
     page: contentfulPage(title: { eq: "Get Involved" }) {
       ...PageBannerFragment
-      ...ExpandingCardsSectionFragment
+      ...SectionsFragment
     }
   }
 `
