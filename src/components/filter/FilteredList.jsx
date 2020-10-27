@@ -77,7 +77,9 @@ const FilteredList = ({ filteredCards, kind }) => {
                 />
                 <div tw="w-3/5 md:w-1/2 ml-3">
                   <h1 tw="text-xl leading-none text-gray-900">
-                    <Link to={item.slug}>{item.title}</Link>
+                    <Link to={`/messages/series/${item.slug}`}>
+                      {item.title}
+                    </Link>
                   </h1>
                   <p tw="text-gray-600 leading-tight text-xs">
                     {getSeriesDate(item.startMo, item.endMo, item.year)}

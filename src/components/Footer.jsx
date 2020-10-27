@@ -53,8 +53,6 @@ const Footer = () => {
     return footerNavSections[index]
   })
 
-  console.log(sortedFooterNavSections)
-
   return (
     <StyledFooter>
       <Container tw="py-10">
