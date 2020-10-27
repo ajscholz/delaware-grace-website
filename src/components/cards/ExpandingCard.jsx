@@ -10,14 +10,13 @@ import FocalPointImage from "../FocalPointImage"
 import { VscTriangleDown } from "react-icons/vsc"
 
 import useMeasure from "../../hooks/useMeasure"
+import RichText from "../RichText"
 
 const ExpandingCard = props => {
   const { card } = props
 
   const isOpen = useRef(false)
-
   const [bind, { height }] = useMeasure()
-
   const [open, setOpen] = useSpring(() => ({
     height: 0,
     transform: "rotate(0deg)",
@@ -55,7 +54,14 @@ const ExpandingCard = props => {
           Read More
         </button>
         <animated.div tw="overflow-hidden" style={{ height: open.height }}>
-          <div {...bind}>{card.moreText.moreText}</div>
+          <div {...bind}>
+            {card.expandedContent.map(
+              item =>
+                item.internal.type === "ContentfulTextBox" && (
+                  <RichText key={item.id}>{item.text.json}</RichText>
+                )
+            )}
+          </div>
         </animated.div>
       </div>
     </div>
@@ -94,8 +100,14 @@ export const query = graphql`
         y
       }
     }
-    moreText {
-      moreText
+    expandedContent {
+      id: contentful_id
+      text {
+        json
+      }
+      internal {
+        type
+      }
     }
     internal {
       type

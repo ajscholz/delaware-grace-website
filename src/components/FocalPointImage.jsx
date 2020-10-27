@@ -27,14 +27,14 @@ FocalPointImage.propTypes = {
     y: PropTypes.number.isRequired,
   }).isRequired,
   image: PropTypes.shape({
-    file: {
-      details: {
-        image: {
+    file: PropTypes.shape({
+      details: PropTypes.shape({
+        image: PropTypes.shape({
           height: PropTypes.number.isRequired,
-          width: PropTypes.number.isRequired,
-        },
-      },
-    },
+          // width: PropTypes.number.isRequired,
+        }).isRequired,
+      }).isRequired,
+    }).isRequired,
     fluid: PropTypes.object.isRequired,
   }).isRequired,
   alt: PropTypes.string.isRequired,
