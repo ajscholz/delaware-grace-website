@@ -36,7 +36,7 @@ const ExpandingCard = props => {
 
   return (
     <div tw="">
-      <CardBase tw="h-72">
+      <CardBase tw="h-72 shadow-none">
         <FocalPointImage
           image={card.image}
           alt=""
@@ -45,14 +45,14 @@ const ExpandingCard = props => {
         {/* <Image fluid={card.image.fluid} /> */}
       </CardBase>
       <div tw="mt-3">
-        <h2 tw="text-3xl">{card.title}</h2>
+        <h2 tw="text-3xl text-gray-800">{card.title}</h2>
         <p tw="text-gray-700">{card.previewText.previewText}</p>
         <button
           tw="flex items-center bg-none outline-none shadow-none text-dgBlue-500 mt-2 font-bold text-sm uppercase mb-2"
           onClick={() => handleClick()}
         >
           <AnimatedIcon tw="mr-2" style={{ transform: open.transform }} />
-          Read More
+          See More
         </button>
         <animated.div
           tw="overflow-hidden text-gray-600"

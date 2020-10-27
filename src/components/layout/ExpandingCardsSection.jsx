@@ -8,6 +8,7 @@ import Padding from "../Padding"
 import ExpandingCard from "../cards/ExpandingCard"
 import CardGrid from "../layout/CardGrid"
 import { graphql } from "gatsby"
+import Title from "../Title"
 
 const ExpandingCardsSection = props => {
   const sections = props.data.expandingCards.filter(
@@ -21,8 +22,14 @@ const ExpandingCardsSection = props => {
     return (
       <Section key={section.id}>
         <Container>
-          <Padding>
-            <CardGrid>
+          <Padding tw="py-16">
+            <Title
+              tw="text-5xl text-gray-800 relative after:(content absolute w-full bottom-0 mb-1 left-0 h-2 bg-dgBlue-500)"
+              style={{ width: "max-content" }}
+            >
+              {section.title}
+            </Title>
+            <CardGrid tw="mt-8">
               {expandingCards.map(card => (
                 <ExpandingCard key={card.id} card={card} />
               ))}
@@ -45,6 +52,7 @@ export const query = graphql`
     expandingCards: body {
       ... on ContentfulExpandingCardsSection {
         id: contentful_id
+        title
         cards {
           ...ExpandingCardFragment
         }
