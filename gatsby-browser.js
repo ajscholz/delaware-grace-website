@@ -11,21 +11,12 @@ document.body.appendChild(modalRoot)
 
 const transitionDelay = 500
 
-// const [spring, set] = useSpring(() => {})
-
 exports.shouldUpdateScroll = ({
   routerProps: { location },
   getSavedScrollPosition,
 }) => {
   if (location.action === "PUSH") {
     return false
-    // return false
-    // alert("transitioning")
-    // window.scrollTo({
-    //   top: 0,
-    //   left: 0,
-    //   behavior: "smooth",
-    // })
   } else {
     const savedPosition = getSavedScrollPosition(location)
     window.setTimeout(
