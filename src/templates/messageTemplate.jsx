@@ -109,8 +109,8 @@ const MessageTemplate = ({ data, path }) => {
           </>
         )}
         <div tw="w-full flex justify-center">
-          <ButtonLink to="/messages" green>
-            More Messages
+          <ButtonLink to={`/messages/series/${message.series.slug}`} green>
+            View Series
           </ButtonLink>
         </div>
       </Container>
@@ -140,6 +140,7 @@ export const data = graphql`
       }
       series {
         title
+        slug
       }
     }
     otherMessages: allContentfulMessage(
