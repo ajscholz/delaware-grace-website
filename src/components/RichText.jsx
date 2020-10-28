@@ -1,7 +1,8 @@
 import React from "react"
-import { BLOCKS, MARKS } from "@contentful/rich-text-types"
+import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import "twin.macro"
+import Link from "./Link"
 
 const Bold = ({ children }) => <span tw="font-bold">{children}</span>
 const Italic = ({ children }) => <span tw="italic">{children}</span>
@@ -17,6 +18,11 @@ const H3 = ({ children, ...props }) => <h3 {...props}>{children}</h3>
 const H4 = ({ children, ...props }) => <h4 {...props}>{children}</h4>
 const H5 = ({ children, ...props }) => <h5 {...props}>{children}</h5>
 const H6 = ({ children, ...props }) => <h6 {...props}>{children}</h6>
+const Hyperlink = ({ children, ...props }) => (
+  <Link tw="text-dgBlue-600" {...props}>
+    {children}
+  </Link>
+)
 
 const options = {
   renderMark: {
@@ -45,6 +51,11 @@ const options = {
     ),
     [BLOCKS.HEADING_6]: (node, children, ...props) => (
       <H6 {...props}>{children}</H6>
+    ),
+    [INLINES.HYPERLINK]: (node, children, ...props) => (
+      <Hyperlink to={node.data.uri} {...props}>
+        {children}
+      </Hyperlink>
     ),
   },
 }

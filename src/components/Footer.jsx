@@ -35,6 +35,15 @@ const Footer = () => {
             ... on ContentfulExpandingCardsSection {
               title
             }
+            # ... on ContentfulGallerySection {
+            #   title
+            # }
+            ... on ContentfulTeamSection {
+              title
+            }
+            ... on ContentfulTextSection {
+              title
+            }
           }
           title
         }

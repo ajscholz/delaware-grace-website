@@ -275,6 +275,16 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       },
       interfaces: ["Node"],
     }),
+    schema.buildObjectType({
+      name: "ContentfulTeamMember",
+      fields: {
+        email: {
+          type: "String!",
+          resolve: source => source.email || "",
+        },
+      },
+      interfaces: ["Node"],
+    }),
   ]
   createTypes(typeDefs)
 }
