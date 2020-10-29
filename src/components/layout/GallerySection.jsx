@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import "twin.macro"
+import { graphql } from "gatsby"
 
 import Section from "../Section"
 import Container from "../Container"
