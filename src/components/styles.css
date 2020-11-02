@@ -21,7 +21,7 @@ h6 {
 }
 
 body section:nth-of-type(even) {
-  background-color: #f5f6f8;
+  background-color: rgb(247, 250, 252);
 }
 body section:nth-of-type(odd) {
   background-color: white;

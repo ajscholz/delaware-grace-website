@@ -11,9 +11,10 @@ import SeriesCard from "../components/cards/SeriesCard"
 import PageBanner from "../components/PageBanner"
 import InfoChip from "../components/InfoChip"
 import Title from "../components/Title"
-
+import Padding from "../components/Padding"
+import CardCarousel from "../components/cards/CardCarousel"
 const MessagesPage = ({ data }) => {
-  const { page, currentMessage, currentSeries } = data
+  const { page, currentMessage, currentSeries, carouselItems } = data
 
   const message = currentMessage.message[0]
   const series = currentSeries.series[0]
@@ -28,8 +29,36 @@ const MessagesPage = ({ data }) => {
         title="Messages"
         description="Listen to Sunday messages from Delaware Grace Church."
       />
-      <PageBanner banner={page.banner} />
-      <Container>
+      {/* <PageBanner banner={page.banner} /> */}
+      <section>
+        <Container>
+          <Padding>
+            <MessageCard
+              message={message}
+              fadeUp
+              tw="w-full p-0 mx-0 h-84 sm:(h-84) md:(h-96) lg:(h-120)"
+            >
+              <div tw="pl-3">
+                <InfoChip>Latest Message</InfoChip>
+                <Title>{message.title}</Title>
+              </div>
+            </MessageCard>
+          </Padding>
+        </Container>
+
+        <Container>
+          <Padding>
+            <Title tw="text-2xl text-gray-800 relative">Recent Messages</Title>
+            <CardCarousel cards={carouselItems.all} />
+            <div tw="flex justify-center">
+              <ButtonLink to="/messages/message-archive" green tw="mt-6">
+                View All Messages
+              </ButtonLink>
+            </div>
+          </Padding>
+        </Container>
+      </section>
+      {/* <Container>
         <div tw="grid grid-cols-1 gap-16 lg:gap-10 lg:grid-cols-2 py-12 px-0 sm:px-12 md:px-24 lg:px-0">
           <CardContainer>
             <MessageCard
@@ -69,7 +98,7 @@ const MessagesPage = ({ data }) => {
             </ButtonLink>
           </CardContainer>
         </div>
-      </Container>
+      </Container> */}
     </>
   )
 }
@@ -95,6 +124,16 @@ export const data = graphql`
     ) {
       series: nodes {
         ...SeriesCardFragment
+      }
+    }
+
+    carouselItems: allContentfulMessage(
+      sort: { fields: date, order: DESC }
+      limit: 5
+    ) {
+      all: nodes {
+        ...MessageCardFragment
+        year: date(formatString: "YYYY")
       }
     }
   }
