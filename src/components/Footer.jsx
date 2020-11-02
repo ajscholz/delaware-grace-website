@@ -65,7 +65,7 @@ const Footer = () => {
   return (
     <StyledFooter>
       <Container tw="py-10">
-        <div tw="w-full grid grid-cols-5 gap-3 justify-between">
+        <div tw="w-full grid grid-cols-2 gap-5 md:(grid-cols-5 gap-3) justify-between">
           {sortedFooterNavSections.map(page => (
             <div tw="w-48" key={page.title}>
               <div tw="text-xs font-bold text-gray-500 uppercase mr-auto mb-2">
@@ -74,7 +74,10 @@ const Footer = () => {
 
               {page.body !== null &&
                 page.body.map(section => (
-                  <div tw="text-sm text-gray-800 mt-1" key={section.title}>
+                  <div
+                    tw="text-sm text-gray-800 mt-1 truncate"
+                    key={section.title}
+                  >
                     {section.title}
                   </div>
                 ))}
