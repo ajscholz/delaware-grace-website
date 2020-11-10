@@ -9,7 +9,7 @@ const GetInvolvedPage = ({ data }) => {
   return (
     <>
       <SEO
-        title="Connect"
+        title={page.title}
         // description="Plan a visit today to Delaware Grace. We would love to meet you."
       />
       <PageBanner banner={page.banner} />
@@ -24,6 +24,7 @@ export default GetInvolvedPage
 export const data = graphql`
   {
     page: contentfulPage(title: { eq: "Get Involved" }) {
+      title
       ...PageBannerFragment
       ...SectionsFragment
     }

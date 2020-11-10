@@ -30,7 +30,7 @@ const SEO = ({ title, description, image, article }) => {
   }
 
   return (
-    <Helmet title={seo.title} titleTemplate={`%s | ${site.siteMetadata.title}`}>
+    <Helmet title={seo.title} titleTemplate={`%s  •  ${defaultTitle}`}>
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
 
