@@ -13,7 +13,7 @@ import ButtonLink from "../ButtonLink"
 
 const ActionSection = ({ section }) => {
   return (
-    <Section key={section.id}>
+    <Section key={section.id} id={section.slug}>
       <Container>
         <Padding tw="py-16">
           <Title
@@ -53,6 +53,7 @@ export const query = graphql`
   fragment ActionSectionFragment on ContentfulActionSection {
     id: contentful_id
     title
+    slug
     text {
       text
     }

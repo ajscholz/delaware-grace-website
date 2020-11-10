@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import "twin.macro"
 import { Link as GatsbyLink } from "gatsby"
 
 const Link = ({ to, children, ...props }) => {
@@ -18,11 +19,21 @@ const Link = ({ to, children, ...props }) => {
       : false
 
   return internal ? (
-    <GatsbyLink to={url.pathname} {...props}>
+    <GatsbyLink
+      to={url.pathname}
+      {...props}
+      tw="focus:(outline-none shadow-outline border-dgBlue-500)"
+    >
       {children}
     </GatsbyLink>
   ) : (
-    <a href={url.href} target="_blank" rel="noopener noreferrer" {...props}>
+    <a
+      href={url.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+      tw="focus:(outline-none shadow-outline border-dgBlue-500)"
+    >
       {children}
     </a>
   )

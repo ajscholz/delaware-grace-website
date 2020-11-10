@@ -12,7 +12,7 @@ import TeamMemberList from "../TeamMemberList"
 const TeamSection = props => {
   const { section } = props
   return (
-    <Section key={section.id}>
+    <Section key={section.id} id={section.slug}>
       <Container>
         <Padding tw="py-16">
           <Title
@@ -41,6 +41,7 @@ export default TeamSection
 export const query = graphql`
   fragment TeamSectionFragment on ContentfulTeamSection {
     id: contentful_id
+    slug
     title
     teamMemberLists {
       ...TeamMemberListFragment

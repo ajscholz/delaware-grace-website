@@ -47,7 +47,7 @@ const ExpandingCard = props => {
         <h2 tw="text-3xl text-gray-800">{card.title}</h2>
         <p tw="text-gray-700">{card.previewText.previewText}</p>
         <button
-          tw="flex items-center bg-none outline-none shadow-none text-dgBlue-500 mt-2 font-bold text-sm uppercase mb-2"
+          tw="flex items-center bg-none outline-none shadow-none text-dgBlue-500 mt-2 font-bold text-sm uppercase mb-2 pr-1 rounded-lg focus:(outline-none shadow-outline border-dgBlue-500)"
           onClick={() => handleClick()}
         >
           <AnimatedIcon tw="mr-2" style={{ transform: open.transform }} />

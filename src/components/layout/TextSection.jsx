@@ -12,7 +12,7 @@ import RichText from "../RichText"
 const TextSection = props => {
   const { section } = props
   return (
-    <Section key={section.id}>
+    <Section key={section.id} id={section.slug}>
       <Container>
         <Padding tw="py-16">
           <Title
@@ -40,6 +40,7 @@ export const query = graphql`
   fragment TextSectionFragment on ContentfulTextSection {
     id: contentful_id
     title
+    slug
     text {
       json
     }

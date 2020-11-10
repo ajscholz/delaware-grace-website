@@ -10,7 +10,7 @@ import { FaFacebookSquare, FaInstagram, FaYoutube } from "react-icons/fa"
 import colors from "../utils/socialColors"
 const StyledFooter = tw.footer`w-full bg-white shadow-xl flex flex-col z-10`
 
-const StyledLink = tw.a`flex items-center not-last-of-type:after:(lg:content block w-1 h-1 rounded-full bg-gray-500 mx-3)`
+const StyledLink = tw.a`flex items-center not-last-of-type:after:(lg:content block w-1 h-1 rounded-full bg-gray-500 mx-3) rounded-md focus:(outline-none shadow-outline border-dgBlue-500)`
 
 // const FooterNavHeader = tw.div`text-xs uppercase text-gray-500 font-bold`
 // const FooterGridSection = tw.div`w-auto`
@@ -28,21 +28,26 @@ const Footer = () => {
     {
       pages: allContentfulPage {
         all: nodes {
+          slug
           body {
             ... on ContentfulActionSection {
               title
+              slug
             }
             ... on ContentfulExpandingCardsSection {
               title
+              slug
             }
             # ... on ContentfulGallerySection {
             #   title
             # }
             ... on ContentfulTeamSection {
               title
+              slug
             }
             ... on ContentfulTextSection {
               title
+              slug
             }
           }
           title
@@ -75,8 +80,8 @@ const Footer = () => {
               {page.body !== null &&
                 page.body.map(section => (
                   <div
-                    tw="text-sm text-gray-800 mt-1 truncate"
                     key={section.title}
+                    tw="text-sm text-gray-800 mt-1 truncate"
                   >
                     {section.title}
                   </div>
@@ -136,6 +141,7 @@ const Footer = () => {
           <div>
             Designed and developed by&nbsp;
             <a
+              tw="rounded-md focus:(outline-none shadow-outline border-dgBlue-500)"
               href="https://ajsolutions.netlify.app"
               target="_blank"
               rel="noopener noreferrer"
