@@ -3,7 +3,7 @@ import tw from "twin.macro"
 
 import { MdChevronRight, MdChevronLeft } from "react-icons/md"
 
-import { useTransition, animated, config } from "react-spring"
+import { useTransition, animated } from "react-spring"
 import Link from "../Link"
 import MessageCard from "./MessageCard"
 

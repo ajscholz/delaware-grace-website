@@ -5,7 +5,8 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React, { useRef, useLayoutEffect } from "react"
+// import React, { useRef, useLayoutEffect } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
@@ -13,24 +14,11 @@ import "twin.macro"
 
 import Header from "./Header"
 import Footer from "./Footer"
-import { useTransition, useSpring, animated, config } from "react-spring"
+// import { useTransition, useSpring, animated, config } from "react-spring"
 
 const Layout = ({ children, ...rest }) => {
-  console.log(
-    `
-  
-  
-  
-  IN LAYOUT
-  
-
-  
-  
-  `,
-    rest
-  )
   // ref to help optimize page transitions
-  const key = useRef()
+  // const key = useRef()
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {

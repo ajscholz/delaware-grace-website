@@ -4,24 +4,26 @@ import { graphql } from "gatsby"
 // import PageBanner from "../components/PageBanner"
 // import MessageCard from "../components/cards/MessageCard"
 import Container from "../components/Container"
-import tw from "twin.macro"
+// import tw from "twin.macro"
+import "twin.macro"
 import ButtonLink from "../components/ButtonLink"
 import MessageCard from "../components/cards/MessageCard"
-import SeriesCard from "../components/cards/SeriesCard"
-import PageBanner from "../components/PageBanner"
+// import SeriesCard from "../components/cards/SeriesCard"
+// import PageBanner from "../components/PageBanner"
 import InfoChip from "../components/InfoChip"
 import Title from "../components/Title"
 import Padding from "../components/Padding"
 import CardCarousel from "../components/cards/CardCarousel"
 const MessagesPage = ({ data }) => {
-  const { page, currentMessage, currentSeries, carouselItems } = data
+  // const { page, currentMessage, currentSeries, carouselItems } = data
+  const { currentMessage, carouselItems } = data
 
   const message = currentMessage.message[0]
-  const series = currentSeries.series[0]
+  // const series = currentSeries.series[0]
 
-  const CardContainer = tw(
-    Container
-  )`justify-self-stretch flex flex-col items-center lg:(mb-0 items-end) px-0! mx-0 `
+  // const CardContainer = tw(
+  //   Container
+  // )`justify-self-stretch flex flex-col items-center lg:(mb-0 items-end) px-0! mx-0 `
 
   return (
     <>

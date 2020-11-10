@@ -3,13 +3,13 @@ import PropTypes from "prop-types"
 import "twin.macro"
 import { Link as GatsbyLink, navigate } from "gatsby"
 
-let base = "https://delawaregrace.org"
+// let base = "https://delawaregrace.org"
 
-if (typeof "window" !== undefined) {
-  console.log(new URL(window.location))
-  const location = new URL(window.location)
-  base = location.origin
-}
+// if (typeof "window" !== undefined) {
+//   // console.log(new URL(window.location))
+//   const location = new URL(window.location)
+//   base = location.origin
+// }
 
 const Link = ({ to, children, ...props }) => {
   // const navigate = (e, element) => {

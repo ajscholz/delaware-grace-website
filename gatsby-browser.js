@@ -9,7 +9,7 @@ const modalRoot = document.createElement("div")
 modalRoot.id = "modal-root"
 document.body.appendChild(modalRoot)
 
-const transitionDelay = 500
+// const transitionDelay = 500
 
 // exports.shouldUpdateScroll = ({
 //   routerProps: { location },
