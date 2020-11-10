@@ -8,6 +8,7 @@ import { MdMap, MdPhone, MdEmail } from "react-icons/md"
 import { FaFacebookSquare, FaInstagram, FaYoutube } from "react-icons/fa"
 
 import colors from "../utils/socialColors"
+import Link from "./Link"
 const StyledFooter = tw.footer`w-full bg-white shadow-xl flex flex-col z-10`
 
 const StyledLink = tw.a`flex items-center not-last-of-type:after:(lg:content block w-1 h-1 rounded-full bg-gray-500 mx-3) rounded-md focus:(outline-none shadow-outline border-dgBlue-500)`
@@ -79,12 +80,14 @@ const Footer = () => {
 
               {page.body !== null &&
                 page.body.map(section => (
-                  <div
+                  <Link
                     key={section.title}
-                    tw="text-sm text-gray-800 mt-1 truncate"
+                    tw="block text-sm text-gray-800 mt-1 truncate"
+                    to={`/${page.slug}/#${section.slug}`}
+                    // to={`/${page.slug}`}
                   >
                     {section.title}
-                  </div>
+                  </Link>
                 ))}
             </div>
           ))}

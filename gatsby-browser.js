@@ -11,18 +11,18 @@ document.body.appendChild(modalRoot)
 
 const transitionDelay = 500
 
-exports.shouldUpdateScroll = ({
-  routerProps: { location },
-  getSavedScrollPosition,
-}) => {
-  if (location.action === "PUSH") {
-    return false
-  } else {
-    const savedPosition = getSavedScrollPosition(location)
-    window.setTimeout(
-      () => window.scrollTo(...(savedPosition || [0, 0])),
-      transitionDelay
-    )
-  }
-  return false
-}
+// exports.shouldUpdateScroll = ({
+//   routerProps: { location },
+//   getSavedScrollPosition,
+// }) => {
+//   if (location.action === "PUSH") {
+//     return false
+//   } else {
+//     const savedPosition = getSavedScrollPosition(location)
+//     window.setTimeout(
+//       () => window.scrollTo(...(savedPosition || [0, 0])),
+//       transitionDelay
+//     )
+//   }
+//   return false
+// }

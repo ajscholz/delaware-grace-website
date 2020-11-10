@@ -20,6 +20,10 @@ h6 {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+body section {
+  scroll-margin-top: 80px;
+}
+
 body section:nth-of-type(even) {
   background-color: rgb(247, 250, 252);
 }
