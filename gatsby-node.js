@@ -43,8 +43,6 @@ exports.onCreateNode = async ({
 
     let url
 
-    console.log(node.videoUrl)
-
     if (node.videoUrl.includes("vimeo")) {
       const result = await axios.get(
         `https://vimeo.com/api/oembed.json?url=${node.videoUrl}&width=1920&height=1080`
@@ -58,11 +56,11 @@ exports.onCreateNode = async ({
     } else if (node.videoUrl.includes("youtu.be")) {
       url = `https://img.youtube.com/vi/${node.videoUrl.match(
         /(?<=youtu.be\/)\w+(?=\W)?/
-      )}/hq3.jpg`
+      )}/maxresdefault.jpg`
     } else {
       url = `https://img.youtube.com/vi/${node.videoUrl.match(
         /(?<=watch\?v=)\w+(?=\W)?/
-      )}/hq3.jpg`
+      )}/maxresdefault.jpg`
     }
 
     let fileNode = await createRemoteFileNode({
@@ -263,6 +261,13 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       name: "ContentfulMessageSeries",
       fields: {
         ...customFields,
+        // set length to 0 if no messages exist in the series, or the length of the 'message' array if they do
+        length: {
+          type: "Int!",
+          resolve: source =>
+            !source.message___NODE ? 0 : source.message___NODE.length,
+          // return source.length || 0
+        },
         // create a "month" field to make filtering by month easier
         month: {
           type: "[String!]",

@@ -65,26 +65,30 @@ const SeriesTemplate = ({ data, path }) => {
           Messages In This Series
         </h1>
         <div tw="flex flex-wrap mt-6">
-          {series.allMessages.map(thisMessage => (
-            <div key={thisMessage.id} tw="p-3 flex w-full md:w-1/2">
-              <MessageCard message={thisMessage} tw="h-24 w-2/5 self-start" />
-              <div tw="w-3/5 ml-3">
-                <h1 tw="text-xl leading-none text-gray-900">
-                  <Link
-                    to={`/messages/series/${thisMessage.series.slug}/${thisMessage.slug}`}
-                  >
-                    {thisMessage.title}
-                  </Link>
-                </h1>
-                <p tw="text-gray-600 leading-tight text-xs mt-1">
-                  {thisMessage.communicator.name}
-                </p>
-                <p tw="text-gray-600 leading-tight text-xs">
-                  {thisMessage.date}
-                </p>
+          {series.allMessages !== null ? (
+            series.allMessages.map(thisMessage => (
+              <div key={thisMessage.id} tw="p-3 flex w-full md:w-1/2">
+                <MessageCard message={thisMessage} tw="h-24 w-2/5 self-start" />
+                <div tw="w-3/5 ml-3">
+                  <h1 tw="text-xl leading-none text-gray-900">
+                    <Link
+                      to={`/messages/series/${thisMessage.series.slug}/${thisMessage.slug}`}
+                    >
+                      {thisMessage.title}
+                    </Link>
+                  </h1>
+                  <p tw="text-gray-600 leading-tight text-xs mt-1">
+                    {thisMessage.communicator.name}
+                  </p>
+                  <p tw="text-gray-600 leading-tight text-xs">
+                    {thisMessage.date}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div tw="text-center">No messages yet. Check back soon!</div>
+          )}
         </div>
         <hr tw="my-8" />
 

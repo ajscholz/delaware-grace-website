@@ -34,7 +34,7 @@ const Metadata = props => {
         ) : (
           <>
             <AiOutlineColumnWidth tw="mr-3" aria-label="length" />
-            {`${length.length} Message${length.length === 1 ? "" : "s"}`}
+            {`${length} Message${length === 1 ? "" : "s"}`}
           </>
         )}
       </span>
@@ -66,8 +66,6 @@ export const query = graphql`
     tags
     month
     year
-    length: message {
-      contentful_id
-    }
+    length
   }
 `
