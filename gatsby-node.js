@@ -53,14 +53,14 @@ exports.onCreateNode = async ({
         return
       }
       url = result.data.thumbnail_url
-    } else if (node.videoUrl.includes("youtu.be")) {
-      url = `https://img.youtube.com/vi/${node.videoUrl.match(
-        /(?<=youtu.be\/)\w+(?=\W)?/
-      )}/maxresdefault.jpg`
     } else {
-      url = `https://img.youtube.com/vi/${node.videoUrl.match(
-        /(?<=watch\?v=)\w+(?=\W)?/
-      )}/maxresdefault.jpg`
+      // get the id of the video url with regex
+      const id = node.videoUrl.match(
+        /(?<=watch\?v=|youtu.be\/)(\w+|(-|_)+)+(?=\/|\b)?/
+      )
+      // set url variable to the youtube image string
+      // IMPORTANT! match() above returns an array so [0] is necessary
+      url = `https://img.youtube.com/vi/${id[0]}/maxresdefault.jpg`
     }
 
     let fileNode = await createRemoteFileNode({
