@@ -5,7 +5,7 @@ import ExpandingCardsSection from "./ExpandingCardsSection"
 import ActionSection from "./ActionSection"
 import GallerySection from "./GallerySection"
 import TextSection from "./TextSection"
-import TeamSection from "./TeamSection"
+// import TeamSection from "./TeamSection"
 
 const Sections = props => {
   const sections = props.data.body.map(section => {
@@ -17,8 +17,8 @@ const Sections = props => {
       return <GallerySection section={section} key={section.id} />
     } else if (section.__typename === "ContentfulTextSection") {
       return <TextSection section={section} key={section.id} />
-    } else if (section.__typename === "ContentfulTeamSection") {
-      return <TeamSection section={section} key={section.id} />
+      // } else if (section.__typename === "ContentfulTeamSection") {
+      //   return <TeamSection section={section} key={section.id} />
     } else return null
   })
 
@@ -50,9 +50,9 @@ export const query = graphql`
         ...TextSectionFragment
       }
 
-      ... on ContentfulTeamSection {
-        ...TeamSectionFragment
-      }
+      # ... on ContentfulTeamSection {
+      #   ...TeamSectionFragment
+      # }
     }
   }
 `

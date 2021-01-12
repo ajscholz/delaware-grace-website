@@ -42,10 +42,10 @@ const Footer = () => {
             # ... on ContentfulGallerySection {
             #   title
             # }
-            ... on ContentfulTeamSection {
-              title
-              slug
-            }
+            # ... on ContentfulTeamSection {
+            #   title
+            #   slug
+            # }
             ... on ContentfulTextSection {
               title
               slug
