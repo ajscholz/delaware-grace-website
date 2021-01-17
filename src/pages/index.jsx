@@ -9,6 +9,7 @@ import Container from "../components/Container"
 import InfoChip from "../components/InfoChip"
 import ButtonLink from "../components/ButtonLink"
 import LinkGroup from "../components/LinkGroup"
+import AnnouncementCard from "../components/cards/AnnouncementCard"
 
 const IndexPage = ({ data }) => {
   const { page, messages } = data
@@ -32,6 +33,9 @@ const IndexPage = ({ data }) => {
     <Container tw="pb-12">
       <SEO title="Home" />
 
+      {/* ANNOUNCEMENT CARD */}
+      <AnnouncementCard />
+
       {/* PLAN A VISIT */}
       <div className="pt-3">
         {/* <TestButton /> */}
@@ -43,7 +47,6 @@ const IndexPage = ({ data }) => {
           </ButtonLink>
         </IndexCard>
       </div>
-
       <FlexContainer>
         <LeftCol>
           {/* LATEST MESSAGE CARD */}
