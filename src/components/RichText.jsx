@@ -3,6 +3,7 @@ import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import "twin.macro"
 import Link from "./Link"
+import ButtonLink from "./ButtonLink"
 
 const Bold = ({ children }) => <span tw="font-bold">{children}</span>
 const Italic = ({ children }) => <span tw="italic">{children}</span>
@@ -22,6 +23,11 @@ const Hyperlink = ({ children, ...props }) => (
   <Link tw="text-dgBlue-600" {...props}>
     {children}
   </Link>
+)
+const Button = ({ children, ...props }) => (
+  <ButtonLink tw="mt-4" {...props}>
+    {children}
+  </ButtonLink>
 )
 
 const options = {
@@ -52,6 +58,19 @@ const options = {
     [BLOCKS.HEADING_6]: (node, children, ...props) => (
       <H6 {...props}>{children}</H6>
     ),
+    [BLOCKS.EMBEDDED_ENTRY]: (node, children, ...props) => {
+      const type = node.data.target.sys.contentType.sys.contentful_id
+      if (type === "actionButton") {
+        const fields = node.data.target.fields
+        return (
+          <Button primary to={fields.link["en-US"]} {...props}>
+            {fields.text["en-US"]}
+          </Button>
+        )
+      } else {
+        return null
+      }
+    },
     [INLINES.HYPERLINK]: (node, children, ...props) => (
       <Hyperlink to={node.data.uri} {...props}>
         {children}
