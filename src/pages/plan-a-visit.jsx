@@ -2,11 +2,7 @@ import React from "react"
 import SEO from "../components/SEO"
 import { graphql } from "gatsby"
 import PageBanner from "../components/PageBanner"
-import Section from "../components/Section"
-import Container from "../components/Container"
-import Title from "../components/Title"
-
-import Padding from "../components/Padding"
+import Sections from "../components/layout/Sections"
 
 const PlanAVisitPage = ({ data }) => {
   const { page } = data
@@ -16,9 +12,12 @@ const PlanAVisitPage = ({ data }) => {
         title="Plan A Visit"
         description="Plan a visit today to Delaware Grace. We would love to meet you."
       />
-      <PageBanner banner={page.banner} />
 
-      <Section>
+      <PageBanner banner={page.banner} overlay />
+
+      <Sections data={page} />
+
+      {/* <Section>
         <Container>
           <Padding>
             <Title>Why Delaware Grace?</Title>
@@ -66,7 +65,7 @@ const PlanAVisitPage = ({ data }) => {
             </p>
           </Padding>
         </Container>
-      </Section>
+      </Section> */}
     </>
   )
 }
@@ -77,6 +76,7 @@ export const data = graphql`
   {
     page: contentfulPage(title: { eq: "Plan A Visit" }) {
       ...PageBannerFragment
+      ...SectionsFragment
     }
   }
 `
