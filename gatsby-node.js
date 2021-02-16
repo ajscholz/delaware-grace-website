@@ -8,6 +8,7 @@ exports.onCreateNode = async ({
   actions: { createNode },
   store,
   cache,
+  reporter,
   createNodeId,
 }) => {
   if (node.internal.type === "ContentfulMessage") {
@@ -43,37 +44,53 @@ exports.onCreateNode = async ({
 
     let url
 
-    if (node.videoUrl.includes("vimeo")) {
-      const result = await axios.get(
-        `https://vimeo.com/api/oembed.json?url=${node.videoUrl}&width=1920&height=1080`
-      )
-
-      if (result.errors) {
-        reporter.panicOnBuild(`Error getting video thumbnail`)
-        return
+    const attachRemoteFileNode = async testUrl => {
+      let fileNode = await createRemoteFileNode({
+        url: testUrl, // string that points to the URL of the image
+        parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
+        createNode, // helper function in gatsby-node to generate the node
+        createNodeId, // helper function in gatsby-node to generate the node id
+        cache, // Gatsby's cache
+        store, // Gatsby's redux store
+      })
+      // if the file was created, attach the new node to the parent node
+      if (fileNode) {
+        node.thumbnail___NODE = fileNode.id
       }
-      url = result.data.thumbnail_url
+    }
+
+    if (node.videoUrl.includes("vimeo")) {
+      try {
+        const testUrl = `https://vimeo.com/api/oembed.json?url=${node.videoUrl}&width=1920&height=1080`
+        await axios.get(testUrl)
+      } catch {
+        url = `https://images.ctfassets.net/y708x3mqfzxd/7L4J9ykJZ8iRMjlddYnzfj/fa739f9bb5de8beaca2d1560c47e79f1/bars-no-text-16-9.jpg`
+        reporter.error(
+          `Error getting video thumbnail for ${node.title}. Making thumbnail default.`
+        )
+      } finally {
+        attachRemoteFileNode(url)
+      }
     } else {
       // get the id of the video url with regex
       const id = node.videoUrl.match(
         /(?<=watch\?v=|youtu.be\/)(\w+|(-|_)+)+(?=\/|\b)?/
       )
+
       // set url variable to the youtube image string
       // IMPORTANT! match() above returns an array so [0] is necessary
-      url = `https://img.youtube.com/vi/${id[0]}/maxresdefault.jpg`
-    }
-
-    let fileNode = await createRemoteFileNode({
-      url: url, // string that points to the URL of the image
-      parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
-      createNode, // helper function in gatsby-node to generate the node
-      createNodeId, // helper function in gatsby-node to generate the node id
-      cache, // Gatsby's cache
-      store, // Gatsby's redux store
-    })
-    // if the file was created, attach the new node to the parent node
-    if (fileNode) {
-      node.thumbnail___NODE = fileNode.id
+      try {
+        const testUrl = `https://img.youtube.com/vi/${id[0]}/maxresdefault.jpg`
+        await axios.get(testUrl)
+        url = testUrl
+      } catch {
+        url = `https://images.ctfassets.net/y708x3mqfzxd/7L4J9ykJZ8iRMjlddYnzfj/fa739f9bb5de8beaca2d1560c47e79f1/bars-no-text-16-9.jpg`
+        reporter.error(
+          `Error getting video thumbnail for ${node.title}. Making thumbnail default.`
+        )
+      } finally {
+        attachRemoteFileNode(url)
+      }
     }
   }
 }
@@ -254,7 +271,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     // }),
     schema.buildObjectType({
       name: "ContentfulMessage",
-      fields: customFields,
+      fields: { ...customFields },
       interfaces: ["Node"],
     }),
     schema.buildObjectType({
