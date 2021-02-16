@@ -50,7 +50,7 @@ const IndexPage = ({ data }) => {
       <FlexContainer>
         <LeftCol>
           {/* LATEST MESSAGE CARD */}
-          <IndexCard card={message} message>
+          <IndexCard overlay card={message} message>
             <InfoChip>Latest Message</InfoChip>
             <Title>{message.title}</Title>
             {/* <div tw="flex"> */}

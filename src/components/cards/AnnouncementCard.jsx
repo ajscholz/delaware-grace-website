@@ -1,23 +1,38 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import tw from "twin.macro"
 import ButtonLink from "../ButtonLink"
 import CardBase from "./CardBase"
 
-const AnnouncementCard = () => {
+const showCard = () => {
   const date = new Date()
   const day = date.getDay()
   const hour = date.getHours()
   const minutes = date.getMinutes()
-
-  const show =
-    day === 0 &&
+  return day === 0 &&
     ((hour === 9 && minutes >= 30) ||
       hour === 10 ||
       (hour === 11 && minutes <= 30))
-      ? true
-      : false
+    ? true
+    : false
+}
 
-  return show ? (
+const AnnouncementCard = () => {
+  // const [announcementActive, setAnnouncementActive] = useState(showCard())
+  const [announcementActive, setAnnouncementActive] = useState(true)
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const newShowCard = showCard()
+  //     const newShowCard = showCard()
+  //     if (newShowCard !== announcementActive) setAnnouncementActive(newShowCard)
+  //   }, 10000)
+
+  //   return () => {
+  //     clearInterval(interval)
+  //   }
+  // }, [announcementActive])
+
+  return announcementActive ? (
     <div tw="pt-3">
       <CardBase tw="h-auto bg-dgRed-500">
         <div tw="m-5 flex flex-col md:(flex-row justify-between items-center)">
