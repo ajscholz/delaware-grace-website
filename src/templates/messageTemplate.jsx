@@ -42,6 +42,7 @@ const MessageTemplate = ({ data, path }) => {
             url={message.videoUrl}
             width={width}
             height={width * 0.5625}
+            controls={true}
           />
           <div tw="mt-6 mb-2 w-full whitespace-no-wrap overflow-x-scroll">
             <Breadcrumb
