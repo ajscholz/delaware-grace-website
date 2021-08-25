@@ -3,18 +3,18 @@ import tw from "twin.macro"
 import ButtonLink from "../ButtonLink"
 import CardBase from "./CardBase"
 
-const showCard = () => {
-  const date = new Date()
-  const day = date.getDay()
-  const hour = date.getHours()
-  const minutes = date.getMinutes()
-  return day === 0 &&
-    ((hour === 9 && minutes >= 30) ||
-      hour === 10 ||
-      (hour === 11 && minutes <= 30))
-    ? true
-    : false
-}
+// const showCard = () => {
+//   const date = new Date()
+//   const day = date.getDay()
+//   const hour = date.getHours()
+//   const minutes = date.getMinutes()
+//   return day === 0 &&
+//     ((hour === 9 && minutes >= 30) ||
+//       hour === 10 ||
+//       (hour === 11 && minutes <= 30))
+//     ? true
+//     : false
+// }
 
 const AnnouncementCard = () => {
   // const [announcementActive, setAnnouncementActive] = useState(showCard())
@@ -37,13 +37,14 @@ const AnnouncementCard = () => {
       <CardBase tw="h-auto bg-dgRed-500">
         <div tw="m-5 flex flex-col md:(flex-row justify-between items-center)">
           <div tw="flex-shrink md:pr-24">
-            <Title>Watch From Home</Title>
+            <Title>Sunday 8/29 Update</Title>
             <p tw="text-dgRed-100">
-              Every Sunday we are live on YouTube at 10:00am. Feel free to tune
-              in and watch from home if that works best for you!
+              5th Sunday Service of Worship is this Sunday, 8/29, 10 am to 12
+              pm. We will be serving at the Lehner Pumpkin Farm and will not
+              have a regular Sunday service this week.
             </p>
           </div>
-          <div tw="mt-4 md:(-mt-2) flex-shrink-0">
+          {/* <div tw="mt-4 md:(-mt-2) flex-shrink-0">
             <ButtonLink
               white
               to="https://youtube.com/c/DelawareGrace/live"
@@ -51,7 +52,7 @@ const AnnouncementCard = () => {
             >
               Watch Now
             </ButtonLink>
-          </div>
+          </div> */}
         </div>
       </CardBase>
     </div>
