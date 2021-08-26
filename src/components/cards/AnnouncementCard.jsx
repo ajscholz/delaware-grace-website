@@ -1,58 +1,64 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import tw from "twin.macro"
 import ButtonLink from "../ButtonLink"
 import CardBase from "./CardBase"
+import { graphql, useStaticQuery } from "gatsby"
 
-// const showCard = () => {
-//   const date = new Date()
-//   const day = date.getDay()
-//   const hour = date.getHours()
-//   const minutes = date.getMinutes()
-//   return day === 0 &&
-//     ((hour === 9 && minutes >= 30) ||
-//       hour === 10 ||
-//       (hour === 11 && minutes <= 30))
-//     ? true
-//     : false
-// }
+const getCurrentAnnouncement = announcementData => {
+  // filter out future announcements
+  const activeAnnouncements = announcementData.filter(
+    announcement => new Date(announcement.turnOn) < new Date()
+  )
+
+  return activeAnnouncements[0]
+}
 
 const AnnouncementCard = () => {
-  // const [announcementActive, setAnnouncementActive] = useState(showCard())
-  const [announcementActive, setAnnouncementActive] = useState(true)
+  const data = useStaticQuery(graphql`
+    query MyQuery {
+      allContentfulAnnouncementBar(
+        filter: { isFuture: { eq: true } }
+        sort: { fields: turnOn, order: DESC }
+      ) {
+        nodes {
+          id: contentful_id
+          titleText
+          body
+          turnOn
+          turnOff
+          callToAction {
+            id: contentful_id
+            text
+            link
+          }
+        }
+      }
+    }
+  `)
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const newShowCard = showCard()
-  //     const newShowCard = showCard()
-  //     if (newShowCard !== announcementActive) setAnnouncementActive(newShowCard)
-  //   }, 10000)
+  const currentAnnouncement = getCurrentAnnouncement([
+    ...data.allContentfulAnnouncementBar.nodes,
+  ])
 
-  //   return () => {
-  //     clearInterval(interval)
-  //   }
-  // }, [announcementActive])
-
-  return announcementActive ? (
+  return currentAnnouncement ? (
     <div tw="pt-3">
       <CardBase tw="h-auto bg-dgRed-500">
         <div tw="m-5 flex flex-col md:(flex-row justify-between items-center)">
           <div tw="flex-shrink md:pr-24">
-            <Title>Sunday 8/29 Update</Title>
-            <p tw="text-dgRed-100">
-              5th Sunday Service of Worship is this Sunday, 8/29, 10 am to 12
-              pm. We will be serving at the Lehner Pumpkin Farm and will not
-              have a regular Sunday service this week.
-            </p>
+            <Title>{currentAnnouncement.titleText}</Title>
+            <p tw="text-dgRed-100">{currentAnnouncement.body}</p>
           </div>
-          {/* <div tw="mt-4 md:(-mt-2) flex-shrink-0">
-            <ButtonLink
-              white
-              to="https://youtube.com/c/DelawareGrace/live"
-              tw="mt-0"
-            >
-              Watch Now
-            </ButtonLink>
-          </div> */}
+          {currentAnnouncement.callToAction && (
+            <div tw="mt-4 md:(-mt-2) flex-shrink-0">
+              <ButtonLink
+                white
+                to={currentAnnouncement.callToAction.link}
+                tw="mt-0"
+              >
+                {currentAnnouncement.callToAction.text}
+              </ButtonLink>
+            </div>
+          )}
         </div>
       </CardBase>
     </div>

@@ -269,6 +269,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     //   },
     //   interfaces: ["Node"],
     // }),
+
     schema.buildObjectType({
       name: "ContentfulMessage",
       fields: { ...customFields },
@@ -309,6 +310,47 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         email: {
           type: "String!",
           resolve: source => source.email || "",
+        },
+      },
+      interfaces: ["Node"],
+    }),
+    schema.buildObjectType({
+      name: "ContentfulButton",
+      fields: {
+        id: "String",
+        text: "String",
+        link: "String",
+      },
+      interfaces: ["Node"],
+    }),
+    schema.buildObjectType({
+      name: "ContentfulAnnouncementBar",
+      fields: {
+        contentful_id: "String",
+        id: "String",
+        titleText: "String",
+        body: "String",
+        turnOn: {
+          type: "Date",
+          extensions: {
+            dateformat: {},
+          },
+        },
+        turnOff: {
+          type: "Date",
+          extensions: {
+            dateformat: {},
+          },
+        },
+        isFuture: {
+          type: "Boolean!",
+          resolve: source => {
+            if (source.turnOff) return new Date(source.turnOff) > new Date()
+            else return true
+          },
+        },
+        callToAction: {
+          type: "ContentfulButton",
         },
       },
       interfaces: ["Node"],
