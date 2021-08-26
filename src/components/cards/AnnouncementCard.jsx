@@ -5,9 +5,17 @@ import CardBase from "./CardBase"
 import { graphql, useStaticQuery } from "gatsby"
 
 const getCurrentAnnouncement = announcementData => {
+  const now = new Date()
+  // filter out all past announcements
+  const futureAnnouncements = announcementData.filter(announcement => {
+    if (announcement.turnOff) {
+      return new Date(announcement.turnOff) >= now
+    } else return true
+  })
+
   // filter out future announcements
-  const activeAnnouncements = announcementData.filter(
-    announcement => new Date(announcement.turnOn) < new Date()
+  const activeAnnouncements = futureAnnouncements.filter(
+    announcement => new Date(announcement.turnOn) < now
   )
 
   return activeAnnouncements[0]
