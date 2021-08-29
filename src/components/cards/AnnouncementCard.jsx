@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import tw from "twin.macro"
 import ButtonLink from "../ButtonLink"
 import CardBase from "./CardBase"
@@ -22,6 +22,12 @@ const getCurrentAnnouncement = announcementData => {
 }
 
 const AnnouncementCard = () => {
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   const data = useStaticQuery(graphql`
     query MyQuery {
       allContentfulAnnouncementBar(
@@ -48,7 +54,7 @@ const AnnouncementCard = () => {
     ...data.allContentfulAnnouncementBar.nodes,
   ])
 
-  return currentAnnouncement ? (
+  return currentAnnouncement && isClient ? (
     <div tw="pt-3">
       <CardBase tw="h-auto bg-dgRed-500">
         <div tw="m-5 flex flex-col md:(flex-row justify-between items-center)">
