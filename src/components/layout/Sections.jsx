@@ -1,3 +1,5 @@
+// NEED TO ADD GALLERY SECTION AS A TYPE IN GATSBY-NODE BEFORE RE-IMPLEMENTING
+
 import React from "react"
 import PropTypes from "prop-types"
 import { graphql } from "gatsby"
@@ -13,8 +15,8 @@ const Sections = props => {
       return <ExpandingCardsSection section={section} key={section.id} />
     } else if (section.__typename === "ContentfulActionSection") {
       return <ActionSection section={section} key={section.id} />
-    } else if (section.__typename === "ContentfulGallerySection") {
-      return <GallerySection section={section} key={section.id} />
+      // } else if (section.__typename === "ContentfulGallerySection") {
+      //   return <GallerySection section={section} key={section.id} />
     } else if (section.__typename === "ContentfulTextSection") {
       return <TextSection section={section} key={section.id} />
       // } else if (section.__typename === "ContentfulTeamSection") {
@@ -42,9 +44,9 @@ export const query = graphql`
         ...ActionSectionFragment
       }
 
-      ... on ContentfulGallerySection {
-        ...GallerySectionFragment
-      }
+      # ... on ContentfulGallerySection {
+      #   ...GallerySectionFragment
+      # }
 
       ... on ContentfulTextSection {
         ...TextSectionFragment

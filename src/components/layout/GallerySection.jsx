@@ -1,3 +1,5 @@
+// NEED TO ADD THIS IS A TYPE IN GATSBY-NODE BEFORE RE-IMPLEMENTING
+
 import React from "react"
 import PropTypes from "prop-types"
 import "twin.macro"
@@ -10,19 +12,19 @@ import Padding from "../Padding"
 import ImageWithFocalPoint from "../ImageWithFocalPoint"
 import CardBase from "../cards/CardBase"
 
-const Gallery = ({ images }) => {
-  return (
-    <div tw="flex flex-wrap -mx-4">
-      {images.map(image => (
-        <div tw="w-full sm:w-1/2 md:w-1/3 px-4" key={image.id}>
-          <CardBase tw="h-56">
-            <ImageWithFocalPoint image={image} />
-          </CardBase>
-        </div>
-      ))}
-    </div>
-  )
-}
+// const Gallery = ({ images }) => {
+//   return (
+//     <div tw="flex flex-wrap -mx-4">
+//       {images.map(image => (
+//         <div tw="w-full sm:w-1/2 md:w-1/3 px-4" key={image.id}>
+//           <CardBase tw="h-56">
+//             <ImageWithFocalPoint image={image} />
+//           </CardBase>
+//         </div>
+//       ))}
+//     </div>
+//   )
+// }
 
 const GallerySection = props => {
   const { section } = props
@@ -36,7 +38,7 @@ const GallerySection = props => {
           >
             {section.title}
           </Title> */}
-          <Gallery images={section.images} />
+          {/* <Gallery images={section.images} /> */}
         </Padding>
       </Container>
     </Section>
@@ -47,12 +49,12 @@ GallerySection.propTypes = { section: PropTypes.object.isRequired }
 
 export default GallerySection
 
-export const query = graphql`
-  fragment GallerySectionFragment on ContentfulGallerySection {
-    id: contentful_id
-    title
-    images {
-      ...ImageWithFocalPointFragment
-    }
-  }
-`
+// export const query = graphql`
+//   fragment GallerySectionFragment on ContentfulGallerySection {
+//     id: contentful_id
+//     title
+//     images {
+//       ...ImageWithFocalPointFragment
+//     }
+//   }
+// `
