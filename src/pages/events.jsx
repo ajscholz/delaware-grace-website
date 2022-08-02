@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 import PageBanner from "../components/PageBanner"
 import Sections from "../components/layout/Sections"
 
-const DaycarePage = ({ data }) => {
+const EventsPage = ({ data }) => {
   const { page } = data
   return (
     <>
@@ -19,11 +19,11 @@ const DaycarePage = ({ data }) => {
   )
 }
 
-export default DaycarePage
+export default EventsPage
 
 export const data = graphql`
   {
-    page: contentfulPage(title: { eq: "Daycare" }) {
+    page: contentfulPage(title: { eq: "Events" }) {
       ...PageBannerFragment
       ...SectionsFragment
     }

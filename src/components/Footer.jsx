@@ -16,13 +16,7 @@ const StyledLink = tw.a`flex items-center not-last-of-type:after:(lg:content blo
 // const FooterNavHeader = tw.div`text-xs uppercase text-gray-500 font-bold`
 // const FooterGridSection = tw.div`w-auto`
 
-const footerNavPages = [
-  "Core",
-  "Get Involved",
-  "Daycare",
-  "Outreach",
-  "Plan A Visit",
-]
+const footerNavPages = ["Core", "Get Involved", "Outreach", "Plan A Visit"]
 
 const Footer = () => {
   const { pages } = useStaticQuery(graphql`
@@ -71,7 +65,7 @@ const Footer = () => {
   return (
     <StyledFooter>
       <Container tw="py-10">
-        <div tw="w-full grid grid-cols-2 gap-5 md:(grid-cols-5 gap-3) justify-between">
+        <div tw="w-full grid grid-cols-2 gap-5 md:(grid-cols-4 gap-3) justify-between">
           {sortedFooterNavSections.map(page => (
             <div tw="w-48" key={page.title}>
               <div tw="text-xs font-bold text-gray-500 uppercase mr-auto mb-2">

@@ -13,7 +13,7 @@ const links = [
   { text: "Core", to: "/core" },
   { text: "Get Involved", to: "/get-involved" },
   { text: "Messages", to: "/messages" },
-  { text: "Daycare", to: "/daycare" },
+  { text: "Events", to: "/events" },
   { text: "Outreach", to: "/outreach" },
   { text: "Plan A Visit", to: "/plan-a-visit" },
 ]
