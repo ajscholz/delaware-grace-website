@@ -32,9 +32,11 @@ const ActionSection = ({ section }) => {
             </CardBase>
             <div tw="h-full flex flex-col items-start">
               <p tw="text-gray-700">{section.text.text}</p>
-              <ButtonLink tw="mt-4" primary to={section.actionButton.link}>
-                {section.actionButton.text}
-              </ButtonLink>
+              {section.actionButton && (
+                <ButtonLink tw="mt-4" primary to={section.actionButton.link}>
+                  {section.actionButton.text}
+                </ButtonLink>
+              )}
             </div>
           </div>
         </Padding>
