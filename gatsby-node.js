@@ -74,7 +74,7 @@ exports.onCreateNode = async ({
     } else {
       // get the id of the video url with regex
       const id = node.videoUrl.match(
-        /(?<=watch\?v=|youtu.be\/)(\w+|(-|_)+)+(?=\/|\b)?/
+        /(?<=watch\?v=|youtu.be\/|youtube.com\/live\/)(\w+|(-|_)+)+(?=\/|\b)?/
       )
 
       // set url variable to the youtube image string
@@ -83,7 +83,9 @@ exports.onCreateNode = async ({
         const testUrl = `https://img.youtube.com/vi/${id[0]}/maxresdefault.jpg`
         await axios.get(testUrl)
         url = testUrl
-      } catch {
+      } catch (e) {
+        // console.log("video url", node.videoUrl)
+        // console.log("video id", id)
         url = `https://images.ctfassets.net/y708x3mqfzxd/7L4J9ykJZ8iRMjlddYnzfj/fa739f9bb5de8beaca2d1560c47e79f1/bars-no-text-16-9.jpg`
         reporter.error(
           `Error getting video thumbnail for ${node.title}. Making thumbnail default.`
